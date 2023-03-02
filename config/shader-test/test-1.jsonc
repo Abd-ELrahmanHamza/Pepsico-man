@@ -1,0 +1,26 @@
+{
+    "start-scene": "shader-test",
+    "window":
+    {
+        "title":"Shader Test Window",
+        "size":{
+            "width":512,
+            "height":512
+        },
+        "fullscreen": false
+    },
+    "screenshots":{
+        "directory": "screenshots/shader-test",
+        "requests": [
+            { "file": "test-1.png", "frame":  1 }
+        ]
+    },
+    "scene": {
+        "vertex-shader": "assets/shaders/triangle.vert",
+        "fragment-shader": "assets/shaders/color-mixer.frag",
+        "uniforms": {
+            "translation": { "type": "vec2", "value": [-0.2, 0.5] },
+            "scale": { "type": "vec2", "value": [1.5, -1.0] }
+        }
+    }
+}
