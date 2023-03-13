@@ -63,7 +63,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
 
 
 bool our::ShaderProgram::link() const {
-    //TODO: Complete this function
+    //DONE: Complete this function
     //Note: The function "checkForLinkingErrors" checks if there is
     // an error in the given program. You should use it to check if there is a
     // linking error and print it so that you can know what is wrong with the
