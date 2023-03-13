@@ -23,7 +23,7 @@ out vec4 frag_color;
 // However, this line is too long to write, so we can simplify it using a dot product
 // (which is defined in the "dot" function).
 
-//TODO: (Req 1) Finish this shader and apply the channel mixing using the "dot" function.
+//(Req 1) Finish this shader and apply the channel mixing using the "dot" function.
 
 void main(){
 
