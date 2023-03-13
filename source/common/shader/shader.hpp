@@ -2,10 +2,10 @@
 #define SHADER_HPP
 
 #include <string>
-
 #include <glad/gl.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 
 namespace our
 {
@@ -69,21 +69,21 @@ namespace our
         {
             // TODO: (Req 1) Send the given 2D vector value to the given uniform
             GLuint uniformLocation = getUniformLocation(uniform);
-            glUniform2fv(uniformLocation, 2, &value[0]);
+            glUniform2fv(uniformLocation, 1, &value[0]);
         }
 
         void set(const std::string &uniform, glm::vec3 value)
         {
             // TODO: (Req 1) Send the given 3D vector value to the given uniform
             GLuint uniformLocation = getUniformLocation(uniform);
-            glUniform3fv(uniformLocation, 2, &value[0]);
+            glUniform3fv(uniformLocation, 1, &value[0]);
         }
 
         void set(const std::string &uniform, glm::vec4 value)
         {
             // TODO: (Req 1) Send the given 4D vector value to the given uniform
             GLuint uniformLocation = getUniformLocation(uniform);
-            glUniform4fv(uniformLocation, 2, &value[0]);
+            glUniform4fv(uniformLocation, 1, &value[0]);
         }
 
         void set(const std::string &uniform, glm::mat4 matrix)

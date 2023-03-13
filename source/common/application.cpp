@@ -306,11 +306,11 @@ int our::Application::run(int run_for_frames)
         // Get the current time (the time at which we are starting the current frame).
         double current_frame_time = glfwGetTime();
 
-        glClearColor(((9202119 / 1) % 16) / 16.0,
-                     ((9202119 / 16) % 16) / 16.0,
-                     ((9202119 / 256) % 16) / 16.0,
-                     1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // glClearColor(((9202119 / 1) % 16) / 16.0,
+        //              ((9202119 / 16) % 16) / 16.0,
+        //              ((9202119 / 256) % 16) / 16.0,
+        //              1.0);
+        // glClear(GL_COLOR_BUFFER_BIT);
         // Call onDraw, in which we will draw the current frame, and send to it the time difference between the last and current frame
         if (currentState)
             currentState->onDraw(current_frame_time - last_frame_time);

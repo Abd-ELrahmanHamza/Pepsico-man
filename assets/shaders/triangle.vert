@@ -39,7 +39,7 @@ void main(){
     vec3 scaledTranslatedPosition = vec3(vec3(scale, 0.0) * positions[gl_VertexID] + vec3(translation, 0.0));
 
     // Send vetrex color to fragment shader
-    vs_out.color = colors[gl_vertexID];
+    vs_out.color = colors[gl_VertexID];
 
     // Set the position of each vertex
     gl_Position = vec4(scaledTranslatedPosition, 1.0);
