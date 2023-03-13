@@ -45,9 +45,18 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
         std::cerr << "ERROR::SHADER::" << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << "::COMPILATION_FAILED\n"
                   << error << std::endl;
 
+        // Delete the shader
+        glDeleteShader(shaderID);
+
         // We return false if the compilation failed
         return false;
     }
+
+    // Attach the shader to the program
+    glAttachShader(this->program, shaderID);
+
+    // Delete the shader
+    glDeleteShader(shaderID);
     //We return true if the compilation succeeded
     return true;
 }
@@ -60,6 +69,22 @@ bool our::ShaderProgram::link() const {
     // linking error and print it so that you can know what is wrong with the
     // program. The returned string will be empty if there is no errors.
 
+    // Link the program
+    glLinkProgram(this->program);
+
+    // Check for linking errors
+    std::string error = checkForLinkingErrors(this->program);
+
+    // If there is an error message
+    if (!error.empty()) {
+        // Print the error message
+        std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << error << std::endl;
+
+        // We return false if the linking failed
+        return false;
+    }
+
+    // We return false if the linking succeeded
     return true;
 }
 
