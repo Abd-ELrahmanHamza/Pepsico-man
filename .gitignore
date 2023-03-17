@@ -13,13 +13,13 @@ imgui.ini
 
 # Visual Studio specific files
 CMakeSettings.json
-.vs/
+# .vs/
 
 # Clion specific files
 .idea/
 
 # Visual Studio Code specific files
-.vscode/
+# .vscode/
 
 # Screenshots
 screenshots/
