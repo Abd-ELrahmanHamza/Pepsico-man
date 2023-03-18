@@ -40,13 +40,38 @@ namespace our
         {
             // TODO: (Req 2) Write this function
             //  remember to store the number of elements in "elementCount" since you will need it for drawing
-            //  For the attribute locations, use the constants defined above: ATTRIB_LOC_POSITION, ATTRIB_LOC_COLOR, etc
+            elementCount = elements.size();
+            // creating a buffer
+            glGenBuffers(1, &VBO);
+            // binding the buffer
+            glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            // defining the data to be sent, and defining how to send them
+            glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+
+            // defining the element buffer
+            glGenBuffers(1, &EBO);
+            // binding the name
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+            // defining the data to be sent, and defining how to send them
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(unsigned int), elements.data(), GL_STATIC_DRAW);
+
+            // finally, defining the vertex array object
+            glGenVertexArrays(1, &VAO);
+            // binding the name
+            glBindVertexArray(VAO);
+            // defining the data to be sent, and defining how to send them
+            //                                                       true ?
+            glVertexAttribPointer(ATTRIB_LOC_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, position));
         }
 
         // this function should render the mesh
         void draw()
         {
             // TODO: (Req 2) Write this function
+            glClear(GL_COLOR_BUFFER_BIT);
+            glBindVertexArray(VAO);
+            glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
+            // glswap buffer should be here?
         }
 
         // this function should delete the vertex & element buffers and the vertex array object
@@ -54,6 +79,9 @@ namespace our
         {
             // TODO: (Req 2) Write this function
             /// UNBind
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
         }
 
         Mesh(Mesh const &) = delete;
