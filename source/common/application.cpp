@@ -281,7 +281,6 @@ int our::Application::run(int run_for_frames)
         if (run_for_frames != 0 && current_frame >= run_for_frames)
             break;
         glfwPollEvents(); // Read all the user events and call relevant callbacks.
-
         // Start a new ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
