@@ -22,10 +22,10 @@ namespace our
         glm::mat4 RotationMat = glm::yawPitchRoll(rotation.y, rotation.x, rotation.z); // rotation is defined in the .hpp file.
 
         // after that we need to apply the translation
-        glm::mat4 TranslationMat = glm::translate(ScalingMat, position); // position is defined in the .hpp file.
+        glm::mat4 TranslationMat = glm::translate(glm::mat4(1.0f), position); // position is defined in the .hpp file.
 
         // then we just need to return the Translation as it is the final matrix
-        return TranslationMat;
+        return TranslationMat * RotationMat * ScalingMat;
     }
 
     // Deserializes the entity data and components from a json object
