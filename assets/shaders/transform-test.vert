@@ -24,7 +24,7 @@ void main(){
     // w da 3n tre2 enna bndrb el transform fe position 34an nen2lha w n3mlha rotation w scaling w translation
     // w bma en position de aslun vec3, fa lazm ne3mlha casting. 
     gl_Position = transform * vec4(position, 1.0);
-    
+
 
     // No need to change any of the following lines
     vs_out.position = position; 
