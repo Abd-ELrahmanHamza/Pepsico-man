@@ -9,7 +9,7 @@ namespace our
     // This function should setup the pipeline state and set the shader to be used
     void Material::setup() const
     {
-        // TODO: (Req 7) Write this function
+        // (Req 7) Write this function
         pipelineState.setup();
         // should i create a shader or link it
         // shader = new ShaderProgram();
@@ -35,7 +35,7 @@ namespace our
     // set the "tint" uniform to the value in the member variable tint
     void TintedMaterial::setup() const
     {
-        // TODO: (Req 7) Write this function
+        // (Req 7) Write this function
         Material::setup();
         shader->set("tint", tint);
     }
@@ -54,7 +54,7 @@ namespace our
     // Then it should bind the texture and sampler to a texture unit and send the unit number to the uniform variable "tex"
     void TexturedMaterial::setup() const
     {
-        // TODO: (Req 7) Write this function
+        // (Req 7) Write this function
         // call setup TintedMaterial
         TintedMaterial::setup();
 
@@ -62,7 +62,7 @@ namespace our
         shader->set("alphaThreshold", alphaThreshold);
 
         // should i activate texture unit ??
-        // should texture unit be zero ?!
+        // should texture unit be zero ?
 
         // glActiveTexture(GL_TEXTURE0);
 
