@@ -59,7 +59,12 @@ namespace our {
                 T* ptr = dynamic_cast<T*>(*it);
                 if(ptr)
                 {
+                    printf("get component is working");
                     return ptr;
+                }
+                else
+                {
+                    printf("get component is not working");
                 }
             }
             return nullptr;
@@ -96,7 +101,7 @@ namespace our {
                 {
                     delete *it;
                     components.erase(it);
-                    break;
+                    // break;
                 }
             }
         }
@@ -121,7 +126,7 @@ namespace our {
                 {
                     delete *it;
                     components.erase(it);
-                    break;
+                    // break;
                 }
             }
         }
