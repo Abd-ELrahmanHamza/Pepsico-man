@@ -43,9 +43,9 @@ namespace our
         // - the center position which is the point (0,0,-1) but after being transformed by M
         // - the up direction which is the vector (0,1,0) but after being transformed by M
         // then you can use glm::lookAt
-        glm::vec4 eye = glm::vec4(0.0, 0.0, 0.0, 1.0);
-        glm::vec4 center = glm::vec4(0.0, 0.0, -1.0, 1.0);
-        glm::vec4 up = glm::vec4(0.0, 1.0, 0.0, 1.0);
+        glm::vec4 eye = glm::vec4(0, 0, 0, 1);
+        glm::vec4 center = glm::vec4(0, 0, -1, 1);
+        glm::vec4 up = glm::vec4(0, 1, 0, 0);
         glm::vec4 eye_transformed = M * eye;
         glm::vec4 center_transformed = M * center;
         glm::vec4 up_transformed = M * up;
@@ -67,7 +67,7 @@ namespace our
         //  Left and Right are the same but after being multiplied by the aspect ratio
         //  For the perspective camera, you can use glm::perspective
         glm::mat4 P;
-        float aspectRatio = float(viewportSize[0]) / float(viewportSize[1]);
+        float aspectRatio = float(viewportSize.x) / float(viewportSize.y);
         if (cameraType == CameraType::ORTHOGRAPHIC)
         {
             P = glm::ortho((-orthoHeight / 2) * aspectRatio, (orthoHeight / 2) * aspectRatio, -orthoHeight / 2, orthoHeight / 2, near, far);

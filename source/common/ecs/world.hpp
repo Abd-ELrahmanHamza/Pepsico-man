@@ -41,15 +41,20 @@ namespace our {
         // The elements in the "markedForRemoval" set will be removed and deleted when "deleteMarkedEntities" is called.
         void markForRemoval(Entity* entity){
             //TODO: (Req 8) If the entity is in this world, add it to the "markedForRemoval" set.
-            markedForRemoval.insert(entity);
+            if(entities.find(entity) != entities.end())
+                markedForRemoval.insert(entity);
         }
 
         // This removes the elements in "markedForRemoval" from the "entities" set.
         // Then each of these elements are deleted.
         void deleteMarkedEntities(){
             //TODO: (Req 8) Remove and delete all the entities that have been marked for removal
-            for (auto it = markedForRemoval.begin(); it != markedForRemoval.end(); ++it) {
-                delete *it;
+            // for (auto it = markedForRemoval.begin(); it != markedForRemoval.end(); ++it) {
+            //     delete *it;
+            // }
+            for(auto entity: markedForRemoval){
+                entities.erase(entity);
+                delete entity;
             }
             markedForRemoval.clear();
         }
