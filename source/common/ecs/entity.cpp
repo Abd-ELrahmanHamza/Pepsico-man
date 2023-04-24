@@ -13,23 +13,22 @@ namespace our {
     glm::mat4 Entity::getLocalToWorldMatrix() const {
         //TODO: (Req 8) Write this function
         glm::mat4 finalMat = localTransform.toMat4();
-        Entity* Parent = parent;
-        while(Parent)
-        {
-            finalMat = parent->localTransform.toMat4()*finalMat;
+        Entity *Parent = parent;
+        while (Parent) {
+            finalMat = parent->localTransform.toMat4() * finalMat;
             Parent = Parent->parent;
         }
         return finalMat;
     }
 
     // Deserializes the entity data and components from a json object
-    void Entity::deserialize(const nlohmann::json& data){
-        if(!data.is_object()) return;
+    void Entity::deserialize(const nlohmann::json &data) {
+        if (!data.is_object()) return;
         name = data.value("name", name);
         localTransform.deserialize(data);
-        if(data.contains("components")){
-            if(const auto& components = data["components"]; components.is_array()){
-                for(auto& component: components){
+        if (data.contains("components")) {
+            if (const auto &components = data["components"]; components.is_array()) {
+                for (auto &component: components) {
                     deserializeComponent(component, this);
                 }
             }

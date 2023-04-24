@@ -18,10 +18,10 @@ namespace our {
         };
 
         // This deconstructor deletes the underlying OpenGL sampler
-        ~Sampler() { 
+        ~Sampler() {
             // (Req 6) Complete this function
             glDeleteSamplers(1, &name);
-         }
+        }
 
         // This method binds this sampler to the given texture unit
         void bind(GLuint textureUnit) const {
@@ -32,7 +32,7 @@ namespace our {
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
-        static void unbind(GLuint textureUnit){
+        static void unbind(GLuint textureUnit) {
             // (Req 6) Complete this function
             glBindTexture(GL_TEXTURE_2D, 0);
         }
@@ -58,10 +58,11 @@ namespace our {
         }
 
         // Given a json object, this function deserializes the sampler state
-        void deserialize(const nlohmann::json& data);
+        void deserialize(const nlohmann::json &data);
 
-        Sampler(const Sampler&) = delete;
-        Sampler& operator=(const Sampler&) = delete;
+        Sampler(const Sampler &) = delete;
+
+        Sampler &operator=(const Sampler &) = delete;
     };
 
 }
