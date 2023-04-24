@@ -34,7 +34,8 @@ namespace our {
         // This static method ensures that no sampler is bound to the given texture unit
         static void unbind(GLuint textureUnit) {
             // (Req 6) Complete this function
-            glBindTexture(GL_TEXTURE_2D, 0);
+            //glBindTexture(GL_TEXTURE_2D, 0);
+            glBindSampler(textureUnit, 0);
         }
 
         // This function sets a sampler paramter where the value is of type "GLint"
