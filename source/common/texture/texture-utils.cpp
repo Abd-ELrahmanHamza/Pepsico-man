@@ -21,11 +21,13 @@ our::Texture2D *our::texture_utils::empty(GLenum format, glm::ivec2 size)
     texture->bind();
 
     // Set the texture data to NULL to create an empty texture
-    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, nullptr);
+    // glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, nullptr);
+
+    glTexStorage2D(GL_TEXTURE_2D, 1, format, size.x, size.y);
 
     // Set some default texture filtering parameters
-    texture->set_min_filter(our::TextureMinFilter::Linear);
-    texture->set_mag_filter(our::TextureMagFilter::Linear);
+    // texture->set_min_filter(our::TextureMinFilter::Linear);
+    // texture->set_mag_filter(our::TextureMagFilter::Linear);
 
     // Unbind the texture object
     texture->unbind();

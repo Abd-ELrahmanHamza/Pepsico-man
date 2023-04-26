@@ -21,10 +21,12 @@ void main(){
     // Hint: the texture coordinate is the pixel's location in the texture divided by the texture's size
 
     // we need to divide the scene color by 1 + squared length of @D pixel location in NDC space
-    newcolor = texture(tex, tex_coord);
-    float x = tex_coord.x * 2 - 1;
-    float y = tex_coord.y * 2 - 1;
-    float length = x * x + y * y;
-    frag_color = newcolor / (1 + length);
+    frag_color = texture(tex, tex_coord);
+    // float x = tex_coord.x * 2 - 1;
+    // float y = tex_coord.y * 2 - 1;
+    // float length = x * x + y * y;
+    // frag_color = newcolor / (1 + length);
+
+    frag_color = frag_color / (1 + length(2 * tex_coord - 1) * length(2 * tex_coord - 1));
     
 }
