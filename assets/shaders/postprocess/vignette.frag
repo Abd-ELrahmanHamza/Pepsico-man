@@ -20,6 +20,16 @@ void main(){
     // We have the pixel's texture coordinate, how can we compute its location in the NDC space?
     // Hint: the texture coordinate is the pixel's location in the texture divided by the texture's size
 
+    /**
+        What is the NDC space?
+        it is a normalized device coordinate space, which is a 2D space that ranges from -1 to 1 used as a 
+        final stage of a graphics pipeline. 
+
+        after #D model is transformed and projected onto a 2D screen, the resulting x and y coordinates of each vertex
+        are typically in device coordinate. 
+        which are specified in pixels of the display hardware.
+        it differs from screen to another based on the resolution of the screen.
+    */
     // we need to divide the scene color by 1 + squared length of @D pixel location in NDC space
     frag_color = texture(tex, tex_coord);
     // float x = tex_coord.x * 2 - 1;
