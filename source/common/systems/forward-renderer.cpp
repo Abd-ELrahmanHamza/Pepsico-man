@@ -2,14 +2,17 @@
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
 
-namespace our {
+namespace our
+{
 
-    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json &config) {
+    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json &config)
+    {
         // First, we store the window size for later use
         this->windowSize = windowSize;
 
         // Then we check if there is a sky texture in the configuration
-        if (config.contains("sky")) {
+        if (config.contains("sky"))
+        {
             // First, we create a sphere which will be used to draw the sky
             this->skySphere = mesh_utils::sphere(glm::ivec2(16, 16));
 
@@ -52,7 +55,8 @@ namespace our {
         }
 
         // Then we check if there is a postprocessing shader in the configuration
-        if (config.contains("postprocess")) {
+        if (config.contains("postprocess"))
+        {
             // TODO: (Req 11) Create a framebuffer
             // Glunit frameBuffer;
             glGenFramebuffers(1, &postprocessFrameBuffer);
@@ -95,9 +99,11 @@ namespace our {
         }
     }
 
-    void ForwardRenderer::destroy() {
+    void ForwardRenderer::destroy()
+    {
         // Delete all objects related to the sky
-        if (skyMaterial) {
+        if (skyMaterial)
+        {
             delete skySphere;
             delete skyMaterial->shader;
             delete skyMaterial->texture;
@@ -105,7 +111,8 @@ namespace our {
             delete skyMaterial;
         }
         // Delete all objects related to post processing
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             glDeleteFramebuffers(1, &postprocessFrameBuffer);
             glDeleteVertexArrays(1, &postProcessVertexArray);
             delete colorTarget;
@@ -116,17 +123,20 @@ namespace our {
         }
     }
 
-    void ForwardRenderer::render(World *world) {
+    void ForwardRenderer::render(World *world)
+    {
         // First of all, we search for a camera and for all the mesh renderers
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
-        for (auto entity: world->getEntities()) {
+        for (auto entity : world->getEntities())
+        {
             // If we hadn't found a camera yet, we look for a camera in this entity
             if (!camera)
                 camera = entity->getComponent<CameraComponent>();
             // If this entity has a mesh renderer component
-            if (auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer) {
+            if (auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer)
+            {
                 // We construct a command from it
                 RenderCommand command;
                 command.localToWorld = meshRenderer->getOwner()->getLocalToWorldMatrix();
@@ -134,9 +144,12 @@ namespace our {
                 command.mesh = meshRenderer->mesh;
                 command.material = meshRenderer->material;
                 // if it is transparent, we add it to the transparent commands list
-                if (command.material->transparent) {
+                if (command.material->transparent)
+                {
                     transparentCommands.push_back(command);
-                } else {
+                }
+                else
+                {
                     // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
@@ -149,22 +162,32 @@ namespace our {
 
         // TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         //  HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
+        // we need to get the entity owner of the camera,then from the entity we get the transformation matrix from it
+        // using the transformation matrix we could transform the forward vector of the camera to the new coordinate
+        // wich is point to the negative z direction
         auto owner = camera->getOwner();
         auto M = owner->getLocalToWorldMatrix();
         glm::vec3 eye = M * glm::vec4(0, 0, 0, 1);
         glm::vec3 center = M * glm::vec4(0, 0, -1, 1);
         glm::vec3 cameraForward = glm::normalize(center - eye);
         std::sort(transparentCommands.begin(), transparentCommands.end(),
-                  [cameraForward](const RenderCommand &first, const RenderCommand &second) {
+                  [cameraForward](const RenderCommand &first, const RenderCommand &second)
+                  {
                       // TODO: (Req 9) Finish this function
                       //  HINT: the following return should return true "first" should be drawn before "second".
+                      // we need to draw the objecte that is far from the camera and then draw the near to override it
+                      // by multiply each object by the forawd vector of the camera, then the far object will get begger value than the near
+                      // then the far object appare first in the vector
                       return glm::dot(cameraForward, first.center) > glm::dot(cameraForward, second.center);
                   });
 
         // TODO: (Req 9) Get the camera ViewProjection matrix and store it in VP
+        // get the view matrix and projection matrix from the camera and multiply them both
         glm::mat4 VP = camera->getProjectionMatrix(this->windowSize) * camera->getViewMatrix();
         // p*v *m
         //  TODO: (Req 9) Set the OpenGL viewport using viewportStart and viewportSize
+        // the view port start from point 0,0 and set the size in x direction and y direction
+
         glViewport(0, 0, this->windowSize.x, this->windowSize.y);
 
         // TODO: (Req 9) Set the clear color to black and the clear depth to 1
@@ -177,7 +200,8 @@ namespace our {
         glDepthMask(true);
 
         // If there is a postprocess material, bind the framebuffer
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             // TODO: (Req 11) bind the framebuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
         }
@@ -187,7 +211,12 @@ namespace our {
 
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        for (auto opaqueCommand: opaqueCommands) {
+        for (auto opaqueCommand : opaqueCommands)
+        {
+            // the VP matrix is still the same in all objects
+            // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
+            // then using class matrial to send the MPV matrix to the shader
+            // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
             glm::mat4 M = opaqueCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             opaqueCommand.material->setup();
@@ -195,7 +224,8 @@ namespace our {
             opaqueCommand.mesh->draw();
         }
         // If there is a sky material, draw the sky
-        if (this->skyMaterial) {
+        if (this->skyMaterial)
+        {
             // TODO: (Req 10) setup the sky material
             // Setup the sky material
             this->skyMaterial->setup();
@@ -214,10 +244,10 @@ namespace our {
             //  We can achieve the is by multiplying by an extra matrix after the projection but what values should we put in it?
             // The matrix should be equal to the following matrix:
             glm::mat4 alwaysBehindTransform = glm::mat4(
-                    1.0f, 0.0f, 0.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 1.0f, 1.0f);
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 1.0f);
 
             // TODO: (Req 10) set the "transform" uniform
             // Set the "transform" uniform to the MVP matrix
@@ -229,7 +259,13 @@ namespace our {
         }
         // TODO: (Req 9) Draw all the transparent commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        for (auto transparentCommand: transparentCommands) {
+        for (auto transparentCommand : transparentCommands)
+        {
+            // the VP matrix is still the same in all objects
+            // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
+            // then using class matrial to send the MPV matrix to the shader
+            // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
+
             glm::mat4 M = transparentCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             transparentCommand.material->setup();
@@ -237,7 +273,8 @@ namespace our {
             transparentCommand.mesh->draw();
         }
         // If there is a postprocess material, apply postprocessing
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             // TODO: (Req 11) Return to the default framebuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
             glBindVertexArray(postProcessVertexArray);
