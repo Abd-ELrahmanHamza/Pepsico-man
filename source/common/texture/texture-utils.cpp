@@ -1,3 +1,5 @@
+// @author Abdelaziz Salah
+
 #include "texture-utils.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -6,26 +8,31 @@
 
 #include <iostream>
 
+/*
+    this is a util function used to generate an empty texture
+    @param format: the format of the texture
+    @param size: the size of the texture
+*/
 our::Texture2D *our::texture_utils::empty(GLenum format, glm::ivec2 size)
 {
     // our::Texture2D *texture = new our::Texture2D();
-    // // TODO: (Req 11) Finish this function to create an empty texture with the given size and format
-    // texture->bind();
-    // glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    // TODO: (Req 11) Finish this function to create an empty texture with the given size and format
 
-    // return texture;
-    // Create a new Texture2D object
     our::Texture2D *texture = new our::Texture2D();
 
     // Bind the texture object
+    // binding means that all the following commands will affect this texture object
     texture->bind();
 
     // Set the texture data to NULL to create an empty texture
+    // I wanted to use this function, but when I did a search I found that the glTexStorage2D function is better, and I wanted to use another function
+    // to know more about it, I found that it is better to use it because it is faster and more efficient.
     // glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, nullptr);
 
     glTexStorage2D(GL_TEXTURE_2D, 1, format, size.x, size.y);
 
     // Set some default texture filtering parameters
+    // when using TexStorage2D, there is no need to use those functions.
     // texture->set_min_filter(our::TextureMinFilter::Linear);
     // texture->set_mag_filter(our::TextureMagFilter::Linear);
 

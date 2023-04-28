@@ -85,6 +85,9 @@ namespace our
         }
 
         // this function should render the mesh
+        /*
+            utility function to draw the mesh
+        */
         void draw()
         {
             // TODO: (Req 2) Write this function

@@ -1,3 +1,5 @@
+// @author Abdelaziz Salah
+
 #version 330
 
 // The texture holding the scene pixels
@@ -26,10 +28,11 @@ void main(){
     // frag_color = vec4(red, green, blue, 1.0);
     
     vec3 col;
+    // shifting should happen only in the X axis, in the red and blue channels only
     col.r = texture(tex, vec2(tex_coord.x - STRENGTH, tex_coord.y)).r;
-    col.g = texture(tex, tex_coord).g;
     col.b = texture(tex, vec2(tex_coord.x + STRENGTH, tex_coord.y)).b;
+    // just reed the green channel from the current pixel
+    col.g = texture(tex, tex_coord).g;
 
     frag_color = vec4(col.r, col.g, col.b, 1.0);
-    // frag_color = texture(tex, tex_coord);
 }
