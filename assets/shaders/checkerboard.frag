@@ -12,7 +12,7 @@ uniform int size = 32;
 uniform vec3 colors[2];
 
 void main(){
-    int y = int(gl_FragCoord.y)/size;
-    int x = int(gl_FragCoord.x)/size;
-    frag_color = vec4(colors[(x+y)%2],1.0);
+    int y = int(gl_FragCoord.y)/size;   // calculate the y coordinate of the tile
+    int x = int(gl_FragCoord.x)/size;   // calculate the x coordinate of the tile
+    frag_color = vec4(colors[(x+y)%2],1.0); // chcek if the tile is even or odd and set the color accordingly
 }
