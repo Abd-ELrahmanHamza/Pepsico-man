@@ -7,61 +7,72 @@
 #include <application.hpp>
 
 // This is a helper function that will search for a component and will return the first one found
-template<typename T>
-T* find(our::World *world){
-    for(auto& entity : world->getEntities()){
-        T* component = entity->getComponent<T>();
-        if(component) return component;
+template <typename T>
+T *find(our::World *world)
+{
+    for (auto &entity : world->getEntities())
+    {
+        T *component = entity->getComponent<T>();
+        if (component)
+            return component;
     }
     return nullptr;
 }
 
 // This state tests and shows how to use the ECS framework and deserialization.
-class EntityTestState: public our::State {
+class EntityTestState : public our::State
+{
 
     our::World world;
-    
-    void onInitialize() override {
+
+    void onInitialize() override
+    {
         // First of all, we get the scene configuration from the app config
-        auto& config = getApp()->getConfig()["scene"];
+        auto &config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
-        if(config.contains("assets")){
+        if (config.contains("assets"))
+        {
             our::deserializeAllAssets(config["assets"]);
         }
 
         // If we have a world in the scene config, we use it to populate our world
-        if(config.contains("world")){
+        if (config.contains("world"))
+        {
             world.deserialize(config["world"]);
         }
-        
     }
 
-    void onDraw(double deltaTime) override {
+    void onDraw(double deltaTime) override
+    {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // First, we look for a camera and if none was found, we return (there is nothing we can render)
-        our::CameraComponent* camera = find<our::CameraComponent>(&world);
-        if(camera == nullptr) return;
+        our::CameraComponent *camera = find<our::CameraComponent>(&world);
+        if (camera == nullptr)
+            return;
 
         // Then we compute the VP matrix from the camera
         glm::ivec2 size = getApp()->getFrameBufferSize();
-        //TODO: (Req 8) Change the following line to compute the correct view projection matrix 
-        // should it be V * P or P * V ?! 
+        //(Req 8) Change the following line to compute the correct view projection matrix
+        // should it be V * P or P * V ?!
         // glm::mat4 VP = glm::mat4(1.0f);
-        glm::mat4 VP = camera->getProjectionMatrix(size) * camera->getViewMatrix() ;
+        glm::mat4 VP = camera->getProjectionMatrix(size) * camera->getViewMatrix(); // compute the view projection matrix for the camera
 
-        for(auto& entity : world.getEntities()){
+        for (auto &entity : world.getEntities())
+        {
             // For each entity, we look for a mesh renderer (if none was found, we skip this entity)
-            our::MeshRendererComponent* meshRenderer = entity->getComponent<our::MeshRendererComponent>();
-            if(meshRenderer == nullptr) continue;
-            //TODO: (Req 8) Complete the loop body to draw the current entity
+            our::MeshRendererComponent *meshRenderer = entity->getComponent<our::MeshRendererComponent>();
+            if (meshRenderer == nullptr)
+                continue;
+            //(Req 8) Complete the loop body to draw the current entity
             // Then we setup the material, send the transform matrix to the shader then draw the mesh
-            meshRenderer->material->setup();
-            meshRenderer->material->shader->set("transform",VP * entity->getLocalToWorldMatrix());
-            meshRenderer->mesh->draw();
+            meshRenderer->material->setup();                                                        // setup material
+            meshRenderer->material->shader->set("transform", VP * entity->getLocalToWorldMatrix()); // send the transform matrix to the shader
+            meshRenderer->mesh->draw();                                                             // draw mesh
         }
     }
 
-    void onDestroy() override {
+    void onDestroy() override
+    {
         world.clear();
         our::clearAllAssets();
     }

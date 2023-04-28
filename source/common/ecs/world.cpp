@@ -12,15 +12,15 @@ namespace our
             return;
         for (const auto &entityData : data)
         {
-            // TODO: (Req 8) Create an entity, make its parent "parent" and call its deserialize with "entityData".
-            Entity *newEntity = add();
-            newEntity->parent = parent;
-            newEntity->deserialize(entityData);
-            if (entityData.contains("children"))
+            //(Req 8) Create an entity, make its parent "parent" and call its deserialize with "entityData".
+            Entity *newEntity = add();           // create a new entity using the add function in world.hpp
+            newEntity->parent = parent;          // set the parent of the new entity to the given parent
+            newEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
+            if (entityData.contains("children")) // check if the entity has children
             {
-                // TODO: (Req 8) Recursively call this world's "deserialize" using the children data
+                //(Req 8) Recursively call this world's "deserialize" using the children data
                 //  and the current entity as the parent
-                this->deserialize(entityData["children"], newEntity);
+                this->deserialize(entityData["children"], newEntity); // deserialize the children of the current entity
                 // if (const auto &children = entityData["children"]; children.is_array())
                 // {
                 //     for (auto &child : children)
