@@ -10,11 +10,11 @@ namespace our
     void Material::setup() const
     {
         // (Req 7) Write this function
-        pipelineState.setup();
+        pipelineState.setup(); // call setup of pipeline state
         // should i create a shader or link it
         // shader = new ShaderProgram();
-        shader->use();
-        shader->link();
+        shader->use(); // call use of shader
+        // shader->link();  // no need to link shader
     }
 
     // This function read the material data from a json object
@@ -36,8 +36,8 @@ namespace our
     void TintedMaterial::setup() const
     {
         // (Req 7) Write this function
-        Material::setup();
-        shader->set("tint", tint);
+        Material::setup();         // call setup of Material "parent"
+        shader->set("tint", tint); // set uniform of tint
     }
 
     // This function read the material data from a json object
@@ -56,20 +56,20 @@ namespace our
     {
         // (Req 7) Write this function
         // call setup TintedMaterial
-        TintedMaterial::setup();
+        TintedMaterial::setup(); // call setup of TintedMaterial "parent"
 
-        // set uniform of alphaThreshold
-        shader->set("alphaThreshold", alphaThreshold);
+        shader->set("alphaThreshold", alphaThreshold); // set uniform of alphaThreshold
 
         // should i activate texture unit ??
         // should texture unit be zero ?
 
-        // glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0); // activate texture unit 0
 
-        // bind sampler to texture0
-        texture->bind();
-        sampler->bind(0);
-        shader->set("tex", 0);
+        texture->bind();        // bind texture to texture2D
+        if (sampler != nullptr) // check if sampler is not null
+            sampler->bind(0);   // bind sampler to texture unit 0
+
+        shader->set("tex", 0); // set uniform of tex to texture unit 0
     }
 
     // This function read the material data from a json object
