@@ -48,40 +48,41 @@ namespace our
         {
             // (Req 4) Write this function
 
-            if (faceCulling.enabled)
+            if (faceCulling.enabled) // check if faceCulling.enabled is true
             {
-                glEnable(GL_CULL_FACE);
-                glCullFace(faceCulling.culledFace);
-                glFrontFace(faceCulling.frontFace);
+                glEnable(GL_CULL_FACE);             // enable face culling
+                glCullFace(faceCulling.culledFace); // set culled face
+                glFrontFace(faceCulling.frontFace); // set front face
             }
             else
             {
-                glDisable(GL_CULL_FACE);
+                glDisable(GL_CULL_FACE); // disable face culling
             }
 
-            if (depthTesting.enabled)
+            if (depthTesting.enabled) // check if depthTesting.enabled is true
             {
-                glEnable(GL_DEPTH_TEST);
-                glDepthMask(depthMask);
-                glDepthFunc(depthTesting.function);
+                glEnable(GL_DEPTH_TEST); // enable depth testing
+                // glDepthMask(depthMask);
+                glDepthFunc(depthTesting.function); // set depth function used in depth testing calculation  "comparison"
             }
             else
             {
-                glDisable(GL_DEPTH_TEST);
+                glDisable(GL_DEPTH_TEST); // disable depth testing
             }
-            if (blending.enabled)
+            if (blending.enabled) // check if blending.enabled is true
             {
-                glEnable(GL_BLEND);
-                glBlendFunc(blending.sourceFactor, blending.destinationFactor);
+                glEnable(GL_BLEND);                                             // enable blending
+                glBlendFunc(blending.sourceFactor, blending.destinationFactor); // set blend function sourec and destination factors
+                // set const color of blending
                 glBlendColor(blending.constantColor[0], blending.constantColor[1], blending.constantColor[2], blending.constantColor[3]);
-                glBlendEquation(blending.equation);
+                glBlendEquation(blending.equation); // set blend equation
             }
             else
             {
-                glDisable(GL_BLEND);
+                glDisable(GL_BLEND); // disable blending
             }
-
-            glColorMask(colorMask[0], colorMask[1], colorMask[2], colorMask[3]);
+            glDepthMask(depthMask);                                              // set depth mask enable for writing in depth buffer
+            glColorMask(colorMask[0], colorMask[1], colorMask[2], colorMask[3]); // set color mask boolean
         }
 
         // Given a json object, this function deserializes a PipelineState structure
