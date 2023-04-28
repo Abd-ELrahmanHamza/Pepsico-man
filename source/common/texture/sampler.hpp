@@ -4,58 +4,68 @@
 #include <json/json.hpp>
 #include <glm/vec4.hpp>
 
-namespace our {
+namespace our
+{
 
     // This class defined an OpenGL sampler
-    class Sampler {
-        // The OpenGL object name of this sampler 
+    class Sampler
+    {
+        // The OpenGL object name of this sampler
         GLuint name;
+
     public:
-        // This constructor creates an OpenGL sampler and saves its object name in the member variable "name" 
-        Sampler() {
+        // This constructor creates an OpenGL sampler and saves its object name in the member variable "name"
+        Sampler()
+        {
             // (Req 6) Complete this function
-            glGenSamplers(1, &name);
+            glGenSamplers(1, &name); // generate sampler
         };
 
         // This deconstructor deletes the underlying OpenGL sampler
-        ~Sampler() {
+        ~Sampler()
+        {
             // (Req 6) Complete this function
-            glDeleteSamplers(1, &name);
+            glDeleteSamplers(1, &name); // delete sampler
         }
 
         // This method binds this sampler to the given texture unit
-        void bind(GLuint textureUnit) const {
+        void bind(GLuint textureUnit) const
+        {
             // (Req 6) Complete this function
-            //glActiveTexture(GL_TEXTURE0);
-            //glBindTexture(GL_TEXTURE_2D, textureUnit);
-            glBindSampler(textureUnit, name);
+            // glActiveTexture(GL_TEXTURE0);
+            // glBindTexture(GL_TEXTURE_2D, textureUnit);
+            glBindSampler(textureUnit, name); // bind sampler to texture unit
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
-        static void unbind(GLuint textureUnit) {
+        static void unbind(GLuint textureUnit)
+        {
             // (Req 6) Complete this function
-            //glBindTexture(GL_TEXTURE_2D, 0);
-            glBindSampler(textureUnit, 0);
+            // glBindTexture(GL_TEXTURE_2D, 0);
+            glBindSampler(textureUnit, 0); // unbind sampler from texture unit by passing 0 to texture unit
         }
 
         // This function sets a sampler paramter where the value is of type "GLint"
         // This can be used to set the filtering and wrapping parameters
-        void set(GLenum parameter, GLint value) const {
+        void set(GLenum parameter, GLint value) const
+        {
             // (Req 6) Complete this function
-            glSamplerParameteri(name, parameter, value);
+            glSamplerParameteri(name, parameter, value); // set sampler parameter using value of type GLint
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat"
         // This can be used to set the "GL_TEXTURE_MAX_ANISOTROPY_EXT" parameter
-        void set(GLenum parameter, GLfloat value) const {
+        void set(GLenum parameter, GLfloat value) const
+        {
             // (Req 6) Complete this function
-            glSamplerParameterf(name, parameter, value);
+            glSamplerParameterf(name, parameter, value); // set sampler parameter using value of type GLfloat
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat[4]"
         // This can be used to set the "GL_TEXTURE_BORDER_COLOR" parameter
-        void set(GLenum parameter, glm::vec4 value) const {
-            glSamplerParameterfv(name, parameter, &(value.r));
+        void set(GLenum parameter, glm::vec4 value) const
+        {
+            glSamplerParameterfv(name, parameter, &(value.r)); // set sampler parameter using value of type GLfloat[4]
         }
 
         // Given a json object, this function deserializes the sampler state
