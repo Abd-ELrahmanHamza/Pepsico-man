@@ -30,7 +30,7 @@ namespace our
     {
         auto owner = getOwner();
         auto M = owner->getLocalToWorldMatrix();
-        // TODO: (Req 8) Complete this function
+        // (Req 8) Complete this function
         // HINT:
 
         // In the camera space:
@@ -43,17 +43,17 @@ namespace our
         // - the center position which is the point (0,0,-1) but after being transformed by M
         // - the up direction which is the vector (0,1,0) but after being transformed by M
         // then you can use glm::lookAt
-        glm::vec4 eye = glm::vec4(0, 0, 0, 1);
-        glm::vec4 center = glm::vec4(0, 0, -1, 1);
-        glm::vec4 up = glm::vec4(0, 1, 0, 0);
-        glm::vec4 eye_transformed = M * eye;
-        glm::vec4 center_transformed = M * center;
-        glm::vec4 up_transformed = M * up;
+        glm::vec4 eye = glm::vec4(0, 0, 0, 1);     // define eye as  vec4(0,0,0,1)
+        glm::vec4 center = glm::vec4(0, 0, -1, 1); // define center as vec4(0,0,-1,1)
+        glm::vec4 up = glm::vec4(0, 1, 0, 0);      // define up as vec4(0,1,0,0)
+        glm::vec4 eye_transformed = M * eye;       // transform eye by M
+        glm::vec4 center_transformed = M * center; // transform center by M
+        glm::vec4 up_transformed = M * up;         // transform up by M
 
-        glm::mat4 V = glm::lookAt(
-            glm::vec3(eye_transformed[0], eye_transformed[1], eye_transformed[2]),
-            glm::vec3(center_transformed[0], center_transformed[1], center_transformed[2]),
-            glm::vec3(up_transformed[0], up_transformed[1], up_transformed[2]));
+        glm::mat4 V = glm::lookAt(                                                          // create view matrix using glm::lookAt function
+            glm::vec3(eye_transformed[0], eye_transformed[1], eye_transformed[2]),          // pass vec3(eye_transformed) as eye
+            glm::vec3(center_transformed[0], center_transformed[1], center_transformed[2]), // pass vec3(center_transformed) as center
+            glm::vec3(up_transformed[0], up_transformed[1], up_transformed[2]));            // pass vec3(up_transformed) as up
         return V;
     }
 
@@ -61,20 +61,22 @@ namespace our
     // "viewportSize" is used to compute the aspect ratio
     glm::mat4 CameraComponent::getProjectionMatrix(glm::ivec2 viewportSize) const
     {
-        // TODO: (Req 8) Wrtie this function
+        // (Req 8) Wrtie this function
         //  NOTE: The function glm::ortho can be used to create the orthographic projection matrix
         //  It takes left, right, bottom, top. Bottom is -orthoHeight/2 and Top is orthoHeight/2.
         //  Left and Right are the same but after being multiplied by the aspect ratio
         //  For the perspective camera, you can use glm::perspective
         glm::mat4 P;
-        float aspectRatio = float(viewportSize.x) / float(viewportSize.y);
-        if (cameraType == CameraType::ORTHOGRAPHIC)
+        float aspectRatio = float(viewportSize.x) / float(viewportSize.y); // calculate aspect ratio = width / height
+        if (cameraType == CameraType::ORTHOGRAPHIC)                        // check if the camera type is orthographic
         {
+            // create orthographic projection matrix using glm::ortho function
             P = glm::ortho((-orthoHeight / 2) * aspectRatio, (orthoHeight / 2) * aspectRatio, -orthoHeight / 2, orthoHeight / 2, near, far);
         }
-        else
+        else // if the camera type is perspective
         {
-            P = glm::perspective(fovY, aspectRatio, near, far);
+            P = glm::perspective(fovY, aspectRatio, near, far); // create perspective projection matrix using glm::perspective function
+            // passing  fovY field of view , aspectRatio, near, far as parameters
         }
         return P;
     }

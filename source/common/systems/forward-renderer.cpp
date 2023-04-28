@@ -26,7 +26,10 @@ namespace our
             //  Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             //  We will draw the sphere from the inside, so what options should we pick for the face culling.
             PipelineState skyPipelineState{};
+            // Enable depth testing and set the depth function to LEQUAL
+            // Enable depth testing to make sure the sky is drawn behind all the opaque objects
             skyPipelineState.depthTesting.enabled = true;
+            // Set the depth function to LEQUAL to make sure the sky is drawn behind all the opaque objects
             skyPipelineState.depthTesting.function = GL_LEQUAL;
 
             // Load the sky texture (note that we don't need mipmaps since we want to avoid any unnecessary blurring while rendering the sky)
@@ -65,7 +68,8 @@ namespace our
             /// then we should create two empty textures to draw on them.
             colorTarget = texture_utils::empty(GL_RGBA8, windowSize);
             depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, windowSize);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(),
+                                   0);
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
             // TODO: (Req 11) Unbind the framebuffer just to be safe
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -159,6 +163,9 @@ namespace our
 
         // TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         //  HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
+        // we need to get the entity owner of the camera,then from the entity we get the transformation matrix from it
+        // using the transformation matrix we could transform the forward vector of the camera to the new coordinate
+        // wich is point to the negative z direction
         auto owner = camera->getOwner();
         auto M = owner->getLocalToWorldMatrix();
         glm::vec3 eye = M * glm::vec4(0, 0, 0, 1);
@@ -169,13 +176,19 @@ namespace our
                   {
                       // TODO: (Req 9) Finish this function
                       //  HINT: the following return should return true "first" should be drawn before "second".
+                      // we need to draw the objecte that is far from the camera and then draw the near to override it
+                      // by multiply each object by the forawd vector of the camera, then the far object will get begger value than the near
+                      // then the far object appare first in the vector
                       return glm::dot(cameraForward, first.center) > glm::dot(cameraForward, second.center);
                   });
 
         // TODO: (Req 9) Get the camera ViewProjection matrix and store it in VP
+        // get the view matrix and projection matrix from the camera and multiply them both
         glm::mat4 VP = camera->getProjectionMatrix(this->windowSize) * camera->getViewMatrix();
         // p*v *m
         //  TODO: (Req 9) Set the OpenGL viewport using viewportStart and viewportSize
+        // the view port start from point 0,0 and set the size in x direction and y direction
+
         glViewport(0, 0, this->windowSize.x, this->windowSize.y);
 
         // TODO: (Req 9) Set the clear color to black and the clear depth to 1
@@ -202,6 +215,10 @@ namespace our
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for (auto opaqueCommand : opaqueCommands)
         {
+            // the VP matrix is still the same in all objects
+            // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
+            // then using class matrial to send the MPV matrix to the shader
+            // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
             glm::mat4 M = opaqueCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             opaqueCommand.material->setup();
@@ -212,18 +229,22 @@ namespace our
         if (this->skyMaterial)
         {
             // TODO: (Req 10) setup the sky material
+            // Setup the sky material
             this->skyMaterial->setup();
 
             // TODO: (Req 10) Get the camera position
+            // Get the camera position
             glm::vec3 cameraPosition = eye;
 
             // TODO: (Req 10) Create a model matrix for the sy such that it always follows the camera (sky sphere center = camera position)
+            // Create a model matrix for the sky such that it always follows the camera (sky sphere center = camera position)
             our::Transform skyTransformObj;
             skyTransformObj.position = cameraPosition;
             glm::mat4 skySphereModel = skyTransformObj.toMat4();
 
             // TODO: (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
             //  We can achieve the is by multiplying by an extra matrix after the projection but what values should we put in it?
+            // The matrix should be equal to the following matrix:
             glm::mat4 alwaysBehindTransform = glm::mat4(
                 1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,
@@ -231,15 +252,22 @@ namespace our
                 0.0f, 0.0f, 1.0f, 1.0f);
 
             // TODO: (Req 10) set the "transform" uniform
+            // Set the "transform" uniform to the MVP matrix
             this->skyMaterial->shader->set("transform", alwaysBehindTransform * VP * skySphereModel);
 
             // TODO: (Req 10) draw the sky sphere
+            // Draw the sky sphere
             this->skySphere->draw();
         }
         // TODO: (Req 9) Draw all the transparent commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for (auto transparentCommand : transparentCommands)
         {
+            // the VP matrix is still the same in all objects
+            // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
+            // then using class matrial to send the MPV matrix to the shader
+            // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
+
             glm::mat4 M = transparentCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             transparentCommand.material->setup();
