@@ -28,10 +28,10 @@ out vec4 frag_color;
 void main(){
 
     //frag_color = fs_in.color;
-    frag_color.r = dot(red,vec4(fs_in.color,1.0));
-    frag_color.g = dot(green,vec4(fs_in.color,1.0));
-    frag_color.b = dot(blue,vec4(fs_in.color,1.0));
-    frag_color.a = 1.0;
+    frag_color.r = dot(red,vec4(fs_in.color,1.0));  // generate red channel from dot product of color and red uniforms
+    frag_color.g = dot(green,vec4(fs_in.color,1.0)); // generate green channel from dot product of color and green uniforms
+    frag_color.b = dot(blue,vec4(fs_in.color,1.0)); // generate blue channel from dot product of color and blue uniforms
+    frag_color.a = 1.0; // alpha channel is always 1.0
     // frag_color.r = dot(fs_in.color.r,fs_in.color);
 
 
