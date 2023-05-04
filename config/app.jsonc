@@ -160,7 +160,7 @@
         },
         "world":[
             {
-                "position": [10, 0, 0],
+                "position": [10, 1, 0],
                 "rotation": [0, 90, 0],
                 "components": [
                     {
@@ -184,24 +184,6 @@
                             }
                         ]
                     }
-                ]
-            },
-            {
-                "position": [8, -1, 0],
-                "rotation": [0, -90, 0],
-                "scale": [0.008, 0.008, 0.008],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "player",
-                        "material": "player"
-                    }
-                    //,
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0, 0.1, 0],
-                    //     "angularVelocity": [0, 45, 0]
-                    // }
                 ]
             },
             {
@@ -338,6 +320,30 @@
                         "material": "fence"
                     }
                 ]
+            },
+            {
+              "position": [0, -1, 10],
+              "rotation":[0, 0, 0],
+              "scale": [1000, 0.1, 0.01],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "fence",
+                      "material": "fence"
+                  }
+              ]
+            },
+            {
+              "position": [0, -1, -10],
+              "rotation":[0, 0, 0],
+              "scale": [1000, 0.1, 0.01],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "fence",
+                      "material": "fence"
+                  }
+              ]
             }
         ]
     }
