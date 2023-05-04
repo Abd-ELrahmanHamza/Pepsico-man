@@ -80,7 +80,7 @@ namespace our
         {
             auto it = components.begin();
             std::advance(it, index);
-            if (it != comp onents.end())
+            if (it != components.end())
                 return dynamic_cast<T *>(*it);
             return nullptr;
         }
