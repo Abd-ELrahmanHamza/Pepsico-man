@@ -1,17 +1,14 @@
 #include "world.hpp"
 
-namespace our
-{
+namespace our {
 
     // This will deserialize a json array of entities and add the new entities to the current world
     // If parent pointer is not null, the new entities will be have their parent set to that given pointer
     // If any of the entities has children, this function will be called recursively for these children
-    void World::deserialize(const nlohmann::json &data, Entity *parent)
-    {
+    void World::deserialize(const nlohmann::json &data, Entity *parent) {
         if (!data.is_array())
             return;
-        for (const auto &entityData : data)
-        {
+        for (const auto &entityData: data) {
             //(Req 8) Create an entity, make its parent "parent" and call its deserialize with "entityData".
             Entity *newEntity = add();           // create a new entity using the add function in world.hpp
             newEntity->parent = parent;          // set the parent of the new entity to the given parent
@@ -32,6 +29,15 @@ namespace our
                 // {
                 //     this->deserialize(entityData["children"], newEntity);
                 // }
+            }
+            if (entityData.contains("duplicates")) {
+                for (int i = 1; i < 1000; ++i) {
+                    Entity *newEntity = add();           // create a new entity using the add function in world.hpp
+                    newEntity->parent = parent;          // set the parent of the new entity to the given parent
+                    newEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
+                    newEntity->localTransform.position.x += -i * 5;
+                }
+
             }
         }
     }

@@ -279,13 +279,17 @@
             //     ]
             // }, 
             {
-                "position": [2, 2, 2],
+                "position": [0, -1, 0],
                 "scale": [0.005, 0.005, 0.005],
+                "duplicates": 1,
                 "components": [
                     {
                         "type": "Mesh Renderer",
                         "mesh": "can",
                         "material": "can"
+                    },
+                    {
+                        "type": "Can"
                     }
                     // },
                     // {

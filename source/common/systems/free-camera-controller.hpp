@@ -124,7 +124,7 @@ namespace our {
 //            if(app->getKeyboard().isPressed(GLFW_KEY_E)) position -= cameraUP * (deltaTime * current_sensitivity.y);
             // A & D moves the player left or playerRight
 //            if (!app->getKeyboard().isPressed(GLFW_KEY_SPACE))
-            position += cameraFront * (deltaTime * 30);
+            position += cameraFront * (deltaTime * 10);
 
             // Move player left and right
             if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
