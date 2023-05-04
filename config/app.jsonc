@@ -27,7 +27,7 @@
             },
             "textures":{
                 "moon": "assets/textures/moon.jpg",
-                "grass": "assets/textures/grass_ground_d.jpg",
+                "road": "assets/textures/road.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
@@ -82,7 +82,7 @@
                     "texture": "glass",
                     "sampler": "pixelated"
                 },
-                "grass":{
+                "road":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -94,7 +94,7 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "grass",
+                    "texture": "road",
                     "sampler": "default"
                 },
                 "monkey":{
@@ -197,7 +197,7 @@
                     {
                         "type": "Mesh Renderer",
                         "mesh": "plane",
-                        "material": "grass"
+                        "material": "road"
                     }
                 ]
             },
