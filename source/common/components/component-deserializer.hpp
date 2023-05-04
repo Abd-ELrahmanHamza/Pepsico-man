@@ -5,6 +5,7 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "player.hpp"
 
 namespace our {
 
@@ -22,6 +23,8 @@ namespace our {
             component = entity->addComponent<MovementComponent>();
         } else if (type == MeshRendererComponent::getID()) {    // check if the type is a mesh renderer component
             component = entity->addComponent<MeshRendererComponent>();  // add a mesh renderer component to the entity
+        } else if (type == PlayerComponent::getID()) {    // check if the type is a mesh renderer component
+            component = entity->addComponent<PlayerComponent>();  // add a mesh renderer component to the entity
         }
         if (component)
             component->deserialize(data);

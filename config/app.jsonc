@@ -181,6 +181,10 @@
                                 "type": "Mesh Renderer",
                                 "mesh": "player",
                                 "material": "player"
+                            },
+                            {
+                                "type": "Player",
+                                "speed": 10
                             }
                         ]
                     }
