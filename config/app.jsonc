@@ -30,13 +30,15 @@
                 "grass": "assets/textures/grass_ground_d.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
-                "monkey": "assets/textures/monkey.png"
+                "monkey": "assets/textures/monkey.png",
+                "can": "assets/textures/can.png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
                 "monkey": "assets/models/monkey.obj",
                 "plane": "assets/models/plane.obj",
-                "sphere": "assets/models/sphere.obj"
+                "sphere": "assets/models/sphere.obj",
+                "can":"assets/models/can.obj"
             },
             "samplers":{
                 "default":{},
@@ -123,6 +125,21 @@
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "moon",
+                    "sampler": "default"
+                },
+                "can":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "can",
                     "sampler": "default"
                 }
             }
@@ -254,6 +271,39 @@
                     {
                         "type": "Movement",
                         "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            }, 
+            {
+                "position": [2, 2, 2],
+                "scale": [0.005, 0.005, 0.005],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "can",
+                        "material": "can"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0.1, 0],
+                        "angularVelocity": [0, 45, 0]
+                    }
+                ]
+            }
+            , 
+            {
+                "position": [-2, -2, -2],
+                "scale": [0.005, 0.005, 0.005],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "can",
+                        "material": "can"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0.1, 0],
+                        "angularVelocity": [0, 45, 0]
                     }
                 ]
             }
