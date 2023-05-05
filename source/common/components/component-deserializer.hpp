@@ -7,6 +7,7 @@
 #include "movement.hpp"
 #include "player.hpp"
 #include "can.hpp"
+#include "collision.hpp"
 
 namespace our {
 
@@ -28,6 +29,8 @@ namespace our {
             component = entity->addComponent<PlayerComponent>();  // add a player component to the entity
         } else if (type == CanComponent::getID()) {    // check if the type is a can renderer component
             component = entity->addComponent<CanComponent>();  // add a can component to the entity
+        } else if (type == CollisionComponent::getID()) {    // check if the type is a collision renderer component
+            component = entity->addComponent<CollisionComponent>();  // add a collision component to the entity
         }
         if (component)
             component->deserialize(data);

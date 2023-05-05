@@ -8,11 +8,11 @@ namespace our
 
     // This class holds a set of entities
     class World
-    {
+    {    public:
         std::unordered_set<Entity *> entities;         // These are the entities held by this world
         std::unordered_set<Entity *> markedForRemoval; // These are the entities that are awaiting to be deleted
         // when deleteMarkedEntities is called
-    public:
+
         World() = default;
 
         // This will deserialize a json array of entities and add the new entities to the current world
@@ -54,9 +54,9 @@ namespace our
         void deleteMarkedEntities()
         {
             //(Req 8) Remove and delete all the entities that have been marked for removal
-            // for (auto it = markedForRemoval.begin(); it != markedForRemoval.end(); ++it) {
-            //     delete *it;
-            // }
+//             for (auto it = markedForRemoval.begin(); it != markedForRemoval.end(); ++it) {
+//                 delete *it;
+//             }
             for (auto entity : markedForRemoval)
             {                           // loop over the markedForRemoval set
                 entities.erase(entity); // remove the entity from the entities set
