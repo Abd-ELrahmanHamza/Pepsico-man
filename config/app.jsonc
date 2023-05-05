@@ -29,7 +29,7 @@
                 "house": "assets/textures/house.jpg",
                 "road": "assets/textures/road.jpg",
                 "wood": "assets/textures/wood.jpg",
-                "glass": "assets/textures/glass-panels.png",
+                "obelisk": "assets/textures/glass-panels.png",
                 "player": "assets/textures/player.png",
                 "can": "assets/textures/can.png"
             },
@@ -39,7 +39,8 @@
                 "plane": "assets/models/plane.obj",
                 "house": "assets/models/house.obj",
                 "can":"assets/models/can.obj",
-                "fence":"assets/models/fence.obj"
+                "fence":"assets/models/fence.obj",
+                "obelisk":"assets/models/obelisk.obj"
             },
             "samplers":{
                 "default":{},
@@ -61,27 +62,18 @@
                     },
                     "tint": [0.45, 0.4, 0.5, 1]
                 },
-                "glass":{
-                    "type": "textured",
-                    "shader": "textured",
+                "obelisk":{
+                    "type": "tinted",
+                    "shader": "tinted",
                     "pipelineState": {
                         "faceCulling":{
                             "enabled": false
                         },
                         "depthTesting":{
                             "enabled": true
-                        },
-                        "blending":{
-                            "enabled": true,
-                            "sourceFactor": "GL_SRC_ALPHA",
-                            "destinationFactor": "GL_ONE_MINUS_SRC_ALPHA"
-                        },
-                        "depthMask": false
+                        }
                     },
-                    "transparent": true,
-                    "tint": [1, 1, 1, 1],
-                    "texture": "glass",
-                    "sampler": "pixelated"
+                    "tint": [1, 1, 1, 1]
                 },
                 "road":{
                     "type": "textured",
@@ -215,7 +207,7 @@
             //         {
             //             "type": "Mesh Renderer",
             //             "mesh": "plane",
-            //             "material": "glass"
+            //             "material": "obelisk"
             //         }
             //     ]
             // },
@@ -227,7 +219,7 @@
             //         {
             //             "type": "Mesh Renderer",
             //             "mesh": "plane",
-            //             "material": "glass"
+            //             "material": "obelisk"
             //         }
             //     ]
             // },
@@ -239,7 +231,7 @@
             //         {
             //             "type": "Mesh Renderer",
             //             "mesh": "plane",
-            //             "material": "glass"
+            //             "material": "obelisk"
             //         }
             //     ]
             // },
@@ -251,7 +243,7 @@
             //         {
             //             "type": "Mesh Renderer",
             //             "mesh": "plane",
-            //             "material": "glass"
+            //             "material": "obelisk"
             //         }
             //     ]
             // },
@@ -263,7 +255,7 @@
             //         {
             //             "type": "Mesh Renderer",
             //             "mesh": "plane",
-            //             "material": "glass"
+            //             "material": "obelisk"
             //         }
             //     ]
             // },
@@ -300,6 +292,10 @@
                         "type": "Collision",
                         "start":[-0.5,0,-0.5],
                         "end":[0.5,1,0.5]
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 45, 0]
                     }
                     // },
                     // {
@@ -338,19 +334,46 @@
             }
             ,
             {
-                "position": [-2, -2, -2],
-                "scale": [0.005, 0.005, 0.005],
+                "position": [0, -1, 10],
+                "scale": [0.05, 0.07, 0.02],
+                "rotation":[-90,0,0],
+                "duplicates": [1000,9],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "can",
-                        "material": "can"
+                        "mesh": "obelisk",
+                        "material": "obelisk"
                     },
+                     {
+                         "type": "Can"
+                     },
+                     {
+                         "type": "Collision",
+                         "start":[-0.5,0,-0.5],
+                         "end":[0.5,1,0.5]
+                     }
+                ]
+            }
+            ,
+            {
+                "position": [0, -1, -10],
+                "scale": [0.05, 0.07, 0.02],
+                "rotation":[-90,0,0],
+                "duplicates": [1000,9],
+                "components": [
                     {
-                        "type": "Movement",
-                        "linearVelocity": [0, 0.1, 0],
-                        "angularVelocity": [0, 45, 0]
-                    }
+                        "type": "Mesh Renderer",
+                        "mesh": "obelisk",
+                        "material": "obelisk"
+                    },
+                     {
+                         "type": "Can"
+                     },
+                     {
+                         "type": "Collision",
+                         "start":[-0.5,0,-0.5],
+                         "end":[0.5,1,0.5]
+                     }
                 ]
             }
 //             ,
