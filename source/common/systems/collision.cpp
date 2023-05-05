@@ -78,7 +78,8 @@ namespace our {
                 }
                 else if(entity->getComponent<ObstacleComponent>())
                 {
-                    auto obstaclePosition = entity->localTransform.position;
+                    auto obstaclePosition = glm::vec3(entity->getLocalToWorldMatrix()* glm::vec4( entity->localTransform.position, 1.0));
+                    //auto obstaclePosition = entity->localTransform.position;
                     glm::vec3 obstacleStart = collision->start + obstaclePosition;
                     glm::vec3 obstacleEnd = collision->end + obstaclePosition;
                     bool collided = true;
