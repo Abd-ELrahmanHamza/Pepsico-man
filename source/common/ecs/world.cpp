@@ -1,4 +1,5 @@
 #include "world.hpp"
+#include "../deserialize-utils.hpp"
 
 namespace our {
 
@@ -31,11 +32,13 @@ namespace our {
                 // }
             }
             if (entityData.contains("duplicates")) {
-                for (int i = 1; i < 1000; ++i) {
+                glm::vec2 duplicates = glm::vec2(entityData.value("duplicates", duplicates));
+
+                for (int i = 1; i < (int) duplicates[0]; ++i) {
                     Entity *newEntity = add();           // create a new entity using the add function in world.hpp
                     newEntity->parent = parent;          // set the parent of the new entity to the given parent
                     newEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
-                    newEntity->localTransform.position.x += -i * 5;
+                    newEntity->localTransform.position.x += -i * duplicates[1];
                 }
 
             }

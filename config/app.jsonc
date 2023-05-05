@@ -26,7 +26,7 @@
                 }
             },
             "textures":{
-                "moon": "assets/textures/moon.jpg",
+                "house": "assets/textures/house.jpg",
                 "road": "assets/textures/road.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
@@ -37,7 +37,7 @@
                 "cube": "assets/models/cube.obj",
                 "player": "assets/models/player.obj",
                 "plane": "assets/models/plane.obj",
-                "sphere": "assets/models/sphere.obj",
+                "house": "assets/models/house.obj",
                 "can":"assets/models/can.obj",
                 "fence":"assets/models/fence.obj"
             },
@@ -113,7 +113,7 @@
                     "texture": "player",
                     "sampler": "default"
                 },
-                "moon":{
+                "house":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -125,7 +125,7 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "moon",
+                    "texture": "house",
                     "sampler": "default"
                 },
                 "can":{
@@ -277,11 +277,11 @@
             //             "angularVelocity": [0, 90, 0]
             //         }
             //     ]
-            // }, 
+            // },
             {
                 "position": [0, -1, 0],
                 "scale": [0.005, 0.005, 0.005],
-                "duplicates": 1,
+                "duplicates": [1000,2],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -298,8 +298,35 @@
                     //     "angularVelocity": [0, 45, 0]
                     // }
                 ]
+            },
+            {
+                "position": [0, -1, 12],
+                "scale": [0.2, 0.2, 0.2],
+                "rotation":[0,90,0],
+                "duplicates": [1000,9],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "house",
+                        "material": "house"
+                    }
+                ]
             }
-            , 
+            ,
+            {
+                "position": [0, -1, -12],
+                "scale": [0.2, 0.2, 0.2],
+                "rotation":[0,90,0],
+                "duplicates": [1000,9],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "house",
+                        "material": "house"
+                    }
+                ]
+            }
+            ,
             {
                 "position": [-2, -2, -2],
                 "scale": [0.005, 0.005, 0.005],

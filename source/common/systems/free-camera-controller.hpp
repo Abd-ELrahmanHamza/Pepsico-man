@@ -76,11 +76,11 @@ namespace our {
 
             // If the left mouse button is pressed, we get the change in the mouse location
             // and use it to update the camera rotation
-//            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)) {
-//                glm::vec2 delta = app->getMouse().getMouseDelta();
-//                rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
-//                rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
-//            }
+            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)) {
+                glm::vec2 delta = app->getMouse().getMouseDelta();
+                rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
+                rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
+            }
 
             // We prevent the pitch from exceeding a certain angle from the XZ plane to prevent gimbal locks
             if (rotation.x < -glm::half_pi<float>() * 0.99f) rotation.x = -glm::half_pi<float>() * 0.99f;
@@ -117,14 +117,14 @@ namespace our {
 
             // We change the camera position based on the keys WASD/QE
             // S & W moves the player back and forth
-//            if(app->getKeyboard().isPressed(GLFW_KEY_W)) position += cameraFront * (deltaTime * current_sensitivity.z);
-//            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position -= cameraFront * (deltaTime * current_sensitivity.z);
+            if (app->getKeyboard().isPressed(GLFW_KEY_W)) position += cameraFront * (deltaTime * current_sensitivity.z);
+            if (app->getKeyboard().isPressed(GLFW_KEY_S)) position -= cameraFront * (deltaTime * current_sensitivity.z);
 //            // Q & E moves the player playerUp and down
 //            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) position += cameraUp * (deltaTime * current_sensitivity.y);
 //            if(app->getKeyboard().isPressed(GLFW_KEY_E)) position -= cameraUP * (deltaTime * current_sensitivity.y);
             // A & D moves the player left or playerRight
 //            if (!app->getKeyboard().isPressed(GLFW_KEY_SPACE))
-            position += cameraFront * (deltaTime * 10);
+//            position += cameraFront * (deltaTime * 10);
 
             // Move player left and right
             if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
