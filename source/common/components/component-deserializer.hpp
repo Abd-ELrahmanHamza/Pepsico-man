@@ -8,6 +8,7 @@
 #include "player.hpp"
 #include "can.hpp"
 #include "collision.hpp"
+#include "obstacle.hpp"
 
 namespace our {
 
@@ -31,6 +32,8 @@ namespace our {
             component = entity->addComponent<CanComponent>();  // add a can component to the entity
         } else if (type == CollisionComponent::getID()) {    // check if the type is a collision renderer component
             component = entity->addComponent<CollisionComponent>();  // add a collision component to the entity
+        }else if (type == ObstacleComponent::getID()) {    // check if the type is a Obstacle renderer component
+            component = entity->addComponent<ObstacleComponent>();  // add a Obstacle component to the entity
         }
         if (component)
             component->deserialize(data);

@@ -117,23 +117,24 @@ namespace our {
 
             // We change the camera position based on the keys WASD/QE
             // S & W moves the player back and forth
-//            if (app->getKeyboard().isPressed(GLFW_KEY_W)) position += cameraFront * (deltaTime * current_sensitivity.z);
-//            if (app->getKeyboard().isPressed(GLFW_KEY_S)) position -= cameraFront * (deltaTime * current_sensitivity.z);
-//            // Q & E moves the player playerUp and down
-//            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) position += cameraUp * (deltaTime * current_sensitivity.y);
-//            if(app->getKeyboard().isPressed(GLFW_KEY_E)) position -= cameraUP * (deltaTime * current_sensitivity.y);
+           //if (app->getKeyboard().isPressed(GLFW_KEY_W)) position += cameraFront * (deltaTime * current_sensitivity.z);
+           //if (app->getKeyboard().isPressed(GLFW_KEY_S)) position -= cameraFront * (deltaTime * current_sensitivity.z);
+           // Q & E moves the player playerUp and down
+           if(app->getKeyboard().isPressed(GLFW_KEY_Q)) position += cameraUp * (deltaTime * current_sensitivity.y);
+
+           if(app->getKeyboard().isPressed(GLFW_KEY_E)) position += -cameraUp * (deltaTime * current_sensitivity.y);
             // A & D moves the player left or playerRight
 //            if (!app->getKeyboard().isPressed(GLFW_KEY_SPACE))
             position += cameraFront * (deltaTime * 10);
 
             // Move player left and right
-            if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_D)) {
                 // Stop player from going off the street
                 if (cameraPosition.z > -8)
                     cameraPosition += cameraRight * (deltaTime * player->speed);
                 std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
             }
-            if (app->getKeyboard().isPressed(GLFW_KEY_D)) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
                 // Stop player from going off the street
                 if (cameraPosition.z < 8)
                     cameraPosition -= cameraRight * (deltaTime * player->speed);

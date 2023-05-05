@@ -334,7 +334,7 @@
             }
             ,
             {
-                "position": [0, -1, 10],
+                "position": [5, -1, 10],
                 "scale": [0.05, 0.07, 0.02],
                 "rotation":[-90,0,0],
                 "duplicates": [1000,9],
@@ -345,7 +345,7 @@
                         "material": "obelisk"
                     },
                      {
-                         "type": "Can"
+                         "type": "Obstacle"
                      },
                      {
                          "type": "Collision",
@@ -356,7 +356,7 @@
             }
             ,
             {
-                "position": [0, -1, -10],
+                "position": [5, -1, 0],
                 "scale": [0.05, 0.07, 0.02],
                 "rotation":[-90,0,0],
                 "duplicates": [1000,9],
@@ -367,12 +367,12 @@
                         "material": "obelisk"
                     },
                      {
-                         "type": "Can"
+                         "type": "Obstacle"
                      },
                      {
                          "type": "Collision",
-                         "start":[-0.5,0,-0.5],
-                         "end":[0.5,1,0.5]
+                         "start":[-1,0,-1],
+                         "end":[1,2,1]
                      }
                 ]
             }
