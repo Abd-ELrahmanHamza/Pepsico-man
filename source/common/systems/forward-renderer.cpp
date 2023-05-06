@@ -221,6 +221,9 @@ namespace our
             // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
             glm::mat4 M = opaqueCommand.localToWorld;
             glm::mat4 mpv = VP * M;
+            //?  lighting most probably will be here
+
+            //!
             opaqueCommand.material->setup();
             opaqueCommand.material->shader->set("transform", mpv);
             opaqueCommand.mesh->draw();
