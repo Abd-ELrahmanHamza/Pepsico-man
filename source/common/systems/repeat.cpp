@@ -49,13 +49,11 @@ namespace our {
             // Get the player component if it exists
             repeatEntity = entity;
             repeatComponent = repeatEntity->getComponent<RepeatComponent>();
-            glm::vec3 repeatPosition = repeatEntity->localTransform.position;
-            glm::mat4 repeatMatrix = entity->localTransform.toMat4();
-            glm::vec3 repeatRight = glm::vec3(repeatMatrix * glm::vec4(1, 0, 0, 0));
+            glm::vec3 &repeatPosition = repeatEntity->localTransform.position;
             // If the player component exists
             if (repeatComponent) {
-                if (playerPosition[0] >= repeatPosition[0] - 2 && playerPosition[0] <= repeatPosition[0] + 2) {
-                    repeatEntity->localTransform.position += repeatComponent->translation;
+                if (playerPosition[0] <= repeatPosition[0] - 50) {
+                    repeatPosition += repeatComponent->translation;
                 }
             }
         }
