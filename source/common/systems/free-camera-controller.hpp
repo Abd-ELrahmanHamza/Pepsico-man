@@ -168,8 +168,8 @@ namespace our {
                     // Stop player from going off the street
                     if (cameraPosition.z < 8)
                         cameraPosition -= cameraRight * (deltaTime * player->speed);
-//                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
                 }
+
             }
         }
 

@@ -355,10 +355,10 @@
             }
             ,
             {
-                "position": [5, 0, 10],
+                "position": [-50, 0, 0],
                 "scale": [1, 1, 1],
                 "rotation":[0,90,0],
-                "duplicates": [100,9,true],
+                "duplicates": [200,9,true],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -370,34 +370,8 @@
                      },
                      {
                          "type": "Collision",
-                         "start":[-2,0,-5],
-                         "end":[2,2,5]
-                     },
-                     {
-                         "type":"Repeat",
-                         "translation": [-900, 0, 0]
-                     }
-                ]
-            }
-            ,
-            {
-                "position": [5, 0, 0],
-                "scale": [1, 1, 1],
-                "rotation":[0,90,0],
-                "duplicates": [100,9,true],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "obelisk",
-                        "material": "obelisk"
-                    },
-                     {
-                         "type": "Obstacle"
-                     },
-                     {
-                         "type": "Collision",
-                         "start":[-2,0,-5],
-                         "end":[2,2,5]
+                        "start":[-0.5,0,-0.5],
+                        "end":[0.5,0.3,0.5]
                      },
                      {
                          "type":"Repeat",

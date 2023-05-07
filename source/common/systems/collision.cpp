@@ -66,7 +66,9 @@ namespace our {
                 }
                 if (collided) {
                     std::cout << "collision" << std::endl;
-
+                    if (entity->getComponent<ObstacleComponent>()) {
+                        app->changeState("game-over");
+                    }
                     break;
                 }
 

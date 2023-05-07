@@ -1,6 +1,7 @@
 #include "world.hpp"
 #include "../deserialize-utils.hpp"
 #include <vector>
+#include <iostream>
 
 namespace our {
     // This is the upper limit on the number of entities in the world
@@ -39,7 +40,8 @@ namespace our {
                 for (int i = 1; i < (int) duplicates[0]; ++i) {
                     Entity *newDuplicateEntity = add();           // create a new entity using the add function in world.hpp
                     newDuplicateEntity->parent = parent;          // set the parent of the new entity to the given parent
-                    newDuplicateEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
+                    newDuplicateEntity->deserialize(
+                            entityData);  // deserialize the new entity using the given entityData
                     if ((bool) duplicates[2]) {
                         int horizontal = generateRandomNumber(0, 2);
                         int vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
@@ -47,8 +49,10 @@ namespace our {
                             horizontal = generateRandomNumber(0, 2);
                             vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
                         }
+                        entityMap[vertical][horizontal] = true;
                         newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
                         newDuplicateEntity->localTransform.position.z = (-5.0f + float(horizontal) * 5.0f);
+                        std::cout << newDuplicateEntity->localTransform.position.z << std::endl;
                     } else {
                         newDuplicateEntity->localTransform.position.x += -float(i) * duplicates[1];
                     }
