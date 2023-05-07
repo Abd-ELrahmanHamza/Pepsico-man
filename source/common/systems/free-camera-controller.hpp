@@ -14,6 +14,12 @@
 
 namespace our {
 
+    enum JumpState {
+        JUMPING,
+        FALLING,
+        GROUNDED
+    };
+
     // The free camera controller system is responsible for moving every entity which contains a FreeCameraControllerComponent.
     // This system is added as a slightly complex example for how use the ECS framework to implement logic. 
     // For more information, see "common/components/free-camera-controller.hpp"
@@ -21,6 +27,7 @@ namespace our {
         Application *app; // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
 
+        our::JumpState jumpState = our::JumpState::GROUNDED;
     public:
         // When a state enters, it should call this function and give it the pointer to the application
         void enter(Application *app) {
@@ -124,21 +131,45 @@ namespace our {
 
             if (app->getKeyboard().isPressed(GLFW_KEY_E)) position += -cameraUp * (deltaTime * current_sensitivity.y);
             // A & D moves the player left or playerRight
-            if (!app->getKeyboard().isPressed(GLFW_KEY_SPACE))
-                position += cameraFront * (deltaTime * 100);
 
-            // Move player left and right
-            if (app->getKeyboard().isPressed(GLFW_KEY_D)) {
-                // Stop player from going off the street
-                if (cameraPosition.z > -8)
-                    cameraPosition += cameraRight * (deltaTime * player->speed);
-                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
+            // Jump logic
+            float jumpSpeed = 6;
+            float jumpMaxHeight = 4;
+            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
+                if (jumpState == our::JumpState::GROUNDED) {
+                    jumpState = our::JumpState::JUMPING;
+                    position.y += (deltaTime * jumpSpeed);
+                }
             }
-            if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
-                // Stop player from going off the street
-                if (cameraPosition.z < 8)
-                    cameraPosition -= cameraRight * (deltaTime * player->speed);
+            if (position.y >= jumpMaxHeight) {
+                jumpState = our::JumpState::FALLING;
+            } else if (position.y <= 1) {
+                jumpState = our::JumpState::GROUNDED;
+            }
+            if (jumpState == our::JumpState::JUMPING) {
+                position.y += (deltaTime * jumpSpeed);
+            } else if (jumpState == our::JumpState::FALLING) {
+                position.y -= (deltaTime * jumpSpeed);
+            } else {
+                position.y = 1;
+            }
+
+            // Move player forward
+            position += cameraFront * (deltaTime * 10);
+            if (jumpState == our::JumpState::GROUNDED) {
+                // Move player left and right
+                if (app->getKeyboard().isPressed(GLFW_KEY_D)) {
+                    // Stop player from going off the street
+                    if (cameraPosition.z > -8)
+                        cameraPosition += cameraRight * (deltaTime * player->speed);
 //                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
+                }
+                if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
+                    // Stop player from going off the street
+                    if (cameraPosition.z < 8)
+                        cameraPosition -= cameraRight * (deltaTime * player->speed);
+//                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
+                }
             }
         }
 

@@ -60,17 +60,16 @@ namespace our {
                     bool collided = true;
                     for (int i = 0; i < 3; ++i) {
                         if (playerStart[i] > canEnd[i] || playerEnd[i] < canStart[i]) {
-                            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
-                                std::cout << i << std::endl;
-                                std::cout << playerStart[i] << " " << playerEnd[i] << std::endl;
-                                std::cout << canStart[i] << " " << canEnd[i] << std::endl;
-                            }
+//                            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
+//                                std::cout << i << std::endl;
+//                                std::cout << playerStart[i] << " " << playerEnd[i] << std::endl;
+//                                std::cout << canStart[i] << " " << canEnd[i] << std::endl;
+//                            }
                             collided = false;
                             break;
                         }
                     }
                     if (collided) {
-                        std::cout << "Collided" << std::endl;
                         world->markForRemoval(entity);
                         world->deleteMarkedEntities();
                         break;
@@ -85,22 +84,21 @@ namespace our {
                     bool collided = true;
                     for (int i = 0; i < 3; ++i) {
                         if (playerStart[i] > obstacleEnd[i] || playerEnd[i] < obstacleStart[i]) {
-                            if (app->getKeyboard().isPressed(GLFW_KEY_X)) {
-                                std::cout << i << std::endl;
-                                std::cout << obstaclePosition[0] << " " << obstaclePosition[1] <<" "<< obstaclePosition[2]<< std::endl;
-                                std::cout << playerStart[0] << " " << playerStart[1] <<" "<< playerStart[2]<< std::endl;
-                                std::cout << playerEnd[0] << " " << playerEnd[1] <<" "<< playerEnd[2]<< std::endl;
-                                
-                                std::cout << obstacleStart[0] << " " << obstacleStart[1] <<" "<< obstacleStart[2]<< std::endl;
-                                std::cout << obstacleEnd[0] << " " << obstacleEnd[1] <<" "<< obstacleEnd[2]<< std::endl;
-                                //std::cout << obstacleStart[i] << " " << obstacleEnd[i] << std::endl;
-                            }
+//                            if (app->getKeyboard().isPressed(GLFW_KEY_X)) {
+//                                std::cout << i << std::endl;
+//                                std::cout << obstaclePosition[0] << " " << obstaclePosition[1] <<" "<< obstaclePosition[2]<< std::endl;
+//                                std::cout << playerStart[0] << " " << playerStart[1] <<" "<< playerStart[2]<< std::endl;
+//                                std::cout << playerEnd[0] << " " << playerEnd[1] <<" "<< playerEnd[2]<< std::endl;
+//
+//                                std::cout << obstacleStart[0] << " " << obstacleStart[1] <<" "<< obstacleStart[2]<< std::endl;
+//                                std::cout << obstacleEnd[0] << " " << obstacleEnd[1] <<" "<< obstacleEnd[2]<< std::endl;
+//                                //std::cout << obstacleStart[i] << " " << obstacleEnd[i] << std::endl;
+//                            }
                             collided = false;
                             break;
                         }
                     }
                     if (collided) {
-                        std::cout << "Collided" << std::endl;
                         world->markForRemoval(entity);
                         world->deleteMarkedEntities();
                         break;
