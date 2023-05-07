@@ -155,7 +155,7 @@ namespace our {
             }
 
             // Move player forward
-            position += cameraFront * (deltaTime * 100);
+            position += cameraFront * (deltaTime * 20);
             if (jumpState == our::JumpState::GROUNDED) {
                 // Move player left and right
                 if (app->getKeyboard().isPressed(GLFW_KEY_D)) {

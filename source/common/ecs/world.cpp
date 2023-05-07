@@ -4,7 +4,7 @@
 
 namespace our {
     // This is the upper limit on the number of entities in the world
-    const uint64_t ENTITIES_UPPER_LIMIT = 300;
+    const uint64_t ENTITIES_UPPER_LIMIT = 400;
     const uint8_t SLICE_SIZE = 9.0;
 
     // This is the map that keeps track of entities positions in the world
