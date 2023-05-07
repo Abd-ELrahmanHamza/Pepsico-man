@@ -1,7 +1,6 @@
 #include "world.hpp"
 #include "../deserialize-utils.hpp"
 #include <vector>
-#include <iostream>
 
 namespace our {
     // This is the upper limit on the number of entities in the world
@@ -13,10 +12,8 @@ namespace our {
     std::vector<std::vector<bool>> entityMap(ENTITIES_UPPER_LIMIT, std::vector<bool>(3, false));
 
     int generateRandomNumber(int min, int max) {
-
         // Generate a random number between min and max (inclusive)
         int randomNumber = rand() % (max - min + 1) + min;
-
         return randomNumber;
     }
 
@@ -40,9 +37,9 @@ namespace our {
             if (entityData.contains("duplicates")) {
                 glm::vec3 duplicates = glm::vec3(entityData.value("duplicates", duplicates));
                 for (int i = 1; i < (int) duplicates[0]; ++i) {
-                    Entity *newEntity = add();           // create a new entity using the add function in world.hpp
-                    newEntity->parent = parent;          // set the parent of the new entity to the given parent
-                    newEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
+                    Entity *newDuplicateEntity = add();           // create a new entity using the add function in world.hpp
+                    newDuplicateEntity->parent = parent;          // set the parent of the new entity to the given parent
+                    newDuplicateEntity->deserialize(entityData);  // deserialize the new entity using the given entityData
                     if ((bool) duplicates[2]) {
                         int horizontal = generateRandomNumber(0, 2);
                         int vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
@@ -50,12 +47,11 @@ namespace our {
                             horizontal = generateRandomNumber(0, 2);
                             vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
                         }
-                        newEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
-                        newEntity->localTransform.position.z = (-5.0f + float(horizontal) * 5.0f);
+                        newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
+                        newDuplicateEntity->localTransform.position.z = (-5.0f + float(horizontal) * 5.0f);
                     } else {
-                        newEntity->localTransform.position.x += -float(i) * duplicates[1];
+                        newDuplicateEntity->localTransform.position.x += -float(i) * duplicates[1];
                     }
-
                 }
 
             }

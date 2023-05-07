@@ -11,6 +11,7 @@
 #include "../components/player.hpp"
 #include "../components/can.hpp"
 #include "../components/obstacle.hpp"
+#include "../components/repeat.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -70,14 +71,21 @@ namespace our {
                         }
                     }
                     if (collided) {
-                        world->markForRemoval(entity);
-                        world->deleteMarkedEntities();
+                        // Get the player component if it exists
+                        Entity *repeatEntity = entity;
+                        RepeatComponent *repeatComponent = repeatEntity->getComponent<RepeatComponent>();
+                        glm::vec3 &repeatPosition = repeatEntity->localTransform.position;
+                        // If the player component exists
+                        if (repeatComponent) {
+                            if (playerPosition[0] <= repeatPosition[0] - 50) {
+                                repeatPosition += repeatComponent->translation;
+                            }
+                        }
                         break;
                     }
-                }
-                else if(entity->getComponent<ObstacleComponent>())
-                {
-                    auto obstaclePosition = glm::vec3(entity->getLocalToWorldMatrix()* glm::vec4( entity->localTransform.position, 1.0));
+                } else if (entity->getComponent<ObstacleComponent>()) {
+                    auto obstaclePosition = glm::vec3(
+                            entity->getLocalToWorldMatrix() * glm::vec4(entity->localTransform.position, 1.0));
                     //auto obstaclePosition = entity->localTransform.position;
                     glm::vec3 obstacleStart = collision->start + obstaclePosition;
                     glm::vec3 obstacleEnd = collision->end + obstaclePosition;
@@ -99,8 +107,16 @@ namespace our {
                         }
                     }
                     if (collided) {
-                        world->markForRemoval(entity);
-                        world->deleteMarkedEntities();
+                        // Get the player component if it exists
+                        Entity *repeatEntity = entity;
+                        RepeatComponent *repeatComponent = repeatEntity->getComponent<RepeatComponent>();
+                        glm::vec3 &repeatPosition = repeatEntity->localTransform.position;
+                        // If the player component exists
+                        if (repeatComponent) {
+                            if (playerPosition[0] <= repeatPosition[0] - 50) {
+                                repeatPosition += repeatComponent->translation;
+                            }
+                        }
                         break;
                     }
 
