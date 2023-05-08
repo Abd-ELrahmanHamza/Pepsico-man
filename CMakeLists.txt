@@ -124,6 +124,8 @@ set(STATES_SOURCES
         source/common/components/collision.hpp
         source/common/components/repeat.cpp
         source/common/components/repeat.hpp
+        source/common/components/energy.cpp
+        source/common/components/energy.hpp
         source/common/systems/repeat.cpp
         source/common/systems/repeat.hpp source/states/game-over.hpp)
 

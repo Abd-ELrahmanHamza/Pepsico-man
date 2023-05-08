@@ -158,13 +158,13 @@ namespace our {
             position += cameraFront * (deltaTime * 20);
             if (jumpState == our::JumpState::GROUNDED) {
                 // Move player left and right
-                if (app->getKeyboard().isPressed(GLFW_KEY_D)) {
+                if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT) ) {
                     // Stop player from going off the street
                     if (cameraPosition.z > -8)
                         cameraPosition += cameraRight * (deltaTime * player->speed);
 //                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
                 }
-                if (app->getKeyboard().isPressed(GLFW_KEY_A)) {
+                if (app->getKeyboard().isPressed(GLFW_KEY_A ) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
                     // Stop player from going off the street
                     if (cameraPosition.z < 8)
                         cameraPosition -= cameraRight * (deltaTime * player->speed);

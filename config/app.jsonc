@@ -31,7 +31,8 @@
                 "wood": "assets/textures/wood.jpg",
                 "obelisk": "assets/textures/obelisk.png",
                 "player": "assets/textures/player.png",
-                "can": "assets/textures/can.png"
+                "can": "assets/textures/can.png",
+                "plane":"assets/textures/plane.png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -118,7 +119,7 @@
                             "enabled": true
                         }
                     },
-                    "tint": [1, 1, 1, 1],
+                    "tint": [0.6, 0.6, 1, 1],
                     "texture": "house",
                     "sampler": "default"
                 },
@@ -149,6 +150,64 @@
                         }
                     },
                     "tint": [1, 1, 1, 1]
+                },
+                "plane":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "transparent":true,
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                        ,"blending":{
+                            "enabled": true,
+                            "equation": "GL_FUNC_ADD",
+                            "sourceFactor": "GL_SRC_ALPHA",
+                            "destinationFactor": "GL_ONE_MINUS_SRC_ALPHA"
+                        },
+                        "depthMask": true
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "plane",
+                    "sampler": "default"
+                },
+                "bar":{
+                    "type": "tinted",
+                    "shader": "tinted",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        },
+                        "transparent":true,
+                        "blending":{
+                            "enabled": true,
+                            "equation": "GL_FUNC_ADD",
+                            "sourceFactor": "GL_ONE_MINUS_DST_ALPHA",
+                            "destinationFactor": "GL_DST_ALPHA"
+                        }
+                    },
+                    "tint": [1, 1, 1, 1]
+                },
+                "energy":{
+                    "type": "tinted",
+                    "shader": "tinted",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        },
+                        "transparent":false
+                    },
+
+                    "tint": [0, 0, 1, 1]
                 }
             }
         },
@@ -187,6 +246,48 @@
                         }
                         ]
                     }
+                    ,
+                    {
+                        "position": [-0.15, 0.085, 0.40000001],
+                        "rotation": [0, 0, 0],
+                        "scale": [0.009, 0.009, 0.009],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "plane",
+                                "material": "plane"
+                            }
+                        ]
+                    }
+                    ,
+                    {
+                        "position": [-0.002, 0.085, 0.4],
+                        "rotation": [0, 0, 0],
+                        "scale": [0.15, 0.005, 0.01], 
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "plane",
+                                "material": "bar"
+                            }
+                        ]
+                    }
+                    ,
+                    {
+                        "position": [-0.142, 0.085, 0.4],
+                        "rotation": [0, 0, 0],
+                        "scale": [0, 0.005, 0.01],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "plane",
+                                "material": "energy"
+                            },
+                            {
+                                "type": "Energy"
+                            }
+                        ]
+                    }
                 ]
             },
             {
@@ -205,82 +306,7 @@
                     }
                 ]
             },
-            // {
-            //     "position": [0, 1, 2],
-            //     "rotation": [0, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "obelisk"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [0, 1, -2],
-            //     "rotation": [0, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "obelisk"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [2, 1, 0],
-            //     "rotation": [0, 90, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "obelisk"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [-2, 1, 0],
-            //     "rotation": [0, 90, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "obelisk"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [0, 3, 0],
-            //     "rotation": [90, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "obelisk"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [0, 10, 0],
-            //     "rotation": [45, 45, 0],
-            //     "scale": [5, 5, 5],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "sphere",
-            //             "material": "moon"
-            //         },
-            //         {
-            //             "type": "Movement",
-            //             "angularVelocity": [0, 90, 0]
-            //         }
-            //     ]
-            // },
+            
             {
                 "position": [0, -1, 0],
                 "scale": [0.005, 0.005, 0.005],
@@ -355,8 +381,8 @@
             }
             ,
             {
-                "position": [-50, 0, 0],
-                "scale": [1, 1, 1],
+                "position": [-50, -2, 0],
+                "scale": [0.009, 0.009, 0.009],
                 "rotation":[0,90,0],
                 "duplicates": [200,9,true],
                 "components": [
@@ -370,8 +396,8 @@
                      },
                      {
                          "type": "Collision",
-                        "start":[-0.5,0,-0.5],
-                        "end":[0.5,0.3,0.5]
+                        "start":[-0.8,0,-0.8],
+                        "end":[0.8,1.2,0.8]
                      },
                      {
                          "type":"Repeat",
