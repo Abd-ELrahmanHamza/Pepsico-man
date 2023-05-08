@@ -19,6 +19,10 @@ namespace our {
         FALLING,
         GROUNDED
     };
+    enum SlideState {
+        Slided,
+        NORMAL,
+    };
 
     // The free camera controller system is responsible for moving every entity which contains a FreeCameraControllerComponent.
     // This system is added as a slightly complex example for how use the ECS framework to implement logic. 
@@ -27,7 +31,9 @@ namespace our {
         Application *app; // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
 
+        float slideTime = 0;
         our::JumpState jumpState = our::JumpState::GROUNDED;
+        our::SlideState slideState = our::SlideState::NORMAL;
     public:
         // When a state enters, it should call this function and give it the pointer to the application
         void enter(Application *app) {
@@ -68,6 +74,7 @@ namespace our {
 
             // We get a reference to the playerEntity's position
             glm::vec3 &playerPosition = playerEntity->localTransform.position;
+            glm::vec3 &playerRotation = playerEntity->localTransform.rotation;
             // We get a reference to the cameraEntity's position
             glm::vec3 &cameraPosition = cameraEntity->localTransform.position;
 
@@ -136,7 +143,7 @@ namespace our {
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
             if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
-                if (jumpState == our::JumpState::GROUNDED) {
+                if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
                 }
@@ -153,6 +160,38 @@ namespace our {
             } else {
                 position.y = 1;
             }
+
+            // slide logic
+            if (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN) ) {
+                if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
+                    slideState = our::SlideState::Slided;
+                    
+                    playerRotation.x -= 90;
+                    //playerRotation.y += 45;
+                    //playerRotation.x += 90;
+                    
+                    playerPosition.z -= 1;
+                    playerPosition.y += 1;
+                    //playerPosition.z += 2;
+                    slideTime =0;
+                }
+            }
+            if (slideState == our::SlideState::Slided) {
+                slideTime += deltaTime;
+                if (slideTime >= deltaTime*100) {
+                    slideState = our::SlideState::NORMAL;
+
+                    glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix()* glm::vec4(playerEntity->localTransform.position,1.0);
+                    std::cout<< "x ="<<actualposition.x<<" y="<<actualposition.y<<" z="<<actualposition.z<<std::endl;
+                    // playerPosition.x += 2;
+                    playerPosition.y -= 1;
+                    playerPosition.z += 1;
+
+                    playerRotation.x += 90;
+                }
+            }
+
+
 
             // Move player forward
             position += cameraFront * (deltaTime * 20);

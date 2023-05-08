@@ -32,7 +32,8 @@
                 "obelisk": "assets/textures/obelisk.png",
                 "player": "assets/textures/player.png",
                 "can": "assets/textures/can.png",
-                "plane":"assets/textures/plane.png"
+                "plane":"assets/textures/plane.png",
+                "rocket":"assets/textures/rocket.png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -41,7 +42,8 @@
                 "house": "assets/models/house.obj",
                 "can":"assets/models/can.obj",
                 "fence":"assets/models/fence.obj",
-                "obelisk":"assets/models/obelisk.obj"
+                "obelisk":"assets/models/obelisk.obj",
+                "rocket":"assets/models/rocket.obj"
             },
             "samplers":{
                 "default":{},
@@ -119,7 +121,7 @@
                             "enabled": true
                         }
                     },
-                    "tint": [0.6, 0.6, 1, 1],
+                    "tint": [0.5, 0.5, 1, 1],
                     "texture": "house",
                     "sampler": "default"
                 },
@@ -208,6 +210,22 @@
                     },
 
                     "tint": [0, 0, 1, 1]
+                },
+                "rocket":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+
+                    "tint": [0, 0, 1, 1],
+                    "texture": "rocket",
+                    "sampler": "default"
                 }
             }
         },
@@ -288,6 +306,7 @@
                             }
                         ]
                     }
+                    
                 ]
             },
             {
@@ -403,6 +422,25 @@
                          "type":"Repeat",
                          "translation": [-900, 0, 0]
                      }
+                ]
+            }
+            ,
+            {
+                "position": [-250, 1, 0],
+                "rotation": [0, 0, 90],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "rocket",
+                        "material": "rocket"
+                    },
+                                        
+                    {
+                        "type": "Movement",
+                        "linearVelocity":  [10, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    }
                 ]
             }
 //             ,

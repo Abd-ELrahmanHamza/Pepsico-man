@@ -79,7 +79,7 @@ namespace our
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>())
                     {
-                        app->changeState("game-over");
+                        //app->changeState("game-over");
                     }
                     else if (entity->getComponent<CanComponent>())
                     {
