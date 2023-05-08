@@ -25,29 +25,24 @@
 
 #include "../application.hpp"
 
-namespace our
-{
-    void CollisionSystem::update(World *world, float deltaTime,int& countPepsi)
-    {
+namespace our {
+    void CollisionSystem::update(World *world, float deltaTime, int &countPepsi) {
         PlayerComponent *player;
         glm::vec3 playerPosition;
         Entity *playerEntity;
-        for (auto entity : world->getEntities())
-        {
+        for (auto entity: world->getEntities()) {
             // Get the player component if it exists
             playerEntity = entity;
             player = playerEntity->getComponent<PlayerComponent>();
             // If the player component exists
-            if (player)
-            {
+            if (player) {
                 playerPosition =
-                    glm::vec3(playerEntity->getLocalToWorldMatrix() *
-                              glm::vec4(playerEntity->localTransform.position, 1.0));
+                        glm::vec3(playerEntity->getLocalToWorldMatrix() *
+                                  glm::vec4(playerEntity->localTransform.position, 1.0));
                 break;
             }
         }
-        if (!player)
-        {
+        if (!player) {
             return;
         }
 
@@ -55,64 +50,54 @@ namespace our
         glm::vec3 playerEnd = playerEntity->getComponent<CollisionComponent>()->end + playerPosition;
 
         // For each entity in the world
-        for (auto entity : world->getEntities())
-        {
+        for (auto entity: world->getEntities()) {
             // Get the collision component if it exists
             CollisionComponent *collision = entity->getComponent<CollisionComponent>();
             // If the collision component exists
-            if (collision)
-            {
+            if (collision) {
                 auto objectPosition = entity->localTransform.position;
                 glm::vec3 objectStart = collision->start + objectPosition;
                 glm::vec3 objectEnd = collision->end + objectPosition;
                 bool collided = true;
-                for (int i = 0; i < 3; ++i)
-                {
-                    if (playerStart[i] > objectEnd[i] || playerEnd[i] < objectStart[i])
-                    {
+                for (int i = 0; i < 3; ++i) {
+                    if (playerStart[i] > objectEnd[i] || playerEnd[i] < objectStart[i]) {
                         collided = false;
                         break;
                     }
                 }
-                if (collided)
-                {
+                if (collided) {
                     std::cout << "collision" << std::endl;
-                    if (entity->getComponent<ObstacleComponent>())
-                    {
-                        //app->changeState("game-over");
-                    }
-                    else if (entity->getComponent<CanComponent>())
-                    {
-                        for (auto energybar : world->getEntities())
-                        {
-                            EnergyComponent *energy = energybar->getComponent<EnergyComponent>();
-                            if (energy)
-                            {
-                                // rescale energy bar with one unit and move position
-                                if(countPepsi<100)
-                                {
-                                    countPepsi++;
-                                    std::cout << "countPepsi: "<< countPepsi << std::endl;
-                                    std::cout << "countPepsi: "<< countPepsi << std::endl;
-                                    energybar->localTransform.scale.x = (double) 0.145 * (double)(countPepsi /100.0) ;
-                                    energybar->localTransform.position.x = -0.142 + 0.145*(countPepsi /100.0) ;
-                                    std::cout << "scale: "<< energybar->localTransform.scale.x  << std::endl;
-                                    //entity->localTransform.position.x = playerEntity->localTransform.position.x - 10;
-
-                                    RepeatComponent* repeatComponent = entity->getComponent<RepeatComponent>();
-                                    glm::vec3 &repeatPosition = entity->localTransform.position;
-                                    // If the player component exists
-                                    if (repeatComponent) {
-                                            repeatPosition += repeatComponent->translation;
-                                    }
-                                }
-                                
-                                break;
-
-                            }
+                    if (entity->getComponent<ObstacleComponent>()) {
+                        countPepsi -= 5;
+                        if (countPepsi < 0) {
+                            std::cout << "game over " << countPepsi << std::endl;
+                            app->changeState("game-over");
+                        }
+                    } else if (entity->getComponent<CanComponent>()) {
+                        if (countPepsi < 100) {
+                            countPepsi++;
                         }
                     }
-
+                    for (auto energybar: world->getEntities()) {
+                        EnergyComponent *energy = energybar->getComponent<EnergyComponent>();
+                        if (energy) {
+                            // rescale energy bar with one unit and move position
+                            if (countPepsi < 100) {
+                                countPepsi++;
+                                std::cout << "countPepsi: " << countPepsi << std::endl;
+                                energybar->localTransform.scale.x = (double) 0.145 * (double) (countPepsi / 100.0);
+                                energybar->localTransform.position.x = -0.142 + 0.145 * (countPepsi / 100.0);
+                                std::cout << "scale: " << energybar->localTransform.scale.x << std::endl;
+                            }
+                            break;
+                        }
+                    }
+                    RepeatComponent *repeatComponent = entity->getComponent<RepeatComponent>();
+                    glm::vec3 &repeatPosition = entity->localTransform.position;
+                    // If the player component exists
+                    if (repeatComponent) {
+                        repeatPosition += repeatComponent->translation;
+                    }
                     break;
                 }
             }

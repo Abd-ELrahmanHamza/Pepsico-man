@@ -403,7 +403,7 @@
                 "position": [-50, -2, 0],
                 "scale": [0.009, 0.009, 0.009],
                 "rotation":[0,90,0],
-                "duplicates": [200,9,true],
+                "duplicates": [100,9,true],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -426,9 +426,10 @@
             }
             ,
             {
-                "position": [-250, 1, 0],
+                "position": [-50, 1, 0],
                 "rotation": [0, 0, 90],
                 "scale": [1, 1, 1],
+                "duplicates": [100,9,true],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -441,6 +442,11 @@
                         "linearVelocity":  [10, 0, 0],
                         "angularVelocity": [0, 0, 0]
                     }
+                    ,
+                      {
+                          "type":"Repeat",
+                          "translation": [-900, 0, 0]
+                      }
                 ]
             }
 //             ,
