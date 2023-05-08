@@ -9,6 +9,8 @@
 #include "can.hpp"
 #include "collision.hpp"
 #include "obstacle.hpp"
+#include "repeat.hpp"
+#include "energy.hpp"
 
 namespace our {
 
@@ -32,8 +34,12 @@ namespace our {
             component = entity->addComponent<CanComponent>();  // add a can component to the entity
         } else if (type == CollisionComponent::getID()) {    // check if the type is a collision renderer component
             component = entity->addComponent<CollisionComponent>();  // add a collision component to the entity
-        }else if (type == ObstacleComponent::getID()) {    // check if the type is a Obstacle renderer component
+        } else if (type == ObstacleComponent::getID()) {    // check if the type is a Obstacle renderer component
             component = entity->addComponent<ObstacleComponent>();  // add a Obstacle component to the entity
+        } else if (type == RepeatComponent::getID()) {    // check if the type is a repeat renderer component
+            component = entity->addComponent<RepeatComponent>();  // add a repeat component to the entity
+        } else if (type == EnergyComponent::getID()) {    // check if the type is a energy renderer component
+            component = entity->addComponent<EnergyComponent>();  // add a energy component to the entity
         }
         if (component)
             component->deserialize(data);

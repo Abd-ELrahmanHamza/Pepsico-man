@@ -7,17 +7,21 @@
 #include <systems/free-camera-controller.hpp>
 #include <systems/movement.hpp>
 #include <systems/collision.hpp>
+#include <systems/repeat.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
+
 
     our::World world;
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
     our::CollisionSystem collisionSystem;
+    our::RepeatSystem repeatSystem;
 
+    int countPepsi = 0;
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto &config = getApp()->getConfig()["scene"];
@@ -41,7 +45,8 @@ class Playstate : public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float) deltaTime);
         cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime);
+        collisionSystem.update(&world, (float) deltaTime, countPepsi);
+        repeatSystem.update(&world, (float) deltaTime);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
@@ -52,6 +57,11 @@ class Playstate : public our::State {
         if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
+        }
+
+        if (keyboard.justPressed(GLFW_KEY_ENTER)) {
+            // If the escape  key is pressed in this frame, go to the play state
+            getApp()->changeState("game-over");
         }
     }
 

@@ -114,7 +114,20 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
-        source/common/components/player.cpp source/common/components/player.hpp source/common/components/can.cpp source/common/components/can.hpp source/common/systems/collision.cpp source/common/systems/collision.hpp source/common/components/collision.cpp source/common/components/collision.hpp)
+        source/common/components/player.cpp
+        source/common/components/player.hpp
+        source/common/components/can.cpp
+        source/common/components/can.hpp
+        source/common/systems/collision.cpp
+        source/common/systems/collision.hpp
+        source/common/components/collision.cpp
+        source/common/components/collision.hpp
+        source/common/components/repeat.cpp
+        source/common/components/repeat.hpp
+        source/common/components/energy.cpp
+        source/common/components/energy.hpp
+        source/common/systems/repeat.cpp
+        source/common/systems/repeat.hpp source/states/game-over.hpp)
 
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
