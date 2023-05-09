@@ -224,6 +224,10 @@ namespace our
             opaqueCommand.material->setup();
             opaqueCommand.material->shader->set("transform", mpv);
             opaqueCommand.mesh->draw();
+
+            //? here we should send the data to the vshader here
+            // send VP and M_IT
+            // opaqueCommand.material->shader->set("position", );
         }
         // If there is a sky material, draw the sky
         if (this->skyMaterial)

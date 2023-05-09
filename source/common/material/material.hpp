@@ -8,7 +8,8 @@
 #include <glm/vec4.hpp>
 #include <json/json.hpp>
 
-namespace our {
+namespace our
+{
 
     // This is the base class for all the materials
     // It contains the 3 essential components required by any material
@@ -16,26 +17,28 @@ namespace our {
     // 2- The shader program used to draw objects using this material
     // 3- Whether this material is transparent or not
     // Materials that send uniforms to the shader should inherit from the is material and add the required uniforms
-    class Material {
+    class Material
+    {
     public:
         PipelineState pipelineState;
-        ShaderProgram* shader;
+        ShaderProgram *shader;
         bool transparent;
-        
+
         // This function does 2 things: setup the pipeline state and set the shader program to be used
         virtual void setup() const;
         // This function read a material from a json object
-        virtual void deserialize(const nlohmann::json& data);
+        virtual void deserialize(const nlohmann::json &data);
     };
 
     // This material adds a uniform for a tint (a color that will be sent to the shader)
     // An example where this material can be used is when the whole object has only color which defined by tint
-    class TintedMaterial : public Material {
+    class TintedMaterial : public Material
+    {
     public:
         glm::vec4 tint;
 
         void setup() const override;
-        void deserialize(const nlohmann::json& data) override;
+        void deserialize(const nlohmann::json &data) override;
     };
 
     // This material adds two uniforms (besides the tint from Tinted Material)
@@ -43,25 +46,47 @@ namespace our {
     // - "tex" which is a Sampler2D. "texture" and "sampler" will be bound to it.
     // - "alphaThreshold" which defined the alpha limit below which the pixel should be discarded
     // An example where this material can be used is when the object has a texture
-    class TexturedMaterial : public TintedMaterial {
+    class TexturedMaterial : public TintedMaterial
+    {
     public:
-        Texture2D* texture;
-        Sampler* sampler;
+        Texture2D *texture;
+        Sampler *sampler;
         float alphaThreshold;
 
         void setup() const override;
-        void deserialize(const nlohmann::json& data) override;
+        void deserialize(const nlohmann::json &data) override;
     };
 
     // This function returns a new material instance based on the given type
-    inline Material* createMaterialFromType(const std::string& type){
-        if(type == "tinted"){
+    inline Material *createMaterialFromType(const std::string &type)
+    {
+        if (type == "tinted")
+        {
             return new TintedMaterial();
-        } else if(type == "textured"){
+        }
+        else if (type == "textured")
+        {
             return new TexturedMaterial();
-        } else {
+        }
+        else
+        {
             return new Material();
         }
     }
+
+    // this class is used to create a material for the light
+    class LightMaterial : public Material
+    {
+    public:
+        Sampler *sampler; // da 34an ye3ml texture mapping lel diffusion
+        Texture2D *albedo;
+        Texture2D *specular;
+        Texture2D *emissive;
+        Texture2D *roughness;
+        Texture2D *ambient_occlusion;
+
+        void setup() const override;
+        void deserialize(const nlohmann::json &data) override;
+    };
 
 }

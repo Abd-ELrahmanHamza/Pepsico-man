@@ -83,4 +83,60 @@ namespace our
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+    void LightMaterial::setup() const
+    {
+        Material::setup();
+
+        glActiveTexture(GL_TEXTURE0); // activate texture unit 0
+        texture->bind();              // bind texture to texture2D
+        if (sampler)
+            sampler->bind(0);
+        //! h7ot asamy el objects material.albedo for example.
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+
+        glActiveTexture(GL_TEXTURE1); // activate texture unit 0
+        texture->bind();              // bind texture to texture2D
+        if (sampler)
+            sampler->bind(1);
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+
+        glActiveTexture(GL_TEXTURE2); // activate texture unit 0
+        texture->bind();              // bind texture to texture2D
+        if (sampler)
+            sampler->bind(2);
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+
+        glActiveTexture(GL_TEXTURE3); // activate texture unit 0
+        texture->bind();              // bind texture to texture2D
+        if (sampler)
+            sampler->bind(3);
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+
+        glActiveTexture(GL_TEXTURE4); // activate texture unit 0
+        texture->bind();              // bind texture to texture2D
+        if (sampler)
+            sampler->bind(4);
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+    }
+
 }
