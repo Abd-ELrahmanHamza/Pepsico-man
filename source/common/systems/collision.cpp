@@ -71,7 +71,7 @@ namespace our {
                         countPepsi -= 5;
                         if (countPepsi < 0) {
                             std::cout << "game over " << countPepsi << std::endl;
-//                            app->changeState("game-over");
+                            app->changeState("game-over");
                         }
                     } else if (entity->getComponent<CanComponent>()) {
                         if (countPepsi < 100) {
