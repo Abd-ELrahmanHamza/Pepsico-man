@@ -33,7 +33,8 @@
                 "can": "assets/textures/can.png",
                 "plane": "assets/textures/plane.png",
                 "rocket": "assets/textures/rocket.png",
-                "finalLine": "assets/textures/finalLine.jpg"
+                "finalLine": "assets/textures/finalLine.jpg",
+                "pepsiMachine": "assets/textures/pepsiMachine.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -43,7 +44,8 @@
                 "can": "assets/models/can.obj",
                 "fence": "assets/models/fence.obj",
                 "obelisk": "assets/models/obelisk.obj",
-                "rocket": "assets/models/rocket.obj"
+                "rocket": "assets/models/rocket.obj",
+                "pepsiMachine": "assets/models/pepsiMachine.obj"
             },
             "samplers": {
                 "default": {},
@@ -88,6 +90,25 @@
                         1
                     ],
                     "texture": "obelisk",
+                    "sampler": "default"
+                },"pepsiMachine": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "texture": "pepsiMachine",
                     "sampler": "default"
                 },
                 "road": {
@@ -690,6 +711,29 @@
                             0,
                             0
                         ]
+                    }
+                ]
+            },{
+                "position": [
+                    -1005,
+                    -2,
+                    0
+                ],
+                "scale": [
+                    0.009,
+                    0.009,
+                    0.009
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "pepsiMachine",
+                        "material": "pepsiMachine"
                     }
                 ]
             },
