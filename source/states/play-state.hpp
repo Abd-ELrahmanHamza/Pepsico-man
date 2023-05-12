@@ -8,6 +8,7 @@
 #include <systems/movement.hpp>
 #include <systems/collision.hpp>
 #include <systems/repeat.hpp>
+#include <systems/final-line.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -20,8 +21,10 @@ class Playstate : public our::State {
     our::MovementSystem movementSystem;
     our::CollisionSystem collisionSystem;
     our::RepeatSystem repeatSystem;
+    our::FinalLineSystem finalLineSystem;
 
     int countPepsi = 0;
+
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto &config = getApp()->getConfig()["scene"];
@@ -36,6 +39,7 @@ class Playstate : public our::State {
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         collisionSystem.enter(getApp());
+        finalLineSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -47,6 +51,7 @@ class Playstate : public our::State {
         cameraController.update(&world, (float) deltaTime);
         collisionSystem.update(&world, (float) deltaTime, countPepsi);
         repeatSystem.update(&world, (float) deltaTime);
+        finalLineSystem.update(&world, (float) deltaTime);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);

@@ -127,7 +127,12 @@ set(STATES_SOURCES
         source/common/components/energy.cpp
         source/common/components/energy.hpp
         source/common/systems/repeat.cpp
-        source/common/systems/repeat.hpp source/states/game-over.hpp)
+        source/common/systems/repeat.hpp
+        source/states/game-over.hpp
+        source/common/components/final-line.hpp
+        source/common/components/final-line.cpp
+        source/common/systems/final-line.hpp
+        source/common/systems/final-line.cpp)
 
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files

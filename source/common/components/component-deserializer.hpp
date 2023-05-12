@@ -11,6 +11,7 @@
 #include "obstacle.hpp"
 #include "repeat.hpp"
 #include "energy.hpp"
+#include "final-line.hpp"
 
 namespace our {
 
@@ -40,6 +41,8 @@ namespace our {
             component = entity->addComponent<RepeatComponent>();  // add a repeat component to the entity
         } else if (type == EnergyComponent::getID()) {    // check if the type is a energy renderer component
             component = entity->addComponent<EnergyComponent>();  // add a energy component to the entity
+        }else if (type == FinalLineComponent::getID()) {    // check if the type is a FinalLine component
+            component = entity->addComponent<FinalLineComponent>();  // add a FinalLine component to the entity
         }
         if (component)
             component->deserialize(data);
