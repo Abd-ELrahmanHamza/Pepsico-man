@@ -142,7 +142,7 @@ namespace our {
             // Jump logic
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
-            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)  || app->getKeyboard().isPressed(GLFW_KEY_UP)) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP)) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
@@ -162,27 +162,29 @@ namespace our {
             }
 
             // slide logic
-            if (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN) ) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     slideState = our::SlideState::Slided;
-                    
+
                     playerRotation.x -= 90;
                     //playerRotation.y += 45;
                     //playerRotation.x += 90;
-                    
+
                     playerPosition.z -= 1;
                     playerPosition.y += 1;
                     //playerPosition.z += 2;
-                    slideTime =0;
+                    slideTime = 0;
                 }
             }
             if (slideState == our::SlideState::Slided) {
                 slideTime += deltaTime;
-                if (slideTime >= deltaTime*100) {
+                if (slideTime >= deltaTime * 100) {
                     slideState = our::SlideState::NORMAL;
 
-                    glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix()* glm::vec4(playerEntity->localTransform.position,1.0);
-                    std::cout<< "x ="<<actualposition.x<<" y="<<actualposition.y<<" z="<<actualposition.z<<std::endl;
+                    glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix() *
+                                               glm::vec4(playerEntity->localTransform.position, 1.0);
+                    std::cout << "x =" << actualposition.x << " y=" << actualposition.y << " z=" << actualposition.z
+                              << std::endl;
                     // playerPosition.x += 2;
                     playerPosition.y -= 1;
                     playerPosition.z += 1;
@@ -197,15 +199,15 @@ namespace our {
             position += cameraFront * (deltaTime * 20);
             // if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
             // Move player left and right
-            if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT) ) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT)) {
                 // Stop player from going off the street
-                if (cameraPosition.z > -8)
+                if (cameraPosition.z > -5)
                     cameraPosition += cameraRight * (deltaTime * player->speed);
 //                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
             }
-            if (app->getKeyboard().isPressed(GLFW_KEY_A ) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_A) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
                 // Stop player from going off the street
-                if (cameraPosition.z < 8)
+                if (cameraPosition.z < 5)
                     cameraPosition -= cameraRight * (deltaTime * player->speed);
             }
 

@@ -6,11 +6,11 @@
 namespace our {
     // This is the upper limit on the number of entities in the world
     const uint64_t ENTITIES_UPPER_LIMIT = 400;
-    const uint8_t SLICE_SIZE = 13 ;
+    const uint8_t SLICE_SIZE = 13;
 
     // This is the map that keeps track of entities positions in the world
     // We have three ways left, middle and right
-    std::vector<std::vector<bool>> entityMap(ENTITIES_UPPER_LIMIT, std::vector<bool>(7, false));
+    std::vector<std::vector<bool>> entityMap(ENTITIES_UPPER_LIMIT, std::vector<bool>(3, false));
 
     int generateRandomNumber(int min, int max) {
         // Generate a random number between min and max (inclusive)
@@ -43,15 +43,15 @@ namespace our {
                     newDuplicateEntity->deserialize(
                             entityData);  // deserialize the new entity using the given entityData
                     if ((bool) duplicates[2]) {
-                        int horizontal = generateRandomNumber(0, 6);
+                        int horizontal = generateRandomNumber(0, 2);
                         int vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
                         while (entityMap[vertical][horizontal]) {
-                            horizontal = generateRandomNumber(0, 6);
+                            horizontal = generateRandomNumber(0, 2);
                             vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
                         }
                         entityMap[vertical][horizontal] = true;
                         newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
-                        newDuplicateEntity->localTransform.position.z = (-7.5f + float(horizontal) * 2.5f);
+                        newDuplicateEntity->localTransform.position.z = (-4.0f + float(horizontal) * 4.0f);
                         std::cout << newDuplicateEntity->localTransform.position.z << std::endl;
                     } else {
                         newDuplicateEntity->localTransform.position.x += -float(i) * duplicates[1];
