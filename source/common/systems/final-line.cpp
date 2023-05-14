@@ -41,7 +41,7 @@ namespace our {
             if (finalLineComponent) {
                 if (playerPosition[0] <= finalLinePosition[0]) {
                     std::cout << "Game Over!\n";
-                    this->app->changeState("game-over");
+                    this->app->changeState("winning");
                     break;
                 }
             }
