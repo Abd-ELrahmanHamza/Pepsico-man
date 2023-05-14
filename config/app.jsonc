@@ -320,6 +320,26 @@
                     ],
                     "texture": "rocket",
                     "sampler": "default"
+                },
+                "garden": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "texture": "rocket",
+                    "sampler": "default"
                 }
             }
         },
@@ -585,6 +605,80 @@
                     //     "linearVelocity": [0, 0.1, 0],
                     //     "angularVelocity": [0, 45, 0]
                     // }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    0,
+                    8
+                ],
+                "scale": [
+                    4.7,
+                    2.7,
+                    0.6
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "garden"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    0,
+                    -8
+                ],
+                "scale": [
+                    4.7,
+                    4.7,
+                    0.6
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "garden"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
                 ]
             },
             {
