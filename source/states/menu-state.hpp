@@ -45,7 +45,7 @@ class Menustate: public our::State {
     // A variable to record the time since the state is entered (it will be used for the fading effect).
     float time;
     // An array of the button that we can interact with
-    std::array<Button, 2> buttons;
+    std::array<Button, 1> buttons;
 
     void onInitialize() override {
         // First, we create a material for the menu's background
@@ -103,9 +103,9 @@ class Menustate: public our::State {
         buttons[0].size = {297.0f, 81.0f};
         buttons[0].action = [this](){this->getApp()->changeState("play");};
 
-        buttons[1].position = {830.0f, 644.0f};
-        buttons[1].size = {400.0f, 33.0f};
-        buttons[1].action = [this](){this->getApp()->close();};
+        // buttons[1].position = {830.0f, 644.0f};
+        // buttons[1].size = {400.0f, 33.0f};
+        // buttons[1].action = [this](){this->getApp()->close();};
     }
 
     void onDraw(double deltaTime) override {
