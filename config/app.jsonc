@@ -320,6 +320,26 @@
                     ],
                     "texture": "rocket",
                     "sampler": "default"
+                },
+                "garden": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "texture": "rocket",
+                    "sampler": "default"
                 }
             }
         },
@@ -537,7 +557,7 @@
                     0.005
                 ],
                 "duplicates": [
-                    500,
+                    200,
                     2,
                     true
                 ],
@@ -590,12 +610,86 @@
             {
                 "position": [
                     0,
+                    0,
+                    8
+                ],
+                "scale": [
+                    4.7,
+                    2.7,
+                    0.6
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "garden"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    0,
+                    -8
+                ],
+                "scale": [
+                    4.7,
+                    4.7,
+                    0.6
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "garden"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
                     -1,
                     12
                 ],
                 "scale": [
                     0.2,
-                    0.2,
+                    0.3,
                     0.2
                 ],
                 "rotation": [
@@ -632,7 +726,7 @@
                 ],
                 "scale": [
                     0.2,
-                    0.2,
+                    0.3,
                     0.2
                 ],
                 "rotation": [
@@ -678,7 +772,7 @@
                     0
                 ],
                 "duplicates": [
-                    200,
+                    100,
                     9,
                     true
                 ],
@@ -754,7 +848,7 @@
                     1
                 ],
                 "duplicates": [
-                    500,
+                    100,
                     9,
                     true
                 ],
@@ -778,6 +872,19 @@
                         ]
                     },
                     {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -2,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            -1.5,
+                            0.5
+                        ]
+                    },
+                    {
                         "type": "Repeat",
                         "translation": [
                             -900,
@@ -787,20 +894,20 @@
                     },
                      {
                          "type": "Obstacle"
-                     },
-                    {
-                        "type": "Collision",
-                        "start": [
-                            0,
-                            0.8,
-                            0.8
-                        ],
-                        "end": [
-                            1.2,
-                            1.2,
-                            1.2
-                        ]
-                    }
+                     }
+                    //  ,{
+                    //     "type": "Collision",
+                    //     "start": [
+                    //         0,
+                    //         0.8,
+                    //         0.8
+                    //     ],
+                    //     "end": [
+                    //         1.2,
+                    //         1.2,
+                    //         1.2
+                    //     ]
+                    // }
                 ]
             }
             //             ,

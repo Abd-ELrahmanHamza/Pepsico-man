@@ -55,7 +55,8 @@ namespace our {
             CollisionComponent *collision = entity->getComponent<CollisionComponent>();
             // If the collision component exists
             if (collision) {
-                auto objectPosition = entity->localTransform.position;
+                // auto objectPosition =  glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(entity->localTransform.position,1.0) );
+                auto objectPosition =  entity->localTransform.position;
                 glm::vec3 objectStart = collision->start + objectPosition;
                 glm::vec3 objectEnd = collision->end + objectPosition;
                 bool collided = true;
@@ -68,6 +69,14 @@ namespace our {
                 if (collided) {
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
+                        // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
+                        // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
+                        // std::cout << "playerStart position: x = " << playerStart.x << ", y= " << playerStart.y << ", z = "<< playerStart.z <<  std::endl;
+                        // std::cout << "objectStart position: x = " << objectStart.x << ", y= " << objectStart.y << ", z = "<< objectStart.z <<  std::endl;
+                        // std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
+                        // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
+                        
+                        
                         countPepsi -= 5;
                         if (countPepsi < 0) {
                             std::cout << "game over " << countPepsi << std::endl;

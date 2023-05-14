@@ -142,7 +142,7 @@ namespace our {
             // Jump logic
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
-            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
+            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)  || app->getKeyboard().isPressed(GLFW_KEY_UP)) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
@@ -195,21 +195,21 @@ namespace our {
 
             // Move player forward
             position += cameraFront * (deltaTime * 20);
-            if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
-                // Move player left and right
-                if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT) ) {
-                    // Stop player from going off the street
-                    if (cameraPosition.z > -8)
-                        cameraPosition += cameraRight * (deltaTime * player->speed);
+            // if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
+            // Move player left and right
+            if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT) ) {
+                // Stop player from going off the street
+                if (cameraPosition.z > -8)
+                    cameraPosition += cameraRight * (deltaTime * player->speed);
 //                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
-                }
-                if (app->getKeyboard().isPressed(GLFW_KEY_A ) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
-                    // Stop player from going off the street
-                    if (cameraPosition.z < 8)
-                        cameraPosition -= cameraRight * (deltaTime * player->speed);
-                }
-
             }
+            if (app->getKeyboard().isPressed(GLFW_KEY_A ) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
+                // Stop player from going off the street
+                if (cameraPosition.z < 8)
+                    cameraPosition -= cameraRight * (deltaTime * player->speed);
+            }
+
+            // }
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
