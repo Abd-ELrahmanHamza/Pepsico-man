@@ -46,13 +46,13 @@ class WinningState : public our::State {
         highlightMaterial->shader->attach("assets/shaders/tinted.frag", GL_FRAGMENT_SHADER);
         highlightMaterial->shader->link();
         // The tint is white since we will subtract the background color from it to create a negative effect.
-        highlightMaterial->tint = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+        highlightMaterial->tint = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
         // To create a negative effect, we enable blending, set the equation to be subtract,
         // and set the factors to be one for both the source and the destination.
         highlightMaterial->pipelineState.blending.enabled = true;
-        highlightMaterial->pipelineState.blending.equation = GL_FUNC_SUBTRACT;
-        highlightMaterial->pipelineState.blending.sourceFactor = GL_ONE;
-        highlightMaterial->pipelineState.blending.destinationFactor = GL_ONE;
+        highlightMaterial->pipelineState.blending.equation = GL_FUNC_ADD;
+        highlightMaterial->pipelineState.blending.sourceFactor = GL_SRC_ALPHA;
+        highlightMaterial->pipelineState.blending.destinationFactor = GL_SRC_ALPHA;
 
         // Then we create a rectangle whose top-left corner is at the origin and its size is 1x1.
         // Note that the texture coordinates at the origin is (0.0, 1.0) since we will use the
@@ -77,13 +77,13 @@ class WinningState : public our::State {
         // - The argument list () which is the arguments that the lambda should receive when it is called.
         //      We leave it empty since button actions receive no input.
         // - The body {} which contains the code to be executed.
-//        buttons[0].position = {830.0f, 607.0f};
-//        buttons[0].size = {400.0f, 33.0f};
-//        buttons[0].action = [this]() { this->getApp()->changeState("play"); };
-//
-//        buttons[1].position = {830.0f, 644.0f};
-//        buttons[1].size = {400.0f, 33.0f};
-//        buttons[1].action = [this]() { this->getApp()->close(); };
+        buttons[0].position = {120.0f, 190.0f};
+        buttons[0].size = {320.0f, 52.0f};
+        buttons[0].action = [this](){this->getApp()->changeState("menu");};
+
+        buttons[1].position = {30.0f, 270.0f};
+        buttons[1].size = {620.0f, 52.0f};
+        buttons[1].action = [this](){this->getApp()->close();};
     }
 
     void onDraw(double deltaTime) override {
