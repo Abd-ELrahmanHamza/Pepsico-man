@@ -55,7 +55,7 @@ class Playstate : public our::State {
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
-
+        // std::cout<< "level: " << getApp()->levelState<<std::endl;
         // Get a reference to the keyboard object
         auto &keyboard = getApp()->getKeyboard();
 

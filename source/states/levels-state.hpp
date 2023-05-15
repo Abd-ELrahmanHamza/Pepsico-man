@@ -79,15 +79,24 @@ class LevelsState : public our::State {
         // - The body {} which contains the code to be executed.
         buttons[0].position = {140.0f, 107.0f};
         buttons[0].size = {275.0f, 70.0f};
-        buttons[0].action = [this](){this->getApp()->changeState("play");};
+        buttons[0].action = [this](){
+            this->getApp()->levelState = 1;
+            this->getApp()->changeState("play");
+            };
 
         buttons[1].position = {90.0f, 300.0f};
         buttons[1].size = {380.0f, 80.0f};
-        buttons[1].action = [this](){this->getApp()->changeState("play");};
+        buttons[1].action = [this](){
+            this->getApp()->levelState = 2;
+            this->getApp()->changeState("play");
+            };
         
         buttons[2].position = {140.0f, 525.0f};
         buttons[2].size = {275.0f, 70.0f};
-        buttons[2].action = [this](){this->getApp()->changeState("play");};
+        buttons[2].action = [this](){
+            this->getApp()->levelState = 3;
+            this->getApp()->changeState("play");
+            };
     }
 
     void onDraw(double deltaTime) override {
