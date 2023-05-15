@@ -40,7 +40,7 @@ namespace our {
             // If the player component exists
             if (finalLineComponent) {
                 if (playerPosition[0] <= finalLinePosition[0]) {
-                    std::cout << "Game Over!\n";
+                    soundEngine->play2D("audio/finalLine.mp3");
                     this->app->changeState("winning");
                     break;
                 }

@@ -16,11 +16,9 @@ namespace our {
     // For more information, see "common/components/movement.hpp"
     class CollisionSystem {
         irrklang::ISoundEngine *soundEngine;
-        irrklang::ISound *sound;
     public:
         CollisionSystem() {
             soundEngine = irrklang::createIrrKlangDevice();
-            sound = nullptr;
         }
 
         Application *app; // The application in which the state runs
