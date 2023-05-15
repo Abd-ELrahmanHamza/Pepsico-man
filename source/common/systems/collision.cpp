@@ -70,6 +70,8 @@ namespace our {
                 if (collided) {
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
+                        soundEngine->play2D("audio/obstacle.mp3");
+
                         // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
                         // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
                         // std::cout << "playerStart position: x = " << playerStart.x << ", y= " << playerStart.y << ", z = "<< playerStart.z <<  std::endl;
