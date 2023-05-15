@@ -20,8 +20,7 @@
 #include "states/winning-state.hpp"
 #include "states/levels-state.hpp"
 
-
-#include "../../vendor/irrKlang/include/irrKlang.h"
+#include <irrKlang.h>
 
 #pragma comment(lib, "irrKlang.lib")
 

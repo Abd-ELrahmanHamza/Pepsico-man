@@ -11,7 +11,7 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
-#include "../../vendor/irrKlang/include/irrKlang.h"
+#include <irrKlang.h>
 
 namespace our {
 

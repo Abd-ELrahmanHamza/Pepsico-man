@@ -7,7 +7,7 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 #include "../application.hpp"
-#include "../../vendor/irrKlang/include/irrKlang.h"
+#include <irrKlang.h>
 
 namespace our {
 

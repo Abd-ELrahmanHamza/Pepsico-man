@@ -90,12 +90,12 @@ set(COMMON_SOURCES
 # Define the directories in which to search for the included headers
 include_directories(
         source/common
+        vendor/irrKlang/include
         vendor/glfw/include
         vendor/glad/include
         vendor/glm
         vendor/imgui
         vendor/utils
-        vendor/irrKlang
 )
 
 
