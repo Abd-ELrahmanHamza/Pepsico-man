@@ -79,7 +79,7 @@ class WinningState : public our::State {
         // - The body {} which contains the code to be executed.
         buttons[0].position = {120.0f, 190.0f};
         buttons[0].size = {320.0f, 52.0f};
-        buttons[0].action = [this](){this->getApp()->changeState("menu");};
+        buttons[0].action = [this](){this->getApp()->changeState("levels");};
 
         buttons[1].position = {30.0f, 270.0f};
         buttons[1].size = {620.0f, 52.0f};
@@ -92,7 +92,7 @@ class WinningState : public our::State {
 
         if (keyboard.justPressed(GLFW_KEY_SPACE)) {
             // If the space key is pressed in this frame, go to the play state
-            getApp()->changeState("menu");
+            getApp()->changeState("levels");
         } else if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape key is pressed in this frame, exit the game
             getApp()->close();
