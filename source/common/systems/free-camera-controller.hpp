@@ -168,7 +168,8 @@ namespace our {
             if ( (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) && app->levelState !=3) {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     slideState = our::SlideState::Slided;
-
+                    irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
+                    soundEngine->play2D("audio/slide.mp3");
                     playerRotation.x -= 90;
                     //playerRotation.y += 45;
                     //playerRotation.x += 90;
