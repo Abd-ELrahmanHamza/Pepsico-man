@@ -86,6 +86,7 @@ class WinningState : public our::State {
         buttons[1].action = [this](){
             if(this->getApp()->levelState<3)
                 this->getApp()->levelState++;
+            this->getApp()->countPepsi =0 ;
             this->getApp()->changeState("play");
             };
     }

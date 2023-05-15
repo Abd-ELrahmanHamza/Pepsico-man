@@ -183,8 +183,8 @@ namespace our {
 
                     glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix() *
                                                glm::vec4(playerEntity->localTransform.position, 1.0);
-                    std::cout << "x =" << actualposition.x << " y=" << actualposition.y << " z=" << actualposition.z
-                              << std::endl;
+                    // std::cout << "x =" << actualposition.x << " y=" << actualposition.y << " z=" << actualposition.z
+                    //           << std::endl;
                     // playerPosition.x += 2;
                     playerPosition.y -= 1;
                     playerPosition.z += 1;

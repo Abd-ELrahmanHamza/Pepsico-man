@@ -25,7 +25,7 @@
 #include "../application.hpp"
 
 namespace our {
-    void RepeatSystem::update(World *world, float deltaTime) {
+    void RepeatSystem::update(World *world, float deltaTime,int level) {
         glm::vec3 playerPosition;
         PlayerComponent *player;
         for (auto entity: world->getEntities()) {

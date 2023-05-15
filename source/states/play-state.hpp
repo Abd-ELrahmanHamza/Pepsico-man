@@ -47,10 +47,13 @@ class Playstate : public our::State {
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
+        int level = getApp()->levelState;
+        //countpepsi
         movementSystem.update(&world, (float) deltaTime);
         cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime, countPepsi);
-        repeatSystem.update(&world, (float) deltaTime);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi);
+
+        repeatSystem.update(&world, (float) deltaTime,level);
         finalLineSystem.update(&world, (float) deltaTime);
 
         // And finally we use the renderer system to draw the scene
