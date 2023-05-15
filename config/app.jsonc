@@ -30,16 +30,19 @@
                 "wood": "assets/textures/wood.jpg",
                 "obelisk": "assets/textures/obelisk.png",
                 "player": "assets/textures/player.png",
+                "player2": "assets/textures/player2.jpg",
                 "can": "assets/textures/can.png",
                 "plane": "assets/textures/plane.png",
                 "rocket": "assets/textures/rocket.png",
                 "finalLine": "assets/textures/finalLine.jpg",
                 "pepsiMachine": "assets/textures/pepsiMachine.png",
-                "rustedCar": "assets/textures/rustedCar.png"
+                "rustedCar": "assets/textures/rustedCar.png",
+                "trash": "assets/textures/trash.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
                 "player": "assets/models/player.obj",
+                "player2":"assets/models/player2.obj",
                 "plane": "assets/models/plane.obj",
                 "house": "assets/models/house.obj",
                 "can": "assets/models/can.obj",
@@ -47,7 +50,8 @@
                 "obelisk": "assets/models/obelisk.obj",
                 "rocket": "assets/models/rocket.obj",
                 "pepsiMachine": "assets/models/pepsiMachine.obj",
-                "rustedCar": "assets/models/rustedCar.obj"
+                "rustedCar": "assets/models/rustedCar.obj",
+                "trash": "assets/models/trash.obj"
             },
             "samplers": {
                 "default": {},
@@ -191,6 +195,26 @@
                         1
                     ],
                     "texture": "player",
+                    "sampler": "default"
+                },
+                "player2": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "texture": "player2",
                     "sampler": "default"
                 },
                 "house": {
@@ -361,6 +385,26 @@
                         1
                     ],
                     "texture": "rocket",
+                    "sampler": "default"
+                },
+                "trash": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "texture": "trash",
                     "sampler": "default"
                 }
             }
@@ -1015,7 +1059,7 @@
 
 
         // Level 1 is here ------------------------------------------------------------------------------------------------------
-        "level1": [
+        "level3": [
             {
                 "position": [
                     10,
@@ -1043,7 +1087,7 @@
                         // point
                         "position": [
                             0,
-                            -2,
+                            -0.9,
                             -2
                         ],
                         "rotation": [
@@ -1052,15 +1096,15 @@
                             0
                         ],
                         "scale": [
-                            0.01,
-                            0.01,
-                            0.01
+                            0.004,
+                            0.003,
+                            0.004
                         ],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "player",
-                                "material": "player"
+                                "mesh": "player2",
+                                "material": "player2"
                             },
                             {
                                 "type": "Player",
@@ -1070,7 +1114,7 @@
                                 "type": "Collision",
                                 "start": [
                                     -1,
-                                    0,
+                                    -1,
                                     -1
                                 ],
                                 "end": [
@@ -1153,6 +1197,31 @@
                             },
                             {
                                 "type": "Energy"
+                            }
+                        ]
+                    }
+                    ,
+                    {
+                        "position": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "rotation": [
+                            0,
+                            0,
+                            180
+                        ],
+                        "scale": [
+                            0.05,
+                            0.04,
+                            0.04
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "trash",
+                                "material": "trash"
                             }
                         ]
                     }
