@@ -185,9 +185,8 @@ class Menustate: public our::State {
         // setting window position 
         ImGui::SetWindowPos(ImVec2(450,500));
         // setting window size
-        ImGui::SetWindowSize(ImVec2(450,50));
-        ImGui::SetWindowFontScale(4.0f);
-        // ImGui::SetNextWindowBgAlpha(0.0f);
+        ImGui::SetWindowSize(ImVec2(550,100));
+        ImGui::SetWindowFontScale(5.0f);
         // writing text to window 
         ImGui::TextColored(ImVec4(1.0f,1.0f,1.0f,1.0f) , "Score : %d / 100" , getApp()->countPepsi);
         ImGui::End();
