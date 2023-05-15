@@ -150,9 +150,9 @@ target_link_libraries(GAME_APPLICATION ${CMAKE_SOURCE_DIR}/vendor/irrKlang/lib/W
 add_custom_command(TARGET GAME_APPLICATION POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dlls
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/bin/win32-visualStudio/irrKlang.dll
-        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/bin/win32-visualStudio/ikpMP3.dll
-        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/bin/win32-visualStudio/ikpFlac.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/irrKlang.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/ikpMP3.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/ikpFlac.dll
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
         COMMENT "Copying DLL files to the binary directory"
         )
