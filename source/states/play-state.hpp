@@ -114,6 +114,31 @@ class Playstate : public our::State {
         }
     }
 
+    void onImmediateGui() override
+    {
+        ImGui::Begin("score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
+        // setting window position 
+        ImGui::SetWindowPos(ImVec2(950,50));
+        // setting window size
+        ImGui::SetWindowSize(ImVec2(150,50));
+
+        // writing text to window 
+        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 1 | Score : %d" , getApp()->countPepsi);
+        ImGui::End();
+
+        ImGui::Begin("score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
+        // setting window position 
+        ImGui::SetWindowPos(ImVec2(950,50));
+        // setting window size
+        ImGui::SetWindowSize(ImVec2(175,50));
+
+        // writing text to window 
+        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 2 | Score : %d" , getApp()->countPepsi);
+        
+        ImGui::End();
+        
+    }
+
     void onDestroy() override {
         // Don't forget to destroy the renderer
         renderer.destroy();
@@ -126,4 +151,6 @@ class Playstate : public our::State {
         
         std:: cout << "destroyed world" << std::endl;
     }
+    
+
 };

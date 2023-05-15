@@ -56,7 +56,8 @@ class Menustate: public our::State {
         menuMaterial->shader->attach("assets/shaders/textured.frag", GL_FRAGMENT_SHADER);
         menuMaterial->shader->link();
         // Then we load the menu texture
-        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu.png");
+        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/win.jpg");
+        // menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu.png");
         // Initially, the menu material will be black, then it will fade in
         menuMaterial->tint = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -177,5 +178,19 @@ class Menustate: public our::State {
         delete menuMaterial;
         delete highlightMaterial->shader;
         delete highlightMaterial;
+    }
+    void onImmediateGui() override
+    {
+        ImGui::Begin("Final Score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |ImGuiWindowFlags_NoBackground);
+        // setting window position 
+        ImGui::SetWindowPos(ImVec2(450,500));
+        // setting window size
+        ImGui::SetWindowSize(ImVec2(550,100));
+        ImGui::SetWindowFontScale(5.0f);
+        // writing text to window 
+        ImGui::TextColored(ImVec4(1.0f,1.0f,1.0f,1.0f) , "Score : %d / 100" , getApp()->countPepsi);
+        ImGui::End();
+
+        
     }
 };

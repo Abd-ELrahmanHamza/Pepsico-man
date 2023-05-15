@@ -161,4 +161,19 @@ class WinningState : public our::State {
         delete highlightMaterial->shader;
         delete highlightMaterial;
     }
+
+    void onImmediateGui() override
+    {
+        ImGui::Begin("Final Score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
+        // setting window position 
+        ImGui::SetWindowPos(ImVec2(650,500));
+        // setting window size
+        ImGui::SetWindowSize(ImVec2(150,50));
+
+        // writing text to window 
+        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 1 | Score : %d" , getApp()->countPepsi);
+        ImGui::End();
+
+        
+    }
 };
