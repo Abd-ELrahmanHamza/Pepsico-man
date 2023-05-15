@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.05.Effects_vs2005", "CSharp.05.Effects_vs2005.csproj", "{1ED8B052-E53B-4680-8E7A-41F13DE1B5BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ED8B052-E53B-4680-8E7A-41F13DE1B5BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED8B052-E53B-4680-8E7A-41F13DE1B5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED8B052-E53B-4680-8E7A-41F13DE1B5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED8B052-E53B-4680-8E7A-41F13DE1B5BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

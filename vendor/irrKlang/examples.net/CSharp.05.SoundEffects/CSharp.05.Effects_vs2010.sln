@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.05.Effects_vs2010", "CSharp.05.Effects_vs2010.csproj", "{DF12AC74-E3B4-473A-A103-741A3FEA8D41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF12AC74-E3B4-473A-A103-741A3FEA8D41}.Debug|x86.ActiveCfg = Release|x86
+		{DF12AC74-E3B4-473A-A103-741A3FEA8D41}.Debug|x86.Build.0 = Release|x86
+		{DF12AC74-E3B4-473A-A103-741A3FEA8D41}.Release|x86.ActiveCfg = Release|x86
+		{DF12AC74-E3B4-473A-A103-741A3FEA8D41}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
