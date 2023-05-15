@@ -79,11 +79,15 @@ class WinningState : public our::State {
         // - The body {} which contains the code to be executed.
         buttons[0].position = {120.0f, 190.0f};
         buttons[0].size = {320.0f, 52.0f};
-        buttons[0].action = [this](){this->getApp()->changeState("levels");};
+        buttons[0].action = [this](){this->getApp()->changeState("menu");};
 
         buttons[1].position = {30.0f, 270.0f};
         buttons[1].size = {620.0f, 52.0f};
-        buttons[1].action = [this](){this->getApp()->close();};
+        buttons[1].action = [this](){
+            if(this->getApp()->levelState<3)
+                this->getApp()->levelState++;
+            this->getApp()->changeState("play");
+            };
     }
 
     void onDraw(double deltaTime) override {
@@ -95,7 +99,7 @@ class WinningState : public our::State {
             getApp()->changeState("levels");
         } else if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape key is pressed in this frame, exit the game
-            getApp()->close();
+            getApp()->changeState("levels");
         }
 
         // Get a reference to the mouse object and get the current mouse position
