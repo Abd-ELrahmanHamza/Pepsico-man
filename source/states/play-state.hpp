@@ -33,9 +33,50 @@ class Playstate : public our::State {
             our::deserializeAllAssets(config["assets"]);
         }
         // If we have a world in the scene config, we use it to populate our world
-        if (config.contains("world")) {
-            world.deserialize(config["world"]);
+        int level = getApp()->levelState;
+        if(level == 1)
+        {
+            if(config.contains("level1"))
+            {
+                std::cout << "level1 is rendered" << std::endl;
+                world.deserialize(config["level1"]);
+            }
+            else if (config.contains("world")) {
+                std::cout << "world is rendered" << std::endl;
+                world.deserialize(config["world"]);
+            }
         }
+        else if(level == 2)
+        {
+            if(config.contains("level2"))
+            {
+                std::cout << "level2 is rendered" << std::endl;
+                world.deserialize(config["level2"]);
+            }
+            else if (config.contains("world")) {
+                std::cout << "world is rendered" << std::endl;
+                world.deserialize(config["world"]);
+            }
+        }
+        else if(level == 3)
+        {
+            if(config.contains("level3"))
+            {
+                std::cout << "level3 is rendered" << std::endl;
+                world.deserialize(config["level3"]);
+            }
+            else if (config.contains("world")) {
+                std::cout << "world is rendered" << std::endl;
+                world.deserialize(config["world"]);
+            }
+        }
+        else{
+            if (config.contains("world")) {
+                std::cout << "world is rendered" << std::endl;
+                world.deserialize(config["world"]);
+            }
+        }
+
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         collisionSystem.enter(getApp());
@@ -82,5 +123,7 @@ class Playstate : public our::State {
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+        
+        std:: cout << "destroyed world" << std::endl;
     }
 };
