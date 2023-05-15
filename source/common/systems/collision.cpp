@@ -78,9 +78,9 @@ namespace our {
                         // std::cout << "objectStart position: x = " << objectStart.x << ", y= " << objectStart.y << ", z = "<< objectStart.z <<  std::endl;
                         // std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
-
-
-                        // countPepsi -= 5;
+                        
+                        
+                        countPepsi -= 5;
                         if (countPepsi < 0) {
                             std::cout << "game over " << countPepsi << std::endl;
                             app->changeState("game-over");
