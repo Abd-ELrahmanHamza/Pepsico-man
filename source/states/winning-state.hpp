@@ -11,6 +11,8 @@
 #include <array>
 #include "menu-state.hpp"
 
+#include <irrKlang.h>
+
 // This state shows how to use some of the abstractions we created to make a menu.
 class WinningState : public our::State {
 
@@ -24,6 +26,8 @@ class WinningState : public our::State {
     float time;
     // An array of the button that we can interact with
     std::array<Button, 2> buttons;
+
+    irrklang::ISoundEngine *soundEngine;
 
     void onInitialize() override {
         // First, we create a material for the menu's background
@@ -79,16 +83,20 @@ class WinningState : public our::State {
         // - The body {} which contains the code to be executed.
         buttons[0].position = {120.0f, 190.0f};
         buttons[0].size = {320.0f, 52.0f};
-        buttons[0].action = [this](){this->getApp()->changeState("menu");};
+        buttons[0].action = [this]() { this->getApp()->changeState("menu"); };
 
         buttons[1].position = {30.0f, 270.0f};
         buttons[1].size = {620.0f, 52.0f};
-        buttons[1].action = [this](){
-            if(this->getApp()->levelState<3)
+        buttons[1].action = [this]() {
+            if (this->getApp()->levelState < 3)
                 this->getApp()->levelState++;
-            this->getApp()->countPepsi =0 ;
+            this->getApp()->countPepsi = 0;
             this->getApp()->changeState("play");
-            };
+        };
+
+        // Plat state sound
+        soundEngine = irrklang::createIrrKlangDevice();
+        soundEngine->play2D("audio/winState.mp3", true);
     }
 
     void onDraw(double deltaTime) override {
@@ -153,6 +161,9 @@ class WinningState : public our::State {
     }
 
     void onDestroy() override {
+        // Stop play state sound
+        soundEngine->drop();
+
         // Delete all the allocated resources
         delete rectangle;
         delete menuMaterial->texture;
@@ -162,18 +173,18 @@ class WinningState : public our::State {
         delete highlightMaterial;
     }
 
-    void onImmediateGui() override
-    {
-        ImGui::Begin("Final Score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |ImGuiWindowFlags_NoBackground);
+    void onImmediateGui() override {
+        ImGui::Begin("Final Score", 0,
+                     ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
         // setting window position 
-        ImGui::SetWindowPos(ImVec2(420,500));
+        ImGui::SetWindowPos(ImVec2(420, 500));
         // setting window size
-        ImGui::SetWindowSize(ImVec2(600,100));
+        ImGui::SetWindowSize(ImVec2(600, 100));
         ImGui::SetWindowFontScale(5.0f);
         // writing text to window 
-        ImGui::TextColored(ImVec4(1.0f,1.0f,1.0f,1.0f) , "Score : %d / 100" , getApp()->countPepsi);
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Score : %d / 100", getApp()->countPepsi);
         ImGui::End();
 
-        
+
     }
 };
