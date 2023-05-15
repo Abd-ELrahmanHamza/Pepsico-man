@@ -142,7 +142,7 @@ namespace our {
             // Jump logic
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
-            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP)) {
+            if ( (app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP))  && app->levelState !=3 ) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
@@ -162,7 +162,7 @@ namespace our {
             }
 
             // slide logic
-            if (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) {
+            if ( (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) && app->levelState !=3) {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     slideState = our::SlideState::Slided;
 

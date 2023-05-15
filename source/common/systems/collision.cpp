@@ -77,7 +77,7 @@ namespace our {
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
                         
                         
-                        countPepsi -= 5;
+                        // countPepsi -= 5;
                         if (countPepsi < 0) {
                             std::cout << "game over " << countPepsi << std::endl;
                             app->changeState("game-over");
