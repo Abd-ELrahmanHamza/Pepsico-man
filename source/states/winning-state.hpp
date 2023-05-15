@@ -164,14 +164,14 @@ class WinningState : public our::State {
 
     void onImmediateGui() override
     {
-        ImGui::Begin("Final Score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
+        ImGui::Begin("Final Score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |ImGuiWindowFlags_NoBackground);
         // setting window position 
-        ImGui::SetWindowPos(ImVec2(650,500));
+        ImGui::SetWindowPos(ImVec2(420,500));
         // setting window size
-        ImGui::SetWindowSize(ImVec2(150,50));
-
+        ImGui::SetWindowSize(ImVec2(600,100));
+        ImGui::SetWindowFontScale(5.0f);
         // writing text to window 
-        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 1 | Score : %d" , getApp()->countPepsi);
+        ImGui::TextColored(ImVec4(1.0f,1.0f,1.0f,1.0f) , "Score : %d / 100" , getApp()->countPepsi);
         ImGui::End();
 
         

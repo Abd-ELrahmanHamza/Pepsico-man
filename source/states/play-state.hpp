@@ -12,8 +12,8 @@
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
-class Playstate : public our::State {
-
+class Playstate : public our::State
+{
 
     our::World world;
     our::ForwardRenderer renderer;
@@ -25,53 +25,60 @@ class Playstate : public our::State {
 
     int countPepsi = 0;
 
-    void onInitialize() override {
+    void onInitialize() override
+    {
         // First of all, we get the scene configuration from the app config
         auto &config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
-        if (config.contains("assets")) {
+        if (config.contains("assets"))
+        {
             our::deserializeAllAssets(config["assets"]);
         }
         // If we have a world in the scene config, we use it to populate our world
         int level = getApp()->levelState;
-        if(level == 1)
+        if (level == 1)
         {
-            if(config.contains("level1"))
+            if (config.contains("level1"))
             {
                 std::cout << "level1 is rendered" << std::endl;
                 world.deserialize(config["level1"]);
             }
-            else if (config.contains("world")) {
+            else if (config.contains("world"))
+            {
                 std::cout << "world is rendered" << std::endl;
                 world.deserialize(config["world"]);
             }
         }
-        else if(level == 2)
+        else if (level == 2)
         {
-            if(config.contains("level2"))
+            if (config.contains("level2"))
             {
                 std::cout << "level2 is rendered" << std::endl;
                 world.deserialize(config["level2"]);
             }
-            else if (config.contains("world")) {
+            else if (config.contains("world"))
+            {
                 std::cout << "world is rendered" << std::endl;
                 world.deserialize(config["world"]);
             }
         }
-        else if(level == 3)
+        else if (level == 3)
         {
-            if(config.contains("level3"))
+            if (config.contains("level3"))
             {
                 std::cout << "level3 is rendered" << std::endl;
                 world.deserialize(config["level3"]);
             }
-            else if (config.contains("world")) {
+            else if (config.contains("world"))
+            {
                 std::cout << "world is rendered" << std::endl;
                 world.deserialize(config["world"]);
             }
         }
-        else{
-            if (config.contains("world")) {
+        else
+        {
+            if (config.contains("world"))
+            {
                 std::cout << "world is rendered" << std::endl;
                 world.deserialize(config["world"]);
             }
@@ -86,16 +93,17 @@ class Playstate : public our::State {
         renderer.initialize(size, config["renderer"]);
     }
 
-    void onDraw(double deltaTime) override {
+    void onDraw(double deltaTime) override
+    {
         // Here, we just run a bunch of systems to control the world logic
         int level = getApp()->levelState;
-        //countpepsi
-        movementSystem.update(&world, (float) deltaTime);
-        cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi);
+        // countpepsi
+        movementSystem.update(&world, (float)deltaTime);
+        cameraController.update(&world, (float)deltaTime);
+        collisionSystem.update(&world, (float)deltaTime, getApp()->countPepsi);
 
-        repeatSystem.update(&world, (float) deltaTime,level);
-        finalLineSystem.update(&world, (float) deltaTime);
+        repeatSystem.update(&world, (float)deltaTime, level);
+        finalLineSystem.update(&world, (float)deltaTime);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
@@ -103,43 +111,21 @@ class Playstate : public our::State {
         // Get a reference to the keyboard object
         auto &keyboard = getApp()->getKeyboard();
 
-        if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
+        if (keyboard.justPressed(GLFW_KEY_ESCAPE))
+        {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
         }
 
-        if (keyboard.justPressed(GLFW_KEY_ENTER)) {
+        if (keyboard.justPressed(GLFW_KEY_ENTER))
+        {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("game-over");
         }
     }
 
-    void onImmediateGui() override
+    void onDestroy() override
     {
-        ImGui::Begin("score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
-        // setting window position 
-        ImGui::SetWindowPos(ImVec2(950,50));
-        // setting window size
-        ImGui::SetWindowSize(ImVec2(150,50));
-
-        // writing text to window 
-        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 1 | Score : %d" , getApp()->countPepsi);
-        ImGui::End();
-
-        ImGui::Begin("score" , 0 , ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove);
-        // setting window position 
-        ImGui::SetWindowPos(ImVec2(950,50));
-        // setting window size
-        ImGui::SetWindowSize(ImVec2(175,50));
-
-        // writing text to window 
-        ImGui::TextColored(ImVec4(1.0f,1.0f,0.0f,1.0f) , "Player 2 | Score : %d" , getApp()->countPepsi);
-        
-        ImGui::End();
-        
-    }
-
-    void onDestroy() override {
         // Don't forget to destroy the renderer
         renderer.destroy();
         // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
@@ -148,9 +134,7 @@ class Playstate : public our::State {
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
-        
-        std:: cout << "destroyed world" << std::endl;
-    }
-    
 
+        std::cout << "destroyed world" << std::endl;
+    }
 };
