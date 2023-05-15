@@ -143,7 +143,8 @@ namespace our {
             // Jump logic
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
-            if ( (app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP))  && app->levelState !=3 ) {
+            if ((app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP)) &&
+                app->levelState != 3) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     soundEngine->play2D("audio/jump.mp3");
@@ -154,6 +155,10 @@ namespace our {
             if (position.y >= jumpMaxHeight) {
                 jumpState = our::JumpState::FALLING;
             } else if (position.y <= 1) {
+                if (jumpState == our::JumpState::FALLING) {
+                    irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
+                    soundEngine->play2D("audio/jumpLand.mp3");
+                }
                 jumpState = our::JumpState::GROUNDED;
             }
             if (jumpState == our::JumpState::JUMPING) {
@@ -165,7 +170,8 @@ namespace our {
             }
 
             // slide logic
-            if ( (app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) && app->levelState !=3) {
+            if ((app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) &&
+                app->levelState != 3) {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     slideState = our::SlideState::Slided;
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
