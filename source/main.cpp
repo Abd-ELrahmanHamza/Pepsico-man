@@ -20,13 +20,9 @@
 #include "states/winning-state.hpp"
 #include "states/levels-state.hpp"
 
-#include <irrKlang.h>
-
 #pragma comment(lib, "irrKlang.lib")
 
 int main(int argc, char **argv) {
-    irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
-    soundEngine->play2D("audio/breakout.mp3", true);
 
 
     flags::args args(argc, argv); // Parse the command line arguments
