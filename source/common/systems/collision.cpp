@@ -25,6 +25,7 @@
 
 #include "../application.hpp"
 
+
 namespace our {
     void CollisionSystem::update(World *world, float deltaTime, int &countPepsi) {
         PlayerComponent *player;
@@ -56,7 +57,7 @@ namespace our {
             // If the collision component exists
             if (collision) {
                 // auto objectPosition =  glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(entity->localTransform.position,1.0) );
-                auto objectPosition =  entity->localTransform.position;
+                auto objectPosition = entity->localTransform.position;
                 glm::vec3 objectStart = collision->start + objectPosition;
                 glm::vec3 objectEnd = collision->end + objectPosition;
                 bool collided = true;
@@ -69,6 +70,8 @@ namespace our {
                 if (collided) {
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
+                        soundEngine->play2D("audio/obstacle.mp3");
+
                         // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
                         // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
                         // std::cout << "playerStart position: x = " << playerStart.x << ", y= " << playerStart.y << ", z = "<< playerStart.z <<  std::endl;
@@ -83,6 +86,8 @@ namespace our {
                             app->changeState("game-over");
                         }
                     } else if (entity->getComponent<CanComponent>()) {
+                        soundEngine->play2D("audio/can.wav");
+
                         if (countPepsi < 100) {
                             countPepsi++;
                         }

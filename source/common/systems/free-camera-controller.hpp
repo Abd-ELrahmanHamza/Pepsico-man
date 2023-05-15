@@ -11,6 +11,7 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
+#include "../../vendor/irrKlang/include/irrKlang.h"
 
 namespace our {
 
@@ -144,6 +145,8 @@ namespace our {
             float jumpMaxHeight = 4;
             if ( (app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP))  && app->levelState !=3 ) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
+                    irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
+                    soundEngine->play2D("audio/jump.mp3");
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
                 }
