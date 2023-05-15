@@ -34,7 +34,8 @@
                 "plane": "assets/textures/plane.png",
                 "rocket": "assets/textures/rocket.png",
                 "finalLine": "assets/textures/finalLine.jpg",
-                "pepsiMachine": "assets/textures/pepsiMachine.png"
+                "pepsiMachine": "assets/textures/pepsiMachine.png",
+                "rustedCar": "assets/textures/rustedCar.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -45,7 +46,8 @@
                 "fence": "assets/models/fence.obj",
                 "obelisk": "assets/models/obelisk.obj",
                 "rocket": "assets/models/rocket.obj",
-                "pepsiMachine": "assets/models/pepsiMachine.obj"
+                "pepsiMachine": "assets/models/pepsiMachine.obj",
+                "rustedCar": "assets/models/rustedCar.obj"
             },
             "samplers": {
                 "default": {},
@@ -90,6 +92,26 @@
                         1
                     ],
                     "texture": "obelisk",
+                    "sampler": "default"
+                },
+                "rustedCar": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "texture": "rustedCar",
                     "sampler": "default"
                 },"pepsiMachine": {
                     "type": "textured",
@@ -781,6 +803,59 @@
                         "type": "Mesh Renderer",
                         "mesh": "obelisk",
                         "material": "obelisk"
+                    },
+                    {
+                        "type": "Obstacle"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.8,
+                            0,
+                            -0.8
+                        ],
+                        "end": [
+                            0.8,
+                            1.2,
+                            0.8
+                        ]
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    -100,
+                    -1,
+                    0
+                ],
+                "scale": [
+                   0.2,
+                    0.2,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    true
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "rustedCar",
+                        "material": "rustedCar"
                     },
                     {
                         "type": "Obstacle"
