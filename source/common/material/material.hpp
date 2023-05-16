@@ -57,25 +57,8 @@ namespace our
         void deserialize(const nlohmann::json &data) override;
     };
 
-    // This function returns a new material instance based on the given type
-    inline Material *createMaterialFromType(const std::string &type)
-    {
-        if (type == "tinted")
-        {
-            return new TintedMaterial();
-        }
-        else if (type == "textured")
-        {
-            return new TexturedMaterial();
-        }
-        else
-        {
-            return new Material();
-        }
-    }
-
     // this class is used to create a material for the light
-    class LightMaterial : public Material
+    class LightMaterial : public TintedMaterial
     {
     public:
         Sampler *sampler; // da 34an ye3ml texture mapping lel diffusion
@@ -88,5 +71,25 @@ namespace our
         void setup() const override;
         void deserialize(const nlohmann::json &data) override;
     };
+    // This function returns a new material instance based on the given type
+    inline Material *createMaterialFromType(const std::string &type)
+    {
+        if (type == "tinted")
+        {
+            return new TintedMaterial();
+        }
+        else if (type == "textured")
+        {
+            return new TexturedMaterial();
+        }
+        else if (type == "lighted")
+        {
+            return new LightMaterial();
+        }
+        else
+        {
+            return new Material();
+        }
+    }
 
 }

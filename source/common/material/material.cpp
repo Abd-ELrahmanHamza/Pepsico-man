@@ -85,58 +85,46 @@ namespace our
 
     void LightMaterial::setup() const
     {
-        Material::setup();
+        TintedMaterial::setup();
 
         glActiveTexture(GL_TEXTURE0); // activate texture unit 0
-        texture->bind();              // bind texture to texture2D
-        if (sampler)
-            sampler->bind(0);
-        //! h7ot asamy el objects material.albedo for example.
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        albedo->bind();               // bind texture to texture2D
 
         glActiveTexture(GL_TEXTURE1); // activate texture unit 0
-        texture->bind();              // bind texture to texture2D
-        if (sampler)
-            sampler->bind(1);
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        specular->bind();             // bind texture to texture2D
+        glActiveTexture(GL_TEXTURE2);
+        emissive->bind();
+        glActiveTexture(GL_TEXTURE3);
+        roughness->bind();
+        glActiveTexture(GL_TEXTURE4);
+        ambient_occlusion->bind();
 
-        glActiveTexture(GL_TEXTURE2); // activate texture unit 0
-        texture->bind();              // bind texture to texture2D
-        if (sampler)
-            sampler->bind(2);
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        //
+        shader->set("material.albedo", 0);
+        shader->set("material.specular", 1);
+        shader->set("material.roughness", 3);
+        shader->set("material.ambient_occlusion", 4);
+        shader->set("material.emissive", 2);
 
-        glActiveTexture(GL_TEXTURE3); // activate texture unit 0
-        texture->bind();              // bind texture to texture2D
-        if (sampler)
-            sampler->bind(3);
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+        sampler->bind(0);
+        sampler->bind(1);
+        sampler->bind(2);
+        sampler->bind(3);
+        sampler->bind(4);
+    }
 
-        glActiveTexture(GL_TEXTURE4); // activate texture unit 0
-        texture->bind();              // bind texture to texture2D
-        if (sampler)
-            sampler->bind(4);
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
-        // shader->set("tex", 0); // set uniform of tex to texture unit 0
+    void LightMaterial::deserialize(const nlohmann::json &data)
+    {
+        TintedMaterial::deserialize(data);
+        if (!data.is_object())
+            return;
+        albedo = AssetLoader<Texture2D>::get(data.value("albedo", ""));
+        roughness = AssetLoader<Texture2D>::get(data.value("roughness", ""));
+        specular = AssetLoader<Texture2D>::get(data.value("specular", ""));
+        ambient_occlusion = AssetLoader<Texture2D>::get(data.value("ambient_occlusion", ""));
+        emissive = AssetLoader<Texture2D>::get(data.value("emissive", ""));
+
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
 }

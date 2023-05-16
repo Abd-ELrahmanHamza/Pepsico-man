@@ -34,6 +34,10 @@
                 "wood": "assets/textures/wood.jpg",
                 "obelisk": "assets/textures/glass-panels.png",
                 "player": "assets/textures/player.png",
+                "player_albedo": "assets/textures/Pepsiman_Albedo.png",
+                "player_specular": "assets/textures/Pepsiman_Specular.png",
+                "player_roughness": "assets/textures/Pepsiman_Roughness.png",
+                "player_ambient": "assets/textures/Pepsiman_Ambinet.png",
                 "can": "assets/textures/can.png",
                 "albedo": "assets/textures/Albedo.jpeg",
                 "specular": "assets/textures/specular.jpeg",
@@ -57,7 +61,7 @@
             "materials": {
                 "playerLight": {
                     "type": "light",
-                    "shader": "textured",
+                    "shader": "textured"
                 },
                 "metal": {
                     "type": "tinted",
@@ -116,8 +120,8 @@
                     "sampler": "default"
                 },
                 "player": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -132,7 +136,11 @@
                         1,
                         1
                     ],
-                    "texture": "player",
+                    "albedo": "player-albedo",
+                    "specular": "player-specular",
+                    "roughness": "player",
+                    "emissive": "player",
+                    "ambient_occlusion": "player",
                     "sampler": "default"
                 },
                 "house": {
@@ -254,32 +262,32 @@
                                     2,
                                     1
                                 ]
-                            },
-                            {
-                                // define point on pepsi man.
-                                "type": "Light",
-                                "lightType": 0,
-                                "position": [
-                                    1.0,
-                                    0.01,
-                                    0.0
-                                ],
-                                "direction": [
-                                    -1.0,
-                                    -0.1,
-                                    0.0
-                                ],
-                                "color": [
-                                    0.8,
-                                    0.6,
-                                    0.2
-                                ],
-                                "attenuation": [
-                                    0.0,
-                                    1.0,
-                                    0.0
-                                ]
                             }
+                            // {
+                            //     // define point on pepsi man.
+                            //     "type": "Light",
+                            //     "lightType": 0,
+                            //     "position": [
+                            //         1.0,
+                            //         0.01,
+                            //         0.0
+                            //     ],
+                            //     "direction": [
+                            //         -1.0,
+                            //         -0.1,
+                            //         0.0
+                            //     ],
+                            //     "color": [
+                            //         0.8,
+                            //         0.6,
+                            //         0.2
+                            //     ],
+                            //     "attenuation": [
+                            //         0.0,
+                            //         0.0,
+                            //         0.0
+                            //     ]
+                            // }
                         ]
                     }
                 ]

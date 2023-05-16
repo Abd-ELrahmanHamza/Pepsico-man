@@ -21,7 +21,6 @@ namespace our
         */
         int lightType;
         // for spot light we use both position and direction
-        glm::vec3 position;  // da 34an el point light, akno el source position.
         glm::vec3 direction; // el direction elly ell light ray7 feh, da lel directional light
         glm::vec3 color;
         glm::vec3 attenuation;                                                                            // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
