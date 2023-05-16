@@ -49,10 +49,15 @@ class Menustate : public our::State {
     // An array of the button that we can interact with
     std::array<Button, 1> buttons;
 
-    // Sound engine
+    // For sound effects
     irrklang::ISoundEngine *soundEngine;
 
+    // Used to detect button hover (for sound display)
+    bool buttonHover;
+
     void onInitialize() override {
+        buttonHover = false;
+
         // First, we create a material for the menu's background
         menuMaterial = new our::TexturedMaterial();
         // Here, we load the shader that will be used to draw the background
@@ -168,14 +173,22 @@ class Menustate : public our::State {
         menuMaterial->shader->set("transform", VP * M);
         rectangle->draw();
 
+        bool isHover = false;
         // For every button, check if the mouse is inside it. If the mouse is inside, we draw the highlight rectangle over it.
         for (auto &button: buttons) {
             if (button.isInside(mousePosition)) {
+                if (!buttonHover) {
+                    buttonHover = true;
+                    soundEngine->play2D("audio/button.mp3");
+                }
+                isHover = true;
                 highlightMaterial->setup();
                 highlightMaterial->shader->set("transform", VP * button.getLocalToWorld());
                 rectangle->draw();
             }
         }
+        if (!isHover)
+            buttonHover = false;
 
     }
 
