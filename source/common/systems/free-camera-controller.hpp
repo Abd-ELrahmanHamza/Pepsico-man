@@ -175,7 +175,11 @@ namespace our {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     slideState = our::SlideState::Slided;
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
-                    soundEngine->play2D("audio/slide.mp3");
+                    if (soundEngine->isCurrentlyPlaying("audio/sliding.mp3"))
+                        soundEngine->stopAllSounds();
+//                    soundEngine->play2D("audio/slide.mp3");
+                    soundEngine->play2D("audio/sliding.mp3");
+
                     playerRotation.x -= 90;
                     //playerRotation.y += 45;
                     //playerRotation.x += 90;

@@ -70,7 +70,10 @@ namespace our {
                 if (collided) {
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
+                        if (soundEngine->isCurrentlyPlaying("audio/collision.mp3"))
+                            soundEngine->stopAllSounds();
                         soundEngine->play2D("audio/obstacle.mp3");
+                        soundEngine->play2D("audio/collision.mp3");
 
                         // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
                         // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
@@ -78,8 +81,8 @@ namespace our {
                         // std::cout << "objectStart position: x = " << objectStart.x << ", y= " << objectStart.y << ", z = "<< objectStart.z <<  std::endl;
                         // std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
-                        
-                        
+
+
 //                        countPepsi -= 5;
                         if (countPepsi < 0) {
                             std::cout << "game over " << countPepsi << std::endl;
