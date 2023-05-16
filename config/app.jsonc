@@ -38,6 +38,7 @@
                 "player_specular": "assets/textures/Pepsiman_Specular.png",
                 "player_roughness": "assets/textures/Pepsiman_Roughness.png",
                 "player_ambient": "assets/textures/Pepsiman_Ambinet.png",
+                "player_emissive": "assets/textures/Pepsiman_Normal.png",
                 "can": "assets/textures/can.png",
                 "albedo": "assets/textures/Albedo.jpeg",
                 "specular": "assets/textures/specular.jpeg",
@@ -136,11 +137,12 @@
                         1,
                         1
                     ],
-                    "albedo": "player-albedo",
-                    "specular": "player-specular",
-                    "roughness": "player",
-                    "emissive": "player",
-                    "ambient_occlusion": "player",
+                    "texture": "player",
+                    "albedo": "player_albedo",
+                    "specular": "player_specular",
+                    "roughness": "player_roughness",
+                    "emissive": "player_emissive",
+                    "ambient_occlusion": "player_ambient",
                     "sampler": "default"
                 },
                 "house": {
@@ -263,31 +265,35 @@
                                     1
                                 ]
                             }
-                            // {
-                            //     // define point on pepsi man.
-                            //     "type": "Light",
-                            //     "lightType": 0,
-                            //     "position": [
-                            //         1.0,
-                            //         0.01,
-                            //         0.0
-                            //     ],
-                            //     "direction": [
-                            //         -1.0,
-                            //         -0.1,
-                            //         0.0
-                            //     ],
-                            //     "color": [
-                            //         0.8,
-                            //         0.6,
-                            //         0.2
-                            //     ],
-                            //     "attenuation": [
-                            //         0.0,
-                            //         0.0,
-                            //         0.0
-                            //     ]
-                            // }
+                        ]
+                    },
+                    {
+                        "position": [
+                            2,
+                            2,
+                            -2
+                        ],
+                        "components": [
+                            {
+                                // define point on pepsi man.
+                                "type": "Light",
+                                "lightType": 2,
+                                "direction": [
+                                    -1.0,
+                                    -0.1,
+                                    0.0
+                                ],
+                                "color": [
+                                    0.3,
+                                    0.6,
+                                    0.4
+                                ],
+                                "attenuation": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ]
+                            }
                         ]
                     }
                 ]

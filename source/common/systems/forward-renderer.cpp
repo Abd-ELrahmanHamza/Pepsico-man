@@ -1,7 +1,7 @@
 #include "forward-renderer.hpp"
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
-
+#include <iostream>
 namespace our
 {
 
@@ -238,21 +238,35 @@ namespace our
                     // we need to send all the lights entity to the shader
                     // we need to send the data corresponding to each type of light
                     opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*it)->lightType);
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", (*it)->cone_angles);
-                    /*
-                    struct Light {
-                        int type;
-                        vec3 position;
-                        vec3 direction;
-                        vec3 color;
-                        vec3 attenuation;
-                        vec2 cone_angles;
-                    };
-                    */
+                    if ((*it)->lightType == 0)
+                    {
+                        // directional light
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                        // opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                    }
+                    else if ((*it)->lightType == 1)
+                    {
+                        // spot light
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", (*it)->cone_angles);
+                    }
+                    else
+                    {
+                        auto lightPosition =
+                            glm::vec3((*it)->getOwner()->getLocalToWorldMatrix() *
+                                      glm::vec4((*it)->getOwner()->localTransform.position, 1.0));
+                        // std::cout << lightPosition.x << " " << lightPosition.y << " " << lightPosition.z << std::endl;
+                        ;
+                        // point light
+                        // std::cout << " position :" << ((*it)->getOwner()->localTransform.position).x << std::endl;
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", lightPosition);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                    }
                 }
                 opaqueCommand.material->shader->set("light_count", (int)lights_list.size());
                 opaqueCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
@@ -313,14 +327,58 @@ namespace our
         for (auto transparentCommand : transparentCommands)
         {
             // the VP matrix is still the same in all objects
-            // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
+            // multiply VP with the M matrix of each object wich we get from transparentCommand.localToWorld
             // then using class matrial to send the MPV matrix to the shader
             // the last step is draw the command using function draw in the mesh , wich draw and swap the buffers and finish the drawing
 
             glm::mat4 M = transparentCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             transparentCommand.material->setup();
-            transparentCommand.material->shader->set("transform", mpv);
+            if (dynamic_cast<our::LightMaterial *>(transparentCommand.material))
+            {
+                int index = 0;
+                for (auto it = lights_list.begin(); it != lights_list.end(); it++)
+                {
+                    // we need to send all the lights entity to the shader
+                    // we need to send the data corresponding to each type of light
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*it)->lightType);
+                    if ((*it)->lightType == 0)
+                    {
+                        // directional light
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                    }
+                    else if ((*it)->lightType == 1)
+                    {
+                        // spot light
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", (*it)->cone_angles);
+                    }
+                    else
+                    {
+                        // point light
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
+                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                    }
+                }
+                transparentCommand.material->shader->set("light_count", (int)lights_list.size());
+                transparentCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
+                transparentCommand.material->shader->set("sky.bottom", glm::vec3(0.1, 0.5, 0.1));
+                transparentCommand.material->shader->set("sky.horizon", glm::vec3(0.1, 0.5, 0.1));
+
+                transparentCommand.material->shader->set("VP", VP);
+                transparentCommand.material->shader->set("M", transparentCommand.localToWorld);
+                transparentCommand.material->shader->set("M_IT", glm::transpose(glm::inverse(transparentCommand.localToWorld)));
+                transparentCommand.material->shader->set("camera_position", eye); // eye * Model of camera
+            }
+            else
+            {
+                transparentCommand.material->shader->set("transform", mpv);
+            }
             transparentCommand.mesh->draw();
         }
         // If there is a postprocess material, apply postprocessing

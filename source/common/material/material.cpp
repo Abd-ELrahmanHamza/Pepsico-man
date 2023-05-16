@@ -2,7 +2,7 @@
 
 #include "../asset-loader.hpp"
 #include "deserialize-utils.hpp"
-
+#include <iostream>
 namespace our
 {
 
@@ -86,31 +86,32 @@ namespace our
     void LightMaterial::setup() const
     {
         TintedMaterial::setup();
-
         glActiveTexture(GL_TEXTURE0); // activate texture unit 0
         albedo->bind();               // bind texture to texture2D
+        shader->set("material.albedo", 0);
+        sampler->bind(0);
 
         glActiveTexture(GL_TEXTURE1); // activate texture unit 0
         specular->bind();             // bind texture to texture2D
+        shader->set("material.specular", 1);
+        sampler->bind(1);
+
         glActiveTexture(GL_TEXTURE2);
         emissive->bind();
+        shader->set("material.emissive", 2);
+        sampler->bind(2);
+
         glActiveTexture(GL_TEXTURE3);
         roughness->bind();
+        shader->set("material.roughness", 3);
+        sampler->bind(3);
+
         glActiveTexture(GL_TEXTURE4);
         ambient_occlusion->bind();
+        shader->set("material.ambient_occlusion", 4);
+        sampler->bind(4);
 
         //
-        shader->set("material.albedo", 0);
-        shader->set("material.specular", 1);
-        shader->set("material.roughness", 3);
-        shader->set("material.ambient_occlusion", 4);
-        shader->set("material.emissive", 2);
-
-        sampler->bind(0);
-        sampler->bind(1);
-        sampler->bind(2);
-        sampler->bind(3);
-        sampler->bind(4);
     }
 
     void LightMaterial::deserialize(const nlohmann::json &data)
