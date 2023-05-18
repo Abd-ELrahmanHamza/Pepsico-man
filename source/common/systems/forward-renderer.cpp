@@ -233,39 +233,36 @@ namespace our
             if (dynamic_cast<our::LightMaterial *>(opaqueCommand.material))
             {
                 int index = 0;
-                for (auto it = lights_list.begin(); it != lights_list.end(); it++)
+                for (auto lightComponent = lights_list.begin(); lightComponent != lights_list.end(); lightComponent++)
                 {
-                    // we need to send all the lights entity to the shader
+                    // we need to send all the lights entlightComponenty to the shader
                     // we need to send the data corresponding to each type of light
-                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*it)->lightType);
-                    if ((*it)->lightType == 0)
+                    opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*lightComponent)->lightType);
+                    if ((*lightComponent)->lightType == 0)
                     {
                         // directional light
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
-                        // opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*lightComponent)->direction);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*lightComponent)->color);
+                        // opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*lightComponent)->attenuation);
                     }
-                    else if ((*it)->lightType == 1)
+                    else if ((*lightComponent)->lightType == 2)
                     {
                         // spot light
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*it)->direction);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", (*it)->cone_angles);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*lightComponent)->getOwner()->localTransform.position);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction", (*lightComponent)->direction);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*lightComponent)->color);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*lightComponent)->attenuation);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", (*lightComponent)->cone_angles);
                     }
                     else
                     {
+                        // point
                         auto lightPosition =
-                            glm::vec3((*it)->getOwner()->getLocalToWorldMatrix() *
-                                      glm::vec4((*it)->getOwner()->localTransform.position, 1.0));
-                        // std::cout << lightPosition.x << " " << lightPosition.y << " " << lightPosition.z << std::endl;
-                        ;
-                        // point light
-                        // std::cout << " position :" << ((*it)->getOwner()->localTransform.position).x << std::endl;
+                            glm::vec3((*lightComponent)->getOwner()->getLocalToWorldMatrix() *
+                                      glm::vec4((*lightComponent)->getOwner()->localTransform.poslightComponention, 1.0));
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", lightPosition);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
-                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*lightComponent)->color);
+                        opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*lightComponent)->attenuation);
                     }
                 }
                 opaqueCommand.material->shader->set("light_count", (int)lights_list.size());

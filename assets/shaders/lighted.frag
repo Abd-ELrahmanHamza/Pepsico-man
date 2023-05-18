@@ -8,9 +8,9 @@ struct Light {
     int type;
     vec3 position;
     vec3 direction;
-    vec3 color;
-    vec3 attenuation;
-    vec2 cone_angles;
+    vec3 color; // amibent w specular w el diffusion 
+    vec3 attenuation; // kol ma nb3d el do2 el mfrod yed3f
+    vec2 cone_angles; // spot light
 };
 
 #define MAX_LIGHTS 8
@@ -18,6 +18,7 @@ struct Light {
 uniform Light lights[MAX_LIGHTS];
 uniform int light_count;
 
+// ambient light, enhwa bymsl kowet el do2 mn kol etgah, swa2 top aw horizon aw bottom.
 struct Sky {
     vec3 top, horizon, bottom;
 };
@@ -29,6 +30,7 @@ vec3 compute_sky_light(vec3 normal){
     return mix(sky.horizon, extreme, normal.y * normal.y);
 }
 
+// bt3br 3n el object bta3na.  -> texture mix.
 struct Material {
     sampler2D albedo;
     sampler2D specular;
@@ -39,6 +41,7 @@ struct Material {
 
 uniform Material material;
 
+// de el 7agat elly gayaly mn el vertex shader.
 in Varyings {
     vec4 color;
     vec2 tex_coord;
@@ -47,11 +50,14 @@ in Varyings {
     vec3 world;
 } fs_in;
 
+// de el 7aga elly bn5rgha mn el fragment shader bt3na
 out vec4 frag_color;
 
+// de bt3br 3n el phong model. 
 float lambert(vec3 normal, vec3 world_to_light_direction) {
     return max(0.0, dot(normal, world_to_light_direction));
 }
+
 
 float phong(vec3 reflected, vec3 view, float shininess) {
     return pow(max(0.0, dot(reflected, view)), shininess);
@@ -83,9 +89,7 @@ void main() {
             world_to_light_dir = light.position - fs_in.world;
             float d = length(world_to_light_dir);
             world_to_light_dir /= d;
-
             attenuation = 1.0 / dot(light.attenuation, vec3(d*d, d, 1.0));
-
             if(light.type == SPOT){
                 float angle = acos(dot(light.direction, -world_to_light_dir));
                 attenuation *= smoothstep(light.cone_angles.y, light.cone_angles.x, angle);

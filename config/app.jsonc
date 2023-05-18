@@ -277,16 +277,16 @@
                             {
                                 // define point on pepsi man.
                                 "type": "Light",
-                                "lightType": 2,
+                                "lightType": 1,
                                 "direction": [
                                     -1.0,
                                     -0.1,
                                     0.0
                                 ],
                                 "color": [
-                                    0.3,
-                                    0.6,
-                                    0.4
+                                    1.0,
+                                    0.0,
+                                    0.0
                                 ],
                                 "attenuation": [
                                     0.0,
