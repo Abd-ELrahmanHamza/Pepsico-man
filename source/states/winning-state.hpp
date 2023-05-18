@@ -198,5 +198,7 @@ class WinningState : public our::State {
         // writing text to window 
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Score : %d / 100", getApp()->countPepsi);
         ImGui::End();
+
+
     }
 };

@@ -103,16 +103,21 @@ class Playstate : public our::State {
     }
 
     void onImmediateGui() override {
-        ImGui::Begin("Press space to start", 0,
-                     ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
-        // setting window position
-        ImGui::SetWindowPos(ImVec2(420, 500));
-        // setting window size
-        ImGui::SetWindowSize(ImVec2(600, 100));
-        ImGui::SetWindowFontScale(5.0f);
-        // writing text to window
-        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Score : %d / 100", getApp()->countPepsi);
-        ImGui::End();
+        if (getApp()->motionState == our::MotionState::RESTING) {
+            ImGui::Begin("Start running", 0,
+                         ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+            // setting window position
+            ImGui::SetWindowPos(ImVec2(250, 500));
+
+            // setting window size
+            ImGui::SetWindowSize(ImVec2(800, 100));
+            ImGui::SetWindowFontScale(5.0f);
+
+            // writing text to window
+            ImGui::TextColored(ImVec4(0.498f, 0.247f, 0.749f, 0.8f), "Press enter to start", getApp()->countPepsi);
+
+            ImGui::End();
+        }
     }
 
     void onDestroy() override {
