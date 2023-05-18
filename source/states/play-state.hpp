@@ -107,14 +107,14 @@ class Playstate : public our::State {
             ImGui::Begin("Start running", 0,
                          ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
             // setting window position
-            ImGui::SetWindowPos(ImVec2(250, 500));
+            ImGui::SetWindowPos(ImVec2(270, 500));
 
             // setting window size
             ImGui::SetWindowSize(ImVec2(800, 100));
             ImGui::SetWindowFontScale(5.0f);
 
             // writing text to window
-            ImGui::TextColored(ImVec4(0.498f, 0.247f, 0.749f, 0.8f), "Press enter to start", getApp()->countPepsi);
+            ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "PRESS ENTER TO START");
 
             ImGui::End();
         }
