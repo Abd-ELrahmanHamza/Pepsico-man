@@ -191,7 +191,7 @@ class WinningState : public our::State {
         ImGui::Begin("Final Score", 0,
                      ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
         // setting window position 
-        ImGui::SetWindowPos(ImVec2(420, 500));
+        ImGui::SetWindowPos(ImVec2(320, 500));
         // setting window size
         ImGui::SetWindowSize(ImVec2(600, 100));
         ImGui::SetWindowFontScale(5.0f);
