@@ -218,14 +218,23 @@ namespace our {
             // Move player left and right
             if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT)) {
                 // Stop player from going off the street
-                if (cameraPosition.z > -5)
-                    cameraPosition += cameraRight * (deltaTime * player->speed);
-//                std::cout << "Camera Position: " << cameraPosition.x << " " << cameraPosition.z << std::endl;
+                if (world->level == 3) {
+                    if (cameraPosition.z < 5)
+                        cameraPosition -= cameraRight * (deltaTime * player->speed);
+                } else {
+                    if (cameraPosition.z > -5)
+                        cameraPosition += cameraRight * (deltaTime * player->speed);
+                }
             }
             if (app->getKeyboard().isPressed(GLFW_KEY_A) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
                 // Stop player from going off the street
-                if (cameraPosition.z < 5)
-                    cameraPosition -= cameraRight * (deltaTime * player->speed);
+                if (world->level == 3) {
+                    if (cameraPosition.z > -5)
+                        cameraPosition += cameraRight * (deltaTime * player->speed);
+                } else {
+                    if (cameraPosition.z < 5)
+                        cameraPosition -= cameraRight * (deltaTime * player->speed);
+                }
             }
 
             // }
