@@ -3,9 +3,12 @@
 #include <vector>
 #include <iostream>
 
+#include "../components/can.hpp"
+#include "../components/obstacle.hpp"
+
 namespace our {
     // This is the upper limit on the number of entities in the world
-    const uint64_t ENTITIES_UPPER_LIMIT = 400;
+    const uint64_t ENTITIES_UPPER_LIMIT = 100;
     const uint8_t SLICE_SIZE = 13;
 
     // This is the map that keeps track of entities positions in the world
@@ -52,12 +55,20 @@ namespace our {
                         entityMap[vertical][horizontal] = true;
                         newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
                         newDuplicateEntity->localTransform.position.z = (-4.0f + float(horizontal) * 4.0f);
-                        std::cout << newDuplicateEntity->localTransform.position.z << std::endl;
+
+                        CanComponent *canComponent = newDuplicateEntity->getComponent<CanComponent>();
+                        ObstacleComponent *obstacleComponent = newDuplicateEntity->getComponent<ObstacleComponent>();
+                        if (canComponent || obstacleComponent) {
+                            if (newDuplicateEntity->localTransform.position.x < -995) {
+                                markForRemoval(newDuplicateEntity);
+                                continue;
+                            }
+                        }
                     } else {
                         newDuplicateEntity->localTransform.position.x += -float(i) * duplicates[1];
                     }
                 }
-
+                deleteMarkedEntities();
             }
         }
     }
