@@ -8,8 +8,7 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 
-namespace our
-{
+namespace our {
 
     // The movement system is responsible for moving every entity which contains a MovementComponent.
     // This system is added as a simple example for how use the ECS framework to implement logic. 
@@ -18,13 +17,13 @@ namespace our
     public:
 
         // This should be called every frame to update all entities containing a MovementComponent. 
-        void update(World* world, float deltaTime) {
+        void update(World *world, float deltaTime, our::MotionState motionState) {
             // For each entity in the world
-            for(auto entity : world->getEntities()){
+            for (auto entity: world->getEntities()) {
                 // Get the movement component if it exists
-                MovementComponent* movement = entity->getComponent<MovementComponent>();
+                MovementComponent *movement = entity->getComponent<MovementComponent>();
                 // If the movement component exists
-                if(movement){
+                if (movement && motionState == our::MotionState::RUNNING) {
                     // Change the position and rotation based on the linear & angular velocity and delta time.
                     entity->localTransform.position += deltaTime * movement->linearVelocity;
                     entity->localTransform.rotation += deltaTime * movement->angularVelocity;

@@ -83,17 +83,16 @@ class Playstate : public our::State {
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         int level = getApp()->levelState;
-        // countpepsi
-        movementSystem.update(&world, (float) deltaTime);
-        cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi,getApp()->heartCount);
+        movementSystem.update(&world, (float) deltaTime, getApp()->motionState);
+        cameraController.update(&world, (float) deltaTime, getApp()->motionState);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount);
 
         repeatSystem.update(&world, (float) deltaTime, level);
         finalLineSystem.update(&world, (float) deltaTime);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
-        // std::cout<< "level: " << getApp()->levelState<<std::endl;
+
         // Get a reference to the keyboard object
         auto &keyboard = getApp()->getKeyboard();
 
@@ -101,10 +100,23 @@ class Playstate : public our::State {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
         }
+    }
 
-        if (keyboard.justPressed(GLFW_KEY_ENTER)) {
-            // If the escape  key is pressed in this frame, go to the play state
-            getApp()->changeState("game-over");
+    void onImmediateGui() override {
+        if (getApp()->motionState == our::MotionState::RESTING) {
+            ImGui::Begin("Start running", 0,
+                         ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+            // setting window position
+            ImGui::SetWindowPos(ImVec2(250, 500));
+
+            // setting window size
+            ImGui::SetWindowSize(ImVec2(800, 100));
+            ImGui::SetWindowFontScale(5.0f);
+
+            // writing text to window
+            ImGui::TextColored(ImVec4(0.498f, 0.247f, 0.749f, 0.8f), "Press enter to start", getApp()->countPepsi);
+
+            ImGui::End();
         }
     }
 
