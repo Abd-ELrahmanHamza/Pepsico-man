@@ -11,10 +11,6 @@ namespace our {
     const uint64_t ENTITIES_UPPER_LIMIT = 400;
     const uint8_t SLICE_SIZE = 13;
 
-    // This is the map that keeps track of entities positions in the world
-    // We have three ways left, middle and right
-    std::vector<std::vector<bool>> entityMap(ENTITIES_UPPER_LIMIT, std::vector<bool>(3, false));
-
     int generateRandomNumber(int min, int max) {
         // Generate a random number between min and max (inclusive)
         int randomNumber = rand() % (max - min + 1) + min;
@@ -25,6 +21,10 @@ namespace our {
     // If parent pointer is not null, the new entities will be have their parent set to that given pointer
     // If any of the entities has children, this function will be called recursively for these children
     void World::deserialize(const nlohmann::json &data, Entity *parent) {
+        // This is the map that keeps track of entities positions in the world
+        // We have three ways left, middle and right
+        std::vector<std::vector<bool>> entityMap(ENTITIES_UPPER_LIMIT, std::vector<bool>(3, false));
+
         if (!data.is_array())
             return;
         for (const auto &entityData: data) {
