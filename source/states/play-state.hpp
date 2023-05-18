@@ -37,6 +37,7 @@ class Playstate : public our::State {
         // If we have a world in the scene config, we use it to populate our world
         int level = getApp()->levelState;
         if (level == 1) {
+            world.level = 1;
             if (config.contains("level1")) {
                 std::cout << "level1 is rendered" << std::endl;
                 world.deserialize(config["level1"]);
@@ -45,6 +46,7 @@ class Playstate : public our::State {
                 world.deserialize(config["world"]);
             }
         } else if (level == 2) {
+            world.level = 2;
             if (config.contains("level2")) {
                 std::cout << "level2 is rendered" << std::endl;
                 world.deserialize(config["level2"]);
@@ -53,6 +55,7 @@ class Playstate : public our::State {
                 world.deserialize(config["world"]);
             }
         } else if (level == 3) {
+            world.level = 3;
             if (config.contains("level3")) {
                 std::cout << "level3 is rendered" << std::endl;
                 world.deserialize(config["level3"]);

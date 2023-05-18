@@ -60,7 +60,21 @@ namespace our {
                         CanComponent *canComponent = newDuplicateEntity->getComponent<CanComponent>();
                         ObstacleComponent *obstacleComponent = newDuplicateEntity->getComponent<ObstacleComponent>();
                         if (canComponent || obstacleComponent) {
-                            if (newDuplicateEntity->localTransform.position.x < -995) {
+                            int roadLength = -1000;
+                            switch (level) {
+                                case 1:
+                                    roadLength = -1000;
+                                    break;
+                                case 2:
+                                    roadLength = -1500;
+                                    break;
+                                case 3:
+                                    roadLength = -1000;
+                                    break;
+                                default:
+                                    roadLength = -1000;
+                            }
+                            if (newDuplicateEntity->localTransform.position.x < roadLength + 5) {
                                 markForRemoval(newDuplicateEntity);
                                 continue;
                             }
