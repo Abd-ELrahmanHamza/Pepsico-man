@@ -130,6 +130,7 @@ namespace our
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
+        lights_list.clear();
         // std::unordered_set<our::Light
         for (auto entity : world->getEntities())
         {
@@ -219,6 +220,7 @@ namespace our
 
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
+        // std::cout << "num of color lights : " << lights_list.size() << std::endl;
         for (auto opaqueCommand : opaqueCommands)
         {
             // the VP matrix is still the same in all objects
@@ -233,7 +235,7 @@ namespace our
             if (dynamic_cast<our::LightMaterial *>(opaqueCommand.material))
             {
                 int index = 0;
-                for (auto it = lights_list.begin(); it != lights_list.end(); it++)
+                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++)
                 {
                     // we need to send all the lights entity to the shader
                     // we need to send the data corresponding to each type of light
@@ -245,7 +247,7 @@ namespace our
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color", (*it)->color);
                         // opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
                     }
-                    else if ((*it)->lightType == 1)
+                    else if ((*it)->lightType == 2)
                     {
                         // spot light
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position", (*it)->getOwner()->localTransform.position);
@@ -268,7 +270,9 @@ namespace our
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
                     }
                 }
-                opaqueCommand.material->shader->set("light_count", (int)lights_list.size());
+                // std::cout << "num of lightsis : " << (int32_t)lights_list.size() << std::endl;
+
+                opaqueCommand.material->shader->set("light_count", (int32_t)lights_list.size());
                 opaqueCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
                 opaqueCommand.material->shader->set("sky.bottom", glm::vec3(0.1, 0.5, 0.1));
                 opaqueCommand.material->shader->set("sky.horizon", glm::vec3(0.1, 0.5, 0.1));
@@ -337,7 +341,7 @@ namespace our
             if (dynamic_cast<our::LightMaterial *>(transparentCommand.material))
             {
                 int index = 0;
-                for (auto it = lights_list.begin(); it != lights_list.end(); it++)
+                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++)
                 {
                     // we need to send all the lights entity to the shader
                     // we need to send the data corresponding to each type of light
@@ -365,7 +369,8 @@ namespace our
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
                     }
                 }
-                transparentCommand.material->shader->set("light_count", (int)lights_list.size());
+                // std::cout << "num of lightsis : " << (int32_t)lights_list.size() << std::endl;
+                transparentCommand.material->shader->set("light_count", (int32_t)lights_list.size());
                 transparentCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
                 transparentCommand.material->shader->set("sky.bottom", glm::vec3(0.1, 0.5, 0.1));
                 transparentCommand.material->shader->set("sky.horizon", glm::vec3(0.1, 0.5, 0.1));

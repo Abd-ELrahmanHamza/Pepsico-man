@@ -31,16 +31,21 @@
             "textures": {
                 "house": "assets/textures/house.jpg",
                 "road": "assets/textures/road.jpg",
+                "road_albedo": "assets/textures/road_albedo2.png",
+                "road_specular": "assets/textures/road_specular2.png",
+                "road_roughness": "assets/textures/road_roughness2.png",
+                "road_ambient_occlusion": "assets/textures/road_AO2.png",
+                "road_emissive": "assets/textures/road_emissive2.png",
                 "wood": "assets/textures/wood.jpg",
                 "obelisk": "assets/textures/glass-panels.png",
                 "player": "assets/textures/player.png",
                 "player_albedo": "assets/textures/Pepsiman_Albedo.png",
                 "player_specular": "assets/textures/Pepsiman_Specular.png",
                 "player_roughness": "assets/textures/Pepsiman_Roughness.png",
-                "player_ambient": "assets/textures/Pepsiman_Ambinet.png",
-                "player_emissive": "assets/textures/Pepsiman_Normal.png",
+                "player_ambient_occlusion": "assets/textures/Pepsiman_Ambinet.png",
+                "player_emissive": "assets/textures/Pepsiman_Emissive.png",
                 "can": "assets/textures/can.png",
-                "albedo": "assets/textures/Albedo.jpeg",
+                // "albedo": "assets/textures/Albedo.jpeg",
                 "specular": "assets/textures/specular.jpeg",
                 "Roughness": "assets/textures/Roughness.jpeg"
             },
@@ -101,8 +106,8 @@
                     ]
                 },
                 "road": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -118,6 +123,11 @@
                         1
                     ],
                     "texture": "road",
+                    "albedo": "road_albedo",
+                    "specular": "road_specular",
+                    "roughness": "road_roughness",
+                    "emissive": "road_emissive",
+                    "ambient_occlusion": "road_ambient_occlusion",
                     "sampler": "default"
                 },
                 "player": {
@@ -142,7 +152,7 @@
                     "specular": "player_specular",
                     "roughness": "player_roughness",
                     "emissive": "player_emissive",
-                    "ambient_occlusion": "player_ambient",
+                    "ambient_occlusion": "player_ambient_occlusion",
                     "sampler": "default"
                 },
                 "house": {
@@ -266,32 +276,99 @@
                                 ]
                             }
                         ]
-                    },
+                    }
+                    ///////////////////////// // the sun
+                    ,
                     {
+                        // the sun
                         "position": [
-                            2,
-                            2,
-                            -2
+                            -100, // +x is for right
+                            70, // +y is for up
+                            -100 // -z for forward (depth)
+                        ],
+                        "scale": [
+                            0.5,
+                            0.5,
+                            0.5
+                        ],
+                        "rotation": [
+                            0,
+                            90,
+                            0
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "house",
+                                "material": "house"
+                            },
+                            {
+                                // define point on pepsi man.
+                                "type": "Light",
+                                "lightType": 1, // 1 for point 
+                                "direction": [ // directional not matter in point light
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "color": [
+                                    100000,
+                                    100000,
+                                    80000
+                                ],
+                                "attenuation": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ]
+                            }
+                        ]
+                    },
+                    /////////////////////////// directional light
+                    {
+                        // directional light to affect the pepsi man
+                        // "position": [
+                        //     2, // +x is for right
+                        //     0, // +y is for up
+                        //     -1 // -z for forward (depth)
+                        // ],
+                        "position": [
+                            10, // +x is for right
+                            10, // +y is for up
+                            10 // -z for forward (depth)
+                        ],
+                        "scale": [
+                            0.1,
+                            0.1,
+                            0.01000
+                        ],
+                        "rotation": [
+                            0,
+                            0,
+                            0
                         ],
                         "components": [
                             {
                                 // define point on pepsi man.
                                 "type": "Light",
-                                "lightType": 2,
+                                "lightType": 0, // 0 for directional 
                                 "direction": [
-                                    -1.0,
+                                    // +x is for right
+                                    // +y is for up
+                                    // -z for forward (depth)
                                     -0.1,
-                                    0.0
+                                    0.0,
+                                    -0.5
                                 ],
                                 "color": [
-                                    0.3,
-                                    0.6,
-                                    0.4
+                                    7.0,
+                                    7.0,
+                                    15.0
                                 ],
                                 "attenuation": [
-                                    0.0,
-                                    0.0,
-                                    0.0
+                                    2.0,
+                                    1.0,
+                                    1.0
                                 ]
                             }
                         ]
