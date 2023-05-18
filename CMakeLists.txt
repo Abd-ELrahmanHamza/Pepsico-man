@@ -79,6 +79,8 @@ set(COMMON_SOURCES
         source/common/components/movement.cpp
         source/common/components/obstacle.hpp
         source/common/components/obstacle.cpp
+        source/common/components/heart.hpp
+        source/common/components/heart.cpp
         source/common/components/component-deserializer.hpp
 
         source/common/systems/forward-renderer.hpp

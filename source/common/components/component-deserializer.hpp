@@ -12,6 +12,7 @@
 #include "repeat.hpp"
 #include "energy.hpp"
 #include "final-line.hpp"
+#include "heart.hpp"
 
 namespace our {
 
@@ -43,6 +44,9 @@ namespace our {
             component = entity->addComponent<EnergyComponent>();  // add a energy component to the entity
         }else if (type == FinalLineComponent::getID()) {    // check if the type is a FinalLine component
             component = entity->addComponent<FinalLineComponent>();  // add a FinalLine component to the entity
+        }
+        else if(type == HeartComponent::getID()){  // check if the type is a Heart component
+            component = entity->addComponent<HeartComponent>(); // add a Heart component to the entity
         }
         if (component)
             component->deserialize(data);

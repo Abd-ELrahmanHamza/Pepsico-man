@@ -92,6 +92,7 @@ class LevelsState : public our::State {
         buttons[0].action = [this]() {
             this->getApp()->levelState = 1;
             this->getApp()->countPepsi = 0;
+            this->getApp()->heartCount = 3;
             this->getApp()->changeState("play");
         };
 
@@ -100,6 +101,7 @@ class LevelsState : public our::State {
         buttons[1].action = [this]() {
             this->getApp()->levelState = 2;
             this->getApp()->countPepsi = 0;
+            this->getApp()->heartCount = 2;
             this->getApp()->changeState("play");
         };
 
@@ -108,6 +110,7 @@ class LevelsState : public our::State {
         buttons[2].action = [this]() {
             this->getApp()->levelState = 3;
             this->getApp()->countPepsi = 0;
+            this->getApp()->heartCount = 1;
             this->getApp()->changeState("play");
         };
         // Plat state sound

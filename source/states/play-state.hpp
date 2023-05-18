@@ -25,6 +25,7 @@ class Playstate : public our::State {
     our::FinalLineSystem finalLineSystem;
     irrklang::ISoundEngine *soundEngine;
     int countPepsi = 0;
+    int heartCount = 3;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -85,7 +86,7 @@ class Playstate : public our::State {
         // countpepsi
         movementSystem.update(&world, (float) deltaTime);
         cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi,getApp()->heartCount);
 
         repeatSystem.update(&world, (float) deltaTime, level);
         finalLineSystem.update(&world, (float) deltaTime);

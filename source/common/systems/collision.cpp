@@ -13,6 +13,7 @@
 #include "../components/obstacle.hpp"
 #include "../components/repeat.hpp"
 #include "../components/energy.hpp"
+#include "../components/heart.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -27,7 +28,7 @@
 
 
 namespace our {
-    void CollisionSystem::update(World *world, float deltaTime, int &countPepsi) {
+    void CollisionSystem::update(World *world, float deltaTime, int &countPepsi, int &heartCount) {
         PlayerComponent *player;
         glm::vec3 playerPosition;
         Entity *playerEntity;
@@ -82,13 +83,18 @@ namespace our {
                         // std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
 
-
-//                        countPepsi -= 5;
-                        if (countPepsi < 0) {
+                        CollisionSystem::decreaseHearts(world, heartCount);
+                        if (heartCount < 1) {
                             std::cout << "game over " << countPepsi << std::endl;
                             soundEngine->play2D("audio/death.mp3");
                             app->changeState("game-over");
                         }
+//                        countPepsi -= 5;
+                        // if (countPepsi < 0) {
+                        //     std::cout << "game over " << countPepsi << std::endl;
+                        //     soundEngine->play2D("audio/death.mp3");
+                        //     app->changeState("game-over");
+                        // }
                     } else if (entity->getComponent<CanComponent>()) {
                         soundEngine->play2D("audio/can.wav");
 
@@ -101,7 +107,7 @@ namespace our {
                         if (energy) {
                             // rescale energy bar with one unit and move position
                             if (countPepsi < 100) {
-                                countPepsi++;
+                                //countPepsi++;
                                 std::cout << "countPepsi: " << countPepsi << std::endl;
                                 energybar->localTransform.scale.x = (double) 0.145 * (double) (countPepsi / 100.0);
                                 energybar->localTransform.position.x = -0.142 + 0.145 * (countPepsi / 100.0);
@@ -118,6 +124,27 @@ namespace our {
                     }
                     break;
                 }
+            }
+        }
+    }
+
+    void CollisionSystem::decreaseHearts(World *world,int & heartCount)
+    {       
+
+        for (auto heartEntity: world->getEntities()) {
+            HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
+            if(heart)
+            {
+                std::cout << "heartCount: " << heart->heartNumber << std::endl;   
+            }
+            if (heart && heart->heartNumber == heartCount) {
+                // rescale energy bar with one unit and move position
+                std::cout << "heartCount: " << heartCount << std::endl;
+                heartEntity->localTransform.scale.x = 0.0;
+                heartEntity->localTransform.scale.y = 0.0;
+                heartEntity->localTransform.scale.z = 0.0;
+                heartCount--;
+                break;
             }
         }
     }

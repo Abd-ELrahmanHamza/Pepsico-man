@@ -73,6 +73,7 @@ namespace our {
     public:
         int levelState;                     // This will store the current level state of the application
         int countPepsi = 0 ;
+        int heartCount = 3;
         // Create an application with following configuration
         Application(const nlohmann::json& app_config) : app_config(app_config) {}
         // On destruction, delete all the states
