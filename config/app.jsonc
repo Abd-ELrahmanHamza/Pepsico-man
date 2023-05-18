@@ -37,7 +37,8 @@
                 "finalLine": "assets/textures/finalLine.jpg",
                 "pepsiMachine": "assets/textures/pepsiMachine.png",
                 "rustedCar": "assets/textures/rustedCar.png",
-                "trash": "assets/textures/trash.png"
+                "trash": "assets/textures/trash.png",
+                "StreetLight":"assets/textures/StreetLight.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -52,7 +53,8 @@
                 "pepsiMachine": "assets/models/pepsiMachine.obj",
                 "rustedCar": "assets/models/rustedCar.obj",
                 "trash": "assets/models/trash.obj",
-                "heart":"assets/models/heart.obj"
+                "heart":"assets/models/heart.obj",
+                "StreetLight":"assets/models/StreetLight.obj"
             },
             "samplers": {
                 "default": {},
@@ -369,8 +371,8 @@
                     "sampler": "default"
                 },
                 "garden": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "tinted",
+                    "shader": "tinted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -380,13 +382,14 @@
                         }
                     },
                     "tint": [
-                        0,
-                        1,
-                        0,
+                        0.5,
+                        0.5,
+                        0.5,
                         1
-                    ],
-                    "texture": "rocket",
-                    "sampler": "default"
+                    ]
+                    // ,
+                    // "texture": "rocket",
+                    // "sampler": "default"
                 },
                 "trash": {
                     "type": "textured",
@@ -425,7 +428,28 @@
                         0,
                         1
                     ]
+                },
+                "StreetLight":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "texture": "StreetLight",
+                    "sampler": "default"
                 }
+
             }
         },
         "world": [
