@@ -42,7 +42,7 @@ namespace our {
         }
 
         // This should be called every frame to update all entities containing a FreeCameraControllerComponent 
-        void update(World *world, float deltaTime) {
+        void update(World *world, float deltaTime, our::MotionState &motionState) {
             // First of all, we search for an cameraEntity containing both a CameraComponent and a FreeCameraControllerComponent
             // As soon as we find one, we break
             CameraComponent *camera = nullptr;
@@ -208,9 +208,12 @@ namespace our {
             }
 
 
-
+            if (app->getKeyboard().isPressed(GLFW_KEY_ENTER)) {
+                motionState = our::MotionState::RUNNING;
+            }
             // Move player forward
-            position += cameraFront * (deltaTime * 20);
+            if (motionState == our::MotionState::RUNNING)
+                position += cameraFront * (deltaTime * 20);
             // if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
             // Move player left and right
             if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT)) {

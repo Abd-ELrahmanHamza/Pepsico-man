@@ -83,17 +83,16 @@ class Playstate : public our::State {
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         int level = getApp()->levelState;
-        // countpepsi
-        movementSystem.update(&world, (float) deltaTime);
-        cameraController.update(&world, (float) deltaTime);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi,getApp()->heartCount);
+        movementSystem.update(&world, (float) deltaTime, getApp()->motionState);
+        cameraController.update(&world, (float) deltaTime, getApp()->motionState);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount);
 
         repeatSystem.update(&world, (float) deltaTime, level);
         finalLineSystem.update(&world, (float) deltaTime);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
-        // std::cout<< "level: " << getApp()->levelState<<std::endl;
+
         // Get a reference to the keyboard object
         auto &keyboard = getApp()->getKeyboard();
 
@@ -101,11 +100,19 @@ class Playstate : public our::State {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
         }
+    }
 
-        if (keyboard.justPressed(GLFW_KEY_ENTER)) {
-            // If the escape  key is pressed in this frame, go to the play state
-            getApp()->changeState("game-over");
-        }
+    void onImmediateGui() override {
+        ImGui::Begin("Press space to start", 0,
+                     ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        // setting window position
+        ImGui::SetWindowPos(ImVec2(420, 500));
+        // setting window size
+        ImGui::SetWindowSize(ImVec2(600, 100));
+        ImGui::SetWindowFontScale(5.0f);
+        // writing text to window
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Score : %d / 100", getApp()->countPepsi);
+        ImGui::End();
     }
 
     void onDestroy() override {
