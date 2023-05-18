@@ -25,6 +25,7 @@
 
 #include "texture/screenshot.hpp"
 
+
 std::string default_screenshot_filepath() {
     std::stringstream stream;
     auto time = std::time(nullptr);
@@ -188,6 +189,7 @@ int our::Application::run(int run_for_frames) {
 
     // Create a window with the given "WindowConfiguration" attributes.
     // If it should be fullscreen, monitor should point to one of the monitors (e.g. primary monitor), otherwise it should be null
+    // da el pointer elly by5leny ader arsm fullscreen
     GLFWmonitor *monitor = win_config.isFullscreen ? glfwGetPrimaryMonitor() : nullptr;
     // The last parameter "share" can be used to share the resources (OpenGL objects) between multiple windows.
     window = glfwCreateWindow(win_config.size.x, win_config.size.y, win_config.title.c_str(), monitor, nullptr);
@@ -281,7 +283,7 @@ int our::Application::run(int run_for_frames) {
         keyboard.setEnabled(!io.WantCaptureKeyboard, window);
         // TODO: enable mouse when needed
         mouse.setEnabled(!io.WantCaptureMouse, window);
-//        mouse.setEnabled(false, window);
+        //        mouse.setEnabled(false, window);
 
         // Render the ImGui commands we called (this doesn't actually draw to the screen yet.
         ImGui::Render();
@@ -294,11 +296,6 @@ int our::Application::run(int run_for_frames) {
         // Get the current time (the time at which we are starting the current frame).
         double current_frame_time = glfwGetTime();
 
-        // glClearColor(((9202119 / 1) % 16) / 16.0,
-        //              ((9202119 / 16) % 16) / 16.0,
-        //              ((9202119 / 256) % 16) / 16.0,
-        //              1.0);
-        // glClear(GL_COLOR_BUFFER_BIT);
         // Call onDraw, in which we will draw the current frame, and send to it the time difference between the last and current frame
         if (currentState)
             currentState->onDraw(current_frame_time - last_frame_time);

@@ -39,7 +39,7 @@ set(COMMON_SOURCES
         source/common/asset-loader.cpp
         source/common/asset-loader.hpp
         source/common/deserialize-utils.hpp
-        
+
         source/common/shader/shader.hpp
         source/common/shader/shader.cpp
 
@@ -81,17 +81,20 @@ set(COMMON_SOURCES
         source/common/components/obstacle.cpp
         source/common/components/light.hpp
         source/common/components/light.cpp
+        source/common/components/heart.hpp
+        source/common/components/heart.cpp
         source/common/components/component-deserializer.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
         source/common/systems/free-camera-controller.hpp
         source/common/systems/movement.hpp
-)
+        )
 
 # Define the directories in which to search for the included headers
 include_directories(
         source/common
+        vendor/irrKlang/include
         vendor/glfw/include
         vendor/glad/include
         vendor/glm
@@ -116,10 +119,44 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
-        source/common/components/player.cpp source/common/components/player.hpp source/common/components/can.cpp source/common/components/can.hpp source/common/systems/collision.cpp source/common/systems/collision.hpp source/common/components/collision.cpp source/common/components/collision.hpp)
+        source/common/components/player.cpp
+        source/common/components/player.hpp
+        source/common/components/can.cpp
+        source/common/components/can.hpp
+        source/common/systems/collision.cpp
+        source/common/systems/collision.hpp
+        source/common/components/collision.cpp
+        source/common/components/collision.hpp
+        source/common/components/repeat.cpp
+        source/common/components/repeat.hpp
+        source/common/components/energy.cpp
+        source/common/components/energy.hpp
+        source/common/systems/repeat.cpp
+        source/common/systems/repeat.hpp
+        source/states/game-over.hpp
+        source/common/components/final-line.hpp
+        source/common/components/final-line.cpp
+        source/common/systems/final-line.hpp
+        source/common/systems/final-line.cpp
+        source/states/winning-state.hpp
+        source/states/levels-state.hpp
+        )
+
 
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
 add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(GAME_APPLICATION glfw)
+target_link_libraries(GAME_APPLICATION ${CMAKE_SOURCE_DIR}/vendor/irrKlang/lib/Win32-visualStudio/irrKlang.lib)
+
+# Copy DLL files to the binary directory
+add_custom_command(TARGET GAME_APPLICATION POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dlls
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/irrKlang.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/ikpMP3.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/win32-visualStudio/ikpFlac.dll
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
+        COMMENT "Copying DLL files to the binary directory"
+        )

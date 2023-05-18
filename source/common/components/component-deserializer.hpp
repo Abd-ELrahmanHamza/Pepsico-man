@@ -11,6 +11,11 @@
 #include "obstacle.hpp"
 #include "light.hpp"
 
+#include "repeat.hpp"
+#include "energy.hpp"
+#include "final-line.hpp"
+#include "heart.hpp"
+
 namespace our
 {
 
@@ -53,6 +58,22 @@ namespace our
         {                                                          // check if the type is a Obstacle renderer component
             component = entity->addComponent<ObstacleComponent>(); // add a Obstacle component to the entity
         }
+        else if (type == RepeatComponent::getID())
+        {                                                        // check if the type is a repeat renderer component
+            component = entity->addComponent<RepeatComponent>(); // add a repeat component to the entity
+        }
+        else if (type == EnergyComponent::getID())
+        {                                                        // check if the type is a energy renderer component
+            component = entity->addComponent<EnergyComponent>(); // add a energy component to the entity
+        }
+        else if (type == FinalLineComponent::getID())
+        {                                                           // check if the type is a FinalLine component
+            component = entity->addComponent<FinalLineComponent>(); // add a FinalLine component to the entity
+        }
+        else if (type == HeartComponent::getID())
+        {                                                       // check if the type is a Heart component
+            component = entity->addComponent<HeartComponent>(); // add a Heart component to the entity
+        }
         else if (type == LightComponent::getID())
         {                                                       // check if the type is a Obstacle renderer component
             component = entity->addComponent<LightComponent>(); // add a Obstacle component to the entity
@@ -60,5 +81,4 @@ namespace our
         if (component)
             component->deserialize(data);
     }
-
 }

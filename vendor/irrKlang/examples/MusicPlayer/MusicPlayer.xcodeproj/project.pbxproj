@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23CDAB110C51F05E003DA087 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23CDAB100C51F05E003DA087 /* main.cpp */; };
+		23CDAB130C51F082003DA087 /* libirrklang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 23CDAB120C51F082003DA087 /* libirrklang.dylib */; };
+		23F197970CDC54B3000CD932 /* main.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23F197940CDC54B3000CD932 /* main.h */; };
+		23F197980CDC54B3000CD932 /* window.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 23F197950CDC54B3000CD932 /* window.cxx */; };
+		23F197990CDC54B3000CD932 /* window.f in Sources */ = {isa = PBXBuildFile; fileRef = 23F197960CDC54B3000CD932 /* window.f */; };
+		23F1979E0CDC54E2000CD932 /* window.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23F1979D0CDC54E2000CD932 /* window.h */; };
+		23F19B020CDC5988000CD932 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F19B010CDC5988000CD932 /* Carbon.framework */; };
+		23F19B070CDC59CD000CD932 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F19B060CDC59CD000CD932 /* CoreFoundation.framework */; };
+		23F19B610CDC5F02000CD932 /* libfltkmacosx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F19B600CDC5F02000CD932 /* libfltkmacosx.a */; };
+		23F19B750CDC61D6000CD932 /* mac.r in CopyFiles */ = {isa = PBXBuildFile; fileRef = 23F19B740CDC61D6000CD932 /* mac.r */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				23F197970CDC54B3000CD932 /* main.h in CopyFiles */,
+				23F1979E0CDC54E2000CD932 /* window.h in CopyFiles */,
+				23F19B750CDC61D6000CD932 /* mac.r in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		23CDAB100C51F05E003DA087 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		23CDAB120C51F082003DA087 /* libirrklang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libirrklang.dylib; path = "../../bin/macosx-gcc/libirrklang.dylib"; sourceTree = SOURCE_ROOT; };
+		23F197940CDC54B3000CD932 /* main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		23F197950CDC54B3000CD932 /* window.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = window.cxx; sourceTree = "<group>"; };
+		23F197960CDC54B3000CD932 /* window.f */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.fortran; path = window.f; sourceTree = "<group>"; };
+		23F1979D0CDC54E2000CD932 /* window.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		23F19B010CDC5988000CD932 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		23F19B060CDC59CD000CD932 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		23F19B600CDC5F02000CD932 /* libfltkmacosx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfltkmacosx.a; path = 3rdparty/libfltkmacosx.a; sourceTree = "<group>"; };
+		23F19B740CDC61D6000CD932 /* mac.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = mac.r; path = 3rdparty/FL/mac.r; sourceTree = "<group>"; };
+		8DD76F6C0486A84900D96B5E /* MusicPlayer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MusicPlayer; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23CDAB130C51F082003DA087 /* libirrklang.dylib in Frameworks */,
+				23F19B020CDC5988000CD932 /* Carbon.framework in Frameworks */,
+				23F19B070CDC59CD000CD932 /* CoreFoundation.framework in Frameworks */,
+				23F19B610CDC5F02000CD932 /* libfltkmacosx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* macosx_xcode */ = {
+			isa = PBXGroup;
+			children = (
+				23F19B600CDC5F02000CD932 /* libfltkmacosx.a */,
+				23F19B060CDC59CD000CD932 /* CoreFoundation.framework */,
+				23F19B010CDC5988000CD932 /* Carbon.framework */,
+				23CDAB120C51F082003DA087 /* libirrklang.dylib */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = macosx_xcode;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				23F19B740CDC61D6000CD932 /* mac.r */,
+				23F1979D0CDC54E2000CD932 /* window.h */,
+				23F197940CDC54B3000CD932 /* main.h */,
+				23F197950CDC54B3000CD932 /* window.cxx */,
+				23F197960CDC54B3000CD932 /* window.f */,
+				23CDAB100C51F05E003DA087 /* main.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* MusicPlayer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* macosx_xcode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "macosx_xcode" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+				23CDAAE90C51E99B003DA087 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = macosx_xcode;
+			productInstallPath = "$(HOME)/bin";
+			productName = macosx_xcode;
+			productReference = 8DD76F6C0486A84900D96B5E /* MusicPlayer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "MusicPlayer" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* macosx_xcode */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* macosx_xcode */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23CDAAE90C51E99B003DA087 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME)",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change /usr/local/lib/libirrklang.dylib @executable_path/libirrklang.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME\"\n/Developer/Tools/Rez -t APPL -o \"$TARGET_BUILD_DIR/$PRODUCT_NAME\" 3rdparty/FL/mac.r";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23CDAB110C51F05E003DA087 /* main.cpp in Sources */,
+				23F197980CDC54B3000CD932 /* window.cxx in Sources */,
+				23F197990CDC54B3000CD932 /* window.f in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../bin/macosx-gcc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../bin/macosx-gcc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/3rdparty\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../../fltk-1.1.7/lib\"";
+				PRODUCT_NAME = MusicPlayer;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../bin/macosx-gcc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../bin/macosx-gcc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/3rdparty\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../../fltk-1.1.7/lib\"";
+				PRODUCT_NAME = MusicPlayer;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "../../bin/macosx-gcc";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../include;
+				OBJROOT = "../../bin/macosx-gcc";
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "../../bin/macosx-gcc";
+				GCC_PREPROCESSOR_DEFINITIONS = "MACOSX=1";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../include,
+					3rdparty,
+				);
+				LIBRARY_SEARCH_PATHS = 3rdparty;
+				OBJROOT = "../../bin/macosx-gcc";
+				PREBINDING = NO;
+				PRELINK_LIBS = "";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "macosx_xcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "MusicPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

@@ -7,6 +7,7 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 #include "../application.hpp"
+#include <irrKlang.h>
 
 namespace our {
 
@@ -14,7 +15,12 @@ namespace our {
     // This system is added as a simple example for how use the ECS framework to implement logic.
     // For more information, see "common/components/movement.hpp"
     class CollisionSystem {
+        irrklang::ISoundEngine *soundEngine;
     public:
+        CollisionSystem() {
+            soundEngine = irrklang::createIrrKlangDevice();
+        }
+
         Application *app; // The application in which the state runs
         // When a state enters, it should call this function and give it the pointer to the application
         void enter(Application *app) {
@@ -22,7 +28,8 @@ namespace our {
         }
 
         // This should be called every frame to update all entities containing a MovementComponent.
-        void update(World *world, float deltaTime);
+        void update(World *world, float deltaTime, int &countPepsi,int &heartCount);
+        void decreaseHearts(World *world,int & heartCount);
     };
 
 }

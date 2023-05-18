@@ -43,7 +43,7 @@ namespace our
         // - the center position which is the point (0,0,-1) but after being transformed by M
         // - the up direction which is the vector (0,1,0) but after being transformed by M
         // then you can use glm::lookAt
-        glm::vec4 eye = glm::vec4(0, 0, 0, 1);     // define eye as  vec4(0,0,0,1)
+        glm::vec4 eye = glm::vec4(0, 0, 0.5, 1);   // define eye as  vec4(0,0,0,1)
         glm::vec4 center = glm::vec4(0, 0, -1, 1); // define center as vec4(0,0,-1,1)
         glm::vec4 up = glm::vec4(0, 1, 0, 0);      // define up as vec4(0,1,0,0)
         glm::vec4 eye_transformed = M * eye;       // transform eye by M

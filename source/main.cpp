@@ -6,6 +6,7 @@
 #include <application.hpp>
 
 #include "states/menu-state.hpp"
+#include "states/game-over.hpp"
 #include "states/play-state.hpp"
 #include "states/shader-test-state.hpp"
 #include "states/mesh-test-state.hpp"
@@ -16,9 +17,13 @@
 #include "states/material-test-state.hpp"
 #include "states/entity-test-state.hpp"
 #include "states/renderer-test-state.hpp"
+#include "states/winning-state.hpp"
+#include "states/levels-state.hpp"
 
-int main(int argc, char **argv)
-{
+#pragma comment(lib, "irrKlang.lib")
+
+int main(int argc, char **argv) {
+
 
     flags::args args(argc, argv); // Parse the command line arguments
     // config_path is the path to the json file containing the application configuration
@@ -31,8 +36,7 @@ int main(int argc, char **argv)
 
     // Open the config file and exit if failed
     std::ifstream file_in(config_path);
-    if (!file_in)
-    {
+    if (!file_in) {
         std::cerr << "Couldn't open file: " << config_path << std::endl;
         return -1;
     }
@@ -46,6 +50,8 @@ int main(int argc, char **argv)
     // Register all the states of the project in the application
     app.registerState<Menustate>("menu");
     app.registerState<Playstate>("play");
+    app.registerState<GameOverstate>("game-over");
+    app.registerState<WinningState>("winning");
     app.registerState<ShaderTestState>("shader-test");
     app.registerState<MeshTestState>("mesh-test");
     app.registerState<TransformTestState>("transform-test");
@@ -55,9 +61,9 @@ int main(int argc, char **argv)
     app.registerState<MaterialTestState>("material-test");
     app.registerState<EntityTestState>("entity-test");
     app.registerState<RendererTestState>("renderer-test");
+    app.registerState<LevelsState>("levels");
     // Then choose the state to run based on the option "start-scene" in the config
-    if (app_config.contains(std::string{"start-scene"}))
-    {
+    if (app_config.contains(std::string{"start-scene"})) {
         app.changeState(app_config["start-scene"].get<std::string>());
     }
 

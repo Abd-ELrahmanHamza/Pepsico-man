@@ -13,6 +13,8 @@ namespace our {
     public:
         World() = default;
 
+        int level;
+
         // This will deserialize a json array of entities and add the new entities to the current world
         // If parent pointer is not null, the new entities will be have their parent set to that given pointer
         // If any of the entities has children, this function will be called recursively for these children
