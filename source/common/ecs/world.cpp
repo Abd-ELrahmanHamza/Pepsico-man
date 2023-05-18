@@ -8,7 +8,7 @@
 
 namespace our {
     // This is the upper limit on the number of entities in the world
-    const uint64_t ENTITIES_UPPER_LIMIT = 100;
+    const uint64_t ENTITIES_UPPER_LIMIT = 400;
     const uint8_t SLICE_SIZE = 13;
 
     // This is the map that keeps track of entities positions in the world
@@ -51,6 +51,7 @@ namespace our {
                         while (entityMap[vertical][horizontal]) {
                             horizontal = generateRandomNumber(0, 2);
                             vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
+                            std::cout << "here\n";
                         }
                         entityMap[vertical][horizontal] = true;
                         newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
