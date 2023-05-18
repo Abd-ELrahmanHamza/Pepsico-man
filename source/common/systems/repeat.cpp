@@ -25,7 +25,7 @@
 #include "../application.hpp"
 
 namespace our {
-    void RepeatSystem::update(World *world, float deltaTime,int level) {
+    void RepeatSystem::update(World *world, float deltaTime, int level) {
         glm::vec3 playerPosition;
         PlayerComponent *player;
         for (auto entity: world->getEntities()) {
@@ -53,9 +53,18 @@ namespace our {
             // If the player component exists
             if (repeatComponent) {
                 if (playerPosition[0] <= repeatPosition[0] - 50) {
+                    CanComponent *canComponent = repeatEntity->getComponent<CanComponent>();
+                    ObstacleComponent *obstacleComponent = repeatEntity->getComponent<ObstacleComponent>();
+                    if (canComponent || obstacleComponent) {
+                        if ((repeatPosition + repeatComponent->translation).x < -995) {
+                            world->markForRemoval(repeatEntity);
+                            continue;
+                        }
+                    }
                     repeatPosition += repeatComponent->translation;
                 }
             }
         }
+        world->deleteMarkedEntities();
     }
 }
