@@ -441,9 +441,9 @@
                         }
                     },
                     "tint": [
-                        0,
                         1,
-                        0,
+                        1,
+                        1,
                         1
                     ],
                     "texture": "StreetLight",
@@ -1181,6 +1181,82 @@
             //                   }
             //               ]
             //             }
+
+            ,
+            {
+                "position": [
+                    0,
+                    -1,
+                    -6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.25,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    -1,
+                    6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.25,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            }
         ],
 
 
@@ -1843,6 +1919,82 @@
                          "type": "Obstacle"
                      }
                 ]
+
+            }
+            ,
+            {
+                "position": [
+                    0,
+                    -1,
+                    -6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.25,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    -1,
+                    6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.25,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
             }
             
         ],
@@ -2502,6 +2654,81 @@
                      {
                          "type": "Obstacle"
                      }
+                ]
+            }
+            ,
+            {
+                "position": [
+                    0,
+                    -1,
+                    -6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.3,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    0,
+                    -1,
+                    6.5
+                ],
+                "scale": [
+                    0.2,
+                    0.3,
+                    0.2
+                ],
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "duplicates": [
+                    100,
+                    9,
+                    false
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
+                    },
+                    {
+                        "type": "Repeat",
+                        "translation": [
+                            -900,
+                            0,
+                            0
+                        ]
+                    }
                 ]
             }
         ]

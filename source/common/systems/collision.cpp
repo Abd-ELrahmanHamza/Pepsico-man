@@ -84,11 +84,11 @@ namespace our {
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
 
                         CollisionSystem::decreaseHearts(world, heartCount);
-                        if (heartCount < 1) {
-                            std::cout << "game over " << countPepsi << std::endl;
-                            soundEngine->play2D("audio/death.mp3");
-                            app->changeState("game-over");
-                        }
+                        // if (heartCount < 1) {
+                        //     std::cout << "game over " << countPepsi << std::endl;
+                        //     soundEngine->play2D("audio/death.mp3");
+                        //     app->changeState("game-over");
+                        // }
 //                        countPepsi -= 5;
                         // if (countPepsi < 0) {
                         //     std::cout << "game over " << countPepsi << std::endl;
