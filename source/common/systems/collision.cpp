@@ -101,7 +101,6 @@ namespace our {
                         if (energy) {
                             // rescale energy bar with one unit and move position
                             if (countPepsi < 100) {
-                                countPepsi++;
                                 std::cout << "countPepsi: " << countPepsi << std::endl;
                                 energybar->localTransform.scale.x = (double) 0.145 * (double) (countPepsi / 100.0);
                                 energybar->localTransform.position.x = -0.142 + 0.145 * (countPepsi / 100.0);
