@@ -56,7 +56,7 @@ namespace our {
                     CanComponent *canComponent = repeatEntity->getComponent<CanComponent>();
                     ObstacleComponent *obstacleComponent = repeatEntity->getComponent<ObstacleComponent>();
                     if (canComponent || obstacleComponent) {
-                        if ((repeatPosition + repeatComponent->translation).x < -995) {
+                        if ((repeatPosition + repeatComponent->translation).x < -1995) {
                             world->markForRemoval(repeatEntity);
                             continue;
                         }

@@ -8,7 +8,7 @@
 
 namespace our {
     // This is the upper limit on the number of entities in the world
-    const uint64_t ENTITIES_UPPER_LIMIT = 400;
+    const uint64_t ENTITIES_UPPER_LIMIT = 220;
     const uint8_t SLICE_SIZE = 13;
 
     int generateRandomNumber(int min, int max) {
@@ -60,19 +60,19 @@ namespace our {
                         CanComponent *canComponent = newDuplicateEntity->getComponent<CanComponent>();
                         ObstacleComponent *obstacleComponent = newDuplicateEntity->getComponent<ObstacleComponent>();
                         if (canComponent || obstacleComponent) {
-                            int roadLength = -1000;
+                            int roadLength = -2000;
                             switch (level) {
                                 case 1:
-                                    roadLength = -1000;
+                                    roadLength = -2000;
                                     break;
                                 case 2:
-                                    roadLength = -1500;
+                                    roadLength = -2000;
                                     break;
                                 case 3:
-                                    roadLength = -1000;
+                                    roadLength = -2000;
                                     break;
                                 default:
-                                    roadLength = -1000;
+                                    roadLength = -2000;
                             }
                             if (newDuplicateEntity->localTransform.position.x < roadLength + 5) {
                                 markForRemoval(newDuplicateEntity);
