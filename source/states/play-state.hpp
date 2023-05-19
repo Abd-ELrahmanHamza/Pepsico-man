@@ -81,6 +81,7 @@ class Playstate : public our::State {
         // Plat state sound
         soundEngine = irrklang::createIrrKlangDevice();
         soundEngine->play2D("audio/playState.mp3", true);
+        soundEngine->play2D("audio/startRunning.mp3");
     }
 
     void onDraw(double deltaTime) override {

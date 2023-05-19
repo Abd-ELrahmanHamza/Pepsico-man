@@ -95,13 +95,13 @@ class WinningState : public our::State
         // - The argument list () which is the arguments that the lambda should receive when it is called.
         //      We leave it empty since button actions receive no input.
         // - The body {} which contains the code to be executed.
-        buttons[0].position = {120.0f, 190.0f};
-        buttons[0].size = {320.0f, 52.0f};
+        buttons[0].position = {120.0f, 300.0f};
+        buttons[0].size = {220.0f, 52.0f};
         buttons[0].action = [this]()
         { this->getApp()->changeState("menu"); };
 
-        buttons[1].position = {30.0f, 270.0f};
-        buttons[1].size = {620.0f, 52.0f};
+        buttons[1].position = {75.0f, 360.0f};
+        buttons[1].size = {330.0f, 52.0f};
         buttons[1].action = [this]()
         {
             if (this->getApp()->levelState < 3) {
