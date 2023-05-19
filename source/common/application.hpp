@@ -14,6 +14,7 @@
 #include "input/mouse.hpp"
 
 namespace our {
+    
     enum MotionState {
         RUNNING,
         RESTING,

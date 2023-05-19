@@ -48,7 +48,7 @@ namespace our
         }
 
         // This should be called every frame to update all entities containing a FreeCameraControllerComponent
-        void update(World *world, float deltaTime, our::MotionState &motionState)
+        void update(World *world, float deltaTime, our::MotionState &motionState,bool &isSlided)
         {
             // First of all, we search for an cameraEntity containing both a CameraComponent and a FreeCameraControllerComponent
             // As soon as we find one, we break
@@ -208,6 +208,7 @@ namespace our
             {
                 if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED)
                 {
+                    isSlided = true;
                     slideState = our::SlideState::Slided;
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     if (soundEngine->isCurrentlyPlaying("audio/sliding.mp3"))
@@ -228,8 +229,10 @@ namespace our
             if (slideState == our::SlideState::Slided)
             {
                 slideTime += deltaTime;
+                isSlided = true;
                 if (slideTime >= deltaTime * 100)
                 {
+                    isSlided = false;
                     slideState = our::SlideState::NORMAL;
 
                     glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix() *

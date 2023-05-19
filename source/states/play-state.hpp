@@ -86,9 +86,10 @@ class Playstate : public our::State {
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         int level = getApp()->levelState;
+        bool isSlided = false;
         movementSystem.update(&world, (float) deltaTime, getApp()->motionState);
-        cameraController.update(&world, (float) deltaTime, getApp()->motionState);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount);
+        cameraController.update(&world, (float) deltaTime, getApp()->motionState, isSlided);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount,isSlided);
 
         repeatSystem.update(&world, (float) deltaTime, level);
         finalLineSystem.update(&world, (float) deltaTime);
