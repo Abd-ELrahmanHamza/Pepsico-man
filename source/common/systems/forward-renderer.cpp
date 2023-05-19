@@ -4,7 +4,6 @@
 #include <iostream>
 namespace our
 {
-
     void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json &config)
     {
         // First, we store the window size for later use
