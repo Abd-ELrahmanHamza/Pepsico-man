@@ -28,7 +28,8 @@
 
 
 namespace our {
-    void CollisionSystem::update(World *world, float deltaTime, int &countPepsi, int &heartCount,bool isSlided) {
+    void CollisionSystem::update(World *world, float deltaTime, int &countPepsi, int &heartCount, bool isSlided,
+                                 float &collisionStartTime) {
         PlayerComponent *player;
         glm::vec3 playerPosition;
         Entity *playerEntity;
@@ -61,7 +62,7 @@ namespace our {
                 auto objectPosition = entity->localTransform.position;
                 glm::vec3 objectStart = collision->start + objectPosition;
                 glm::vec3 objectEnd = collision->end + objectPosition;
-                if(isSlided){
+                if (isSlided) {
                     playerStart.y = -1;
                     playerEnd.y = 0.5;
                 }
@@ -75,17 +76,26 @@ namespace our {
                 if (collided) {
                     std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
+                        if (collisionStartTime == 0)
+                            collisionStartTime = deltaTime;
+
                         if (soundEngine->isCurrentlyPlaying("audio/collision.mp3"))
                             soundEngine->stopAllSounds();
                         soundEngine->play2D("audio/obstacle.mp3");
                         soundEngine->play2D("audio/collision.mp3");
 
-                        std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
-                        std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
-                        std::cout << "playerStart position: x = " << playerStart.x << ", y= " << playerStart.y << ", z = "<< playerStart.z <<  std::endl;
-                        std::cout << "objectStart position: x = " << objectStart.x << ", y= " << objectStart.y << ", z = "<< objectStart.z <<  std::endl;
-                        std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
-                        std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
+                        std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y
+                                  << ", z = " << playerPosition.z << std::endl;
+                        std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y
+                                  << ", z = " << objectPosition.z << std::endl;
+                        std::cout << "playerStart position: x = " << playerStart.x << ", y= " << playerStart.y
+                                  << ", z = " << playerStart.z << std::endl;
+                        std::cout << "objectStart position: x = " << objectStart.x << ", y= " << objectStart.y
+                                  << ", z = " << objectStart.z << std::endl;
+                        std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "
+                                  << playerEnd.z << std::endl;
+                        std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "
+                                  << objectEnd.z << std::endl;
 
                         CollisionSystem::decreaseHearts(world, heartCount);
                         // if (heartCount < 1) {
@@ -132,14 +142,12 @@ namespace our {
         }
     }
 
-    void CollisionSystem::decreaseHearts(World *world,int & heartCount)
-    {       
+    void CollisionSystem::decreaseHearts(World *world, int &heartCount) {
 
         for (auto heartEntity: world->getEntities()) {
             HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
-            if(heart)
-            {
-                std::cout << "heartCount: " << heart->heartNumber << std::endl;   
+            if (heart) {
+                std::cout << "heartCount: " << heart->heartNumber << std::endl;
             }
             if (heart && heart->heartNumber == heartCount) {
                 // rescale energy bar with one unit and move position

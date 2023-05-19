@@ -27,6 +27,8 @@ class Playstate : public our::State {
     int countPepsi = 0;
     int heartCount = 3;
 
+    float collisionStartTime = 0;
+
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto &config = getApp()->getConfig()["scene"];
@@ -74,6 +76,8 @@ class Playstate : public our::State {
         cameraController.enter(getApp());
         collisionSystem.enter(getApp());
         finalLineSystem.enter(getApp());
+        renderer.enter(getApp());
+
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -90,13 +94,23 @@ class Playstate : public our::State {
         bool isSlided = false;
         movementSystem.update(&world, (float) deltaTime, getApp()->motionState);
         cameraController.update(&world, (float) deltaTime, getApp()->motionState, isSlided);
-        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount,isSlided);
+        collisionSystem.update(&world, (float) deltaTime, getApp()->countPepsi, getApp()->heartCount, isSlided,
+                               collisionStartTime);
 
         repeatSystem.update(&world, (float) deltaTime, level);
         finalLineSystem.update(&world, (float) deltaTime);
 
+        std::string postProcessFrag = "assets/shaders/postprocess/vignette.frag";
+        if (getApp()->levelState == 3 && getApp()->motionState == our::MotionState::RUNNING)
+            postProcessFrag = "assets/shaders/postprocess/radial-blur.frag";
+        if (collisionStartTime != 0) {
+            collisionStartTime += deltaTime;
+            postProcessFrag = "assets/shaders/postprocess/Grain.frag";
+        }
+        // Collision effect for 100 time
+        if (collisionStartTime >= 20 * deltaTime)collisionStartTime = 0;
         // And finally we use the renderer system to draw the scene
-        renderer.render(&world);
+        renderer.render(&world, postProcessFrag);
 
         // Get a reference to the keyboard object
         auto &keyboard = getApp()->getKeyboard();
