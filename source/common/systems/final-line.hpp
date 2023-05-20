@@ -16,11 +16,15 @@ namespace our {
     // This system is added as a simple example for how use the ECS framework to implement logic.
     // For more information, see "common/components/movement.hpp"
     class FinalLineSystem {
-        irrklang::ISoundEngine *soundEngine;
+#ifdef USE_SOUND
 
+        irrklang::ISoundEngine *soundEngine;
+#endif
     public:
         FinalLineSystem() {
+#ifdef USE_SOUND
             soundEngine = irrklang::createIrrKlangDevice();
+#endif
         }
 
         Application *app; // The application in which the state runs

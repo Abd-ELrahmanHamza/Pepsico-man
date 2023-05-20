@@ -26,10 +26,10 @@ class LevelsState : public our::State {
     float time;
     // An array of the button that we can interact with
     std::array<Button, 3> buttons;
-
+#ifdef USE_SOUND
     // For sound effects
     irrklang::ISoundEngine *soundEngine;
-
+#endif
     // Used to detect button hover (for sound display)
     bool buttonHover;
 
@@ -113,9 +113,11 @@ class LevelsState : public our::State {
             this->getApp()->heartCount = 1;
             this->getApp()->changeState("play");
         };
+#ifdef USE_SOUND
         // Plat state sound
         soundEngine = irrklang::createIrrKlangDevice();
         soundEngine->play2D("audio/levelsState.mp3", true);
+#endif
     }
 
     void onDraw(double deltaTime) override {
@@ -174,7 +176,9 @@ class LevelsState : public our::State {
             if (button.isInside(mousePosition)) {
                 if (!buttonHover) {
                     buttonHover = true;
+#ifdef USE_SOUND
                     soundEngine->play2D("audio/button.mp3");
+#endif
                 }
                 isHover = true;
                 highlightMaterial->setup();
@@ -189,8 +193,10 @@ class LevelsState : public our::State {
     }
 
     void onDestroy() override {
+#ifdef USE_SOUND
         // Drop sound engine
         soundEngine->drop();
+#endif
         // Delete all the allocated resources
         delete rectangle;
         delete menuMaterial->texture;

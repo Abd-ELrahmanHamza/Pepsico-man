@@ -62,7 +62,7 @@ namespace our {
                 auto objectPosition = entity->localTransform.position;
                 glm::vec3 objectStart = collision->start + objectPosition;
                 glm::vec3 objectEnd = collision->end + objectPosition;
-                if(isSlided){
+                if (isSlided) {
                     playerStart.y = -1;
                     playerEnd.y = 0.5;
                 }
@@ -78,11 +78,12 @@ namespace our {
                     if (entity->getComponent<ObstacleComponent>()) {
                         if (collisionStartTime == 0)
                             collisionStartTime = deltaTime;
-
+#ifdef USE_SOUND
                         if (soundEngine->isCurrentlyPlaying("audio/collision.mp3"))
                             soundEngine->stopAllSounds();
                         soundEngine->play2D("audio/obstacle.mp3");
                         soundEngine->play2D("audio/collision.mp3");
+#endif
 
                         // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
                         // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
@@ -104,8 +105,9 @@ namespace our {
                         //     app->changeState("game-over");
                         // }
                     } else if (entity->getComponent<CanComponent>()) {
+#ifdef USE_SOUND
                         soundEngine->play2D("audio/can.wav");
-
+#endif
                         if (countPepsi < 100) {
                             countPepsi++;
                         }
@@ -136,14 +138,12 @@ namespace our {
         }
     }
 
-    void CollisionSystem::decreaseHearts(World *world,int & heartCount)
-    {       
+    void CollisionSystem::decreaseHearts(World *world, int &heartCount) {
 
         for (auto heartEntity: world->getEntities()) {
             HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
-            if(heart)
-            {
-                std::cout << "heartCount: " << heart->heartNumber << std::endl;   
+            if (heart) {
+                std::cout << "heartCount: " << heart->heartNumber << std::endl;
             }
             if (heart && heart->heartNumber == heartCount) {
                 // rescale energy bar with one unit and move position

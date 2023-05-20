@@ -7,7 +7,10 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 #include "../application.hpp"
+
+#ifdef USE_SOUND
 #include <irrKlang.h>
+#endif
 
 namespace our {
 
@@ -15,10 +18,14 @@ namespace our {
     // This system is added as a simple example for how use the ECS framework to implement logic.
     // For more information, see "common/components/movement.hpp"
     class CollisionSystem {
+#ifdef USE_SOUND
         irrklang::ISoundEngine *soundEngine;
+#endif
     public:
         CollisionSystem() {
+#ifdef USE_SOUND
             soundEngine = irrklang::createIrrKlangDevice();
+#endif
         }
 
         Application *app; // The application in which the state runs

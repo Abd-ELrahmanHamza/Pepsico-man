@@ -24,9 +24,10 @@ class GameOverstate : public our::State {
     // An array of the button that we can interact with
     std::array<Button, 1> buttons;
 
+#ifdef USE_SOUND
     // For sound effects
     irrklang::ISoundEngine *soundEngine;
-
+#endif
     // Used to detect button hover (for sound display)
     bool buttonHover;
 
@@ -97,8 +98,9 @@ class GameOverstate : public our::State {
         // buttons[1].position = {830.0f, 644.0f};
         // buttons[1].size = {400.0f, 33.0f};
         // buttons[1].action = [this]() { this->getApp()->close(); };
-
+#ifdef USE_SOUND
         soundEngine = irrklang::createIrrKlangDevice();
+#endif
     }
 
     void onDraw(double deltaTime) override {
@@ -157,7 +159,9 @@ class GameOverstate : public our::State {
             if (button.isInside(mousePosition)) {
                 if (!buttonHover) {
                     buttonHover = true;
+#ifdef USE_SOUND
                     soundEngine->play2D("audio/button.mp3");
+#endif
                 }
                 isHover = true;
                 highlightMaterial->setup();

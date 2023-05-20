@@ -11,19 +11,21 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
+
+#ifdef USE_SOUND
+
 #include <irrKlang.h>
 
-namespace our
-{
+#endif
 
-    enum JumpState
-    {
+namespace our {
+
+    enum JumpState {
         JUMPING,
         FALLING,
         GROUNDED
     };
-    enum SlideState
-    {
+    enum SlideState {
         Slided,
         NORMAL,
     };
@@ -31,8 +33,7 @@ namespace our
     // The free camera controller system is responsible for moving every entity which contains a FreeCameraControllerComponent.
     // This system is added as a slightly complex example for how use the ECS framework to implement logic.
     // For more information, see "common/components/free-camera-controller.hpp"
-    class FreeCameraControllerSystem
-    {
+    class FreeCameraControllerSystem {
         Application *app;          // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
 
@@ -42,20 +43,17 @@ namespace our
 
     public:
         // When a state enters, it should call this function and give it the pointer to the application
-        void enter(Application *app)
-        {
+        void enter(Application *app) {
             this->app = app;
         }
 
         // This should be called every frame to update all entities containing a FreeCameraControllerComponent
-        void update(World *world, float deltaTime, our::MotionState &motionState,bool &isSlided)
-        {
+        void update(World *world, float deltaTime, our::MotionState &motionState, bool &isSlided) {
             // First of all, we search for an cameraEntity containing both a CameraComponent and a FreeCameraControllerComponent
             // As soon as we find one, we break
             CameraComponent *camera = nullptr;
             FreeCameraControllerComponent *controller = nullptr;
-            for (auto entity : world->getEntities())
-            {
+            for (auto entity: world->getEntities()) {
                 camera = entity->getComponent<CameraComponent>();
                 controller = entity->getComponent<FreeCameraControllerComponent>();
                 if (camera && controller)
@@ -64,8 +62,7 @@ namespace our
 
             // Get player component
             PlayerComponent *player = nullptr;
-            for (auto entity : world->getEntities())
-            {
+            for (auto entity: world->getEntities()) {
                 player = entity->getComponent<PlayerComponent>();
                 if (player)
                     break;
@@ -92,14 +89,11 @@ namespace our
             glm::vec3 &cameraPosition = cameraEntity->localTransform.position;
 
             // If the left mouse button is pressed, we lock and hide the mouse. This common in First Person Games.
-            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked)
-            {
+            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked) {
                 app->getMouse().lockMouse(app->getWindow());
                 mouse_locked = true;
                 // If the left mouse button is released, we unlock and unhide the mouse.
-            }
-            else if (!app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && mouse_locked)
-            {
+            } else if (!app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && mouse_locked) {
                 app->getMouse().unlockMouse(app->getWindow());
                 mouse_locked = false;
             }
@@ -132,15 +126,15 @@ namespace our
             glm::mat4 playerMatrix = playerEntity->localTransform.toMat4();
 
             glm::vec3 playerFront = glm::vec3(playerMatrix * glm::vec4(0, 0, -1, 0)),
-                      playerUp = glm::vec3(playerMatrix * glm::vec4(0, 1, 0, 0)),
-                      playerRight = glm::vec3(playerMatrix * glm::vec4(1, 0, 0, 0));
+                    playerUp = glm::vec3(playerMatrix * glm::vec4(0, 1, 0, 0)),
+                    playerRight = glm::vec3(playerMatrix * glm::vec4(1, 0, 0, 0));
 
             // We get the camera model matrix (relative to its parent) to compute the cameraFront, cameraUp and cameraRight directions
             glm::mat4 cameraMatrix = cameraEntity->localTransform.toMat4();
 
             glm::vec3 cameraFront = glm::vec3(cameraMatrix * glm::vec4(0, 0, -1, 0)),
-                      cameraUp = glm::vec3(cameraMatrix * glm::vec4(0, 1, 0, 0)),
-                      cameraRight = glm::vec3(cameraMatrix * glm::vec4(1, 0, 0, 0));
+                    cameraUp = glm::vec3(cameraMatrix * glm::vec4(0, 1, 0, 0)),
+                    cameraRight = glm::vec3(cameraMatrix * glm::vec4(1, 0, 0, 0));
 
             glm::vec3 current_sensitivity = controller->positionSensitivity;
 
@@ -166,56 +160,48 @@ namespace our
             float jumpSpeed = 6;
             float jumpMaxHeight = 4;
             if ((app->getKeyboard().isPressed(GLFW_KEY_SPACE) || app->getKeyboard().isPressed(GLFW_KEY_UP)) &&
-                app->levelState != 3)
-            {
-                if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL)
-                {
+                app->levelState != 3) {
+                if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
+#ifdef USE_SOUND
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     soundEngine->play2D("audio/jump.mp3");
+#endif
                     jumpState = our::JumpState::JUMPING;
                     position.y += (deltaTime * jumpSpeed);
                 }
             }
-            if (position.y >= jumpMaxHeight)
-            {
+            if (position.y >= jumpMaxHeight) {
                 jumpState = our::JumpState::FALLING;
-            }
-            else if (position.y <= 1)
-            {
-                if (jumpState == our::JumpState::FALLING)
-                {
+            } else if (position.y <= 1) {
+                if (jumpState == our::JumpState::FALLING) {
+#ifdef USE_SOUND
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     soundEngine->play2D("audio/jumpLand.mp3");
+#endif
                 }
                 jumpState = our::JumpState::GROUNDED;
             }
-            if (jumpState == our::JumpState::JUMPING)
-            {
+            if (jumpState == our::JumpState::JUMPING) {
                 position.y += (deltaTime * jumpSpeed);
-            }
-            else if (jumpState == our::JumpState::FALLING)
-            {
+            } else if (jumpState == our::JumpState::FALLING) {
                 position.y -= (deltaTime * jumpSpeed);
-            }
-            else
-            {
+            } else {
                 position.y = 1;
             }
 
             // slide logic
             if ((app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().isPressed(GLFW_KEY_DOWN)) &&
-                app->levelState != 3)
-            {
-                if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED)
-                {
+                app->levelState != 3) {
+                if (slideState == our::SlideState::NORMAL && jumpState == our::JumpState::GROUNDED) {
                     isSlided = true;
                     slideState = our::SlideState::Slided;
+#ifdef USE_SOUND
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     if (soundEngine->isCurrentlyPlaying("audio/sliding.mp3"))
                         soundEngine->stopAllSounds();
                     //                    soundEngine->play2D("audio/slide.mp3");
                     soundEngine->play2D("audio/sliding.mp3");
-
+#endif
                     playerRotation.x -= 90;
                     // playerRotation.y += 45;
                     // playerRotation.x += 90;
@@ -226,12 +212,10 @@ namespace our
                     slideTime = 0;
                 }
             }
-            if (slideState == our::SlideState::Slided)
-            {
+            if (slideState == our::SlideState::Slided) {
                 slideTime += deltaTime;
                 isSlided = true;
-                if (slideTime >= deltaTime * 100)
-                {
+                if (slideTime >= deltaTime * 100) {
                     isSlided = false;
                     slideState = our::SlideState::NORMAL;
 
@@ -247,8 +231,7 @@ namespace our
                 }
             }
 
-            if (app->getKeyboard().isPressed(GLFW_KEY_ENTER))
-            {
+            if (app->getKeyboard().isPressed(GLFW_KEY_ENTER)) {
                 motionState = our::MotionState::RUNNING;
             }
             // Move player forward
@@ -256,30 +239,22 @@ namespace our
                 position += cameraFront * (deltaTime * 20);
             // if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
             // Move player left and right
-            if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT))
-            {
+            if (app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().isPressed(GLFW_KEY_RIGHT)) {
                 // Stop player from going off the street
-                if (world->level == 3)
-                {
+                if (world->level == 3) {
                     if (cameraPosition.z < 5)
                         cameraPosition -= cameraRight * (deltaTime * player->speed);
-                }
-                else
-                {
+                } else {
                     if (cameraPosition.z > -5)
                         cameraPosition += cameraRight * (deltaTime * player->speed);
                 }
             }
-            if (app->getKeyboard().isPressed(GLFW_KEY_A) || app->getKeyboard().isPressed(GLFW_KEY_LEFT))
-            {
+            if (app->getKeyboard().isPressed(GLFW_KEY_A) || app->getKeyboard().isPressed(GLFW_KEY_LEFT)) {
                 // Stop player from going off the street
-                if (world->level == 3)
-                {
+                if (world->level == 3) {
                     if (cameraPosition.z > -5)
                         cameraPosition += cameraRight * (deltaTime * player->speed);
-                }
-                else
-                {
+                } else {
                     if (cameraPosition.z < 5)
                         cameraPosition -= cameraRight * (deltaTime * player->speed);
                 }
@@ -289,10 +264,8 @@ namespace our
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
-        void exit()
-        {
-            if (mouse_locked)
-            {
+        void exit() {
+            if (mouse_locked) {
                 mouse_locked = false;
                 app->getMouse().unlockMouse(app->getWindow());
             }

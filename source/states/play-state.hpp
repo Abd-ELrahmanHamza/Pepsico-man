@@ -11,7 +11,11 @@
 #include <systems/final-line.hpp>
 #include <asset-loader.hpp>
 
+#ifdef USE_SOUND
+
 #include <irrKlang.h>
+
+#endif
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
@@ -82,10 +86,13 @@ class Playstate : public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
 
+#ifdef USE_SOUND
         // Plat state sound
         soundEngine = irrklang::createIrrKlangDevice();
         soundEngine->play2D("audio/playState.mp3", true);
         soundEngine->play2D("audio/startRunning.mp3");
+#endif
+
     }
 
     void onDraw(double deltaTime) override {

@@ -10,7 +10,11 @@
 #include <functional>
 #include <array>
 
+#ifdef USE_SOUND
+
 #include <irrKlang.h>
+
+#endif
 
 // This struct is used to store the location and size of a button and the code it should execute when clicked
 struct Button {
@@ -49,9 +53,10 @@ class Menustate : public our::State {
     // An array of the button that we can interact with
     std::array<Button, 1> buttons;
 
+#ifdef USE_SOUND
     // For sound effects
     irrklang::ISoundEngine *soundEngine;
-
+#endif
     // Used to detect button hover (for sound display)
     bool buttonHover;
 
@@ -118,9 +123,11 @@ class Menustate : public our::State {
         // buttons[1].size = {400.0f, 33.0f};
         // buttons[1].action = [this](){this->getApp()->close();};
 
+#ifdef USE_SOUND
         // Plat state sound
         soundEngine = irrklang::createIrrKlangDevice();
         soundEngine->play2D("audio/menuState.mp3", true);
+#endif
     }
 
     void onDraw(double deltaTime) override {
@@ -179,7 +186,9 @@ class Menustate : public our::State {
             if (button.isInside(mousePosition)) {
                 if (!buttonHover) {
                     buttonHover = true;
+#ifdef USE_SOUND
                     soundEngine->play2D("audio/button.mp3");
+#endif
                 }
                 isHover = true;
                 highlightMaterial->setup();
@@ -193,9 +202,11 @@ class Menustate : public our::State {
     }
 
     void onDestroy() override {
+#ifdef USE_SOUND
         // Stop play state sound
         soundEngine->drop();
 
+#endif
         // Delete all the allocated resources
         delete rectangle;
         delete menuMaterial->texture;

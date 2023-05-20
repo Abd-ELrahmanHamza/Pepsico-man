@@ -40,7 +40,9 @@ namespace our {
             // If the player component exists
             if (finalLineComponent) {
                 if (playerPosition[0] <= finalLinePosition[0]) {
+#ifdef USE_SOUND
                     soundEngine->play2D("audio/finalLine.mp3");
+#endif
                     this->app->changeState("winning");
                     break;
                 }
