@@ -157,7 +157,8 @@ class Playstate : public our::State {
         our::clearAllAssets();
 
         // Stop play state sound
+        #ifdef USE_SOUND
         soundEngine->drop();
-        std::cout << "destroyed world" << std::endl;
+        #endif
     }
 };

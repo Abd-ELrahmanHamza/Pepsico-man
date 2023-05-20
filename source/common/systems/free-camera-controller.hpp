@@ -215,7 +215,7 @@ namespace our {
             if (slideState == our::SlideState::Slided) {
                 slideTime += deltaTime;
                 isSlided = true;
-                if (slideTime >= deltaTime * 100) {
+                if (slideTime >= deltaTime * 20) {
                     isSlided = false;
                     slideState = our::SlideState::NORMAL;
 

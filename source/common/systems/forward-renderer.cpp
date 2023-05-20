@@ -232,7 +232,7 @@ namespace our
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         // std::cout << "num of color lights : " << lights_list.size() << std::endl;
-        std::cout << " num of lights is : " << lights_list.size() << std::endl;
+        // std::cout << " num of lights is : " << lights_list.size() << std::endl;
         glm::mat4 m = lights_list[0]->getOwner()->getLocalToWorldMatrix();
         glm::mat4 mVP = m;
         auto lightPosition =
