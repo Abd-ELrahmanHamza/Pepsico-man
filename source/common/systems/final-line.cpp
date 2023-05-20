@@ -44,7 +44,6 @@ namespace our {
                     soundEngine->play2D("audio/finalLine.mp3");
 #endif
                     this->app->changeState("winning");
-                    std::cout<<"winning"<<std::endl;
                     break;
                 }
             }

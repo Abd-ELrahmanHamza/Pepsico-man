@@ -74,7 +74,7 @@ namespace our {
                     }
                 }
                 if (collided) {
-                    std::cout << "collision" << std::endl;
+                    // std::cout << "collision" << std::endl;
                     if (entity->getComponent<ObstacleComponent>()) {
                         if (collisionStartTime == 0)
                             collisionStartTime = deltaTime;
@@ -118,10 +118,10 @@ namespace our {
                             // rescale energy bar with one unit and move position
                             if (countPepsi < 101) {
                                 //countPepsi++;
-                                std::cout << "countPepsi: " << countPepsi << std::endl;
+                                // std::cout << "countPepsi: " << countPepsi << std::endl;
                                 energybar->localTransform.scale.x = (double) 0.145 * (double) (countPepsi / 100.0);
                                 energybar->localTransform.position.x = -0.142 + 0.145 * (countPepsi / 100.0);
-                                std::cout << "scale: " << energybar->localTransform.scale.x << std::endl;
+                                // std::cout << "scale: " << energybar->localTransform.scale.x << std::endl;
                             }
                             break;
                         }
@@ -144,7 +144,7 @@ namespace our {
             HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
             if (heart && heart->heartNumber == heartCount) {
                 // rescale energy bar with one unit and move position
-                std::cout << "heartCount: " << heartCount << std::endl;
+                // std::cout << "heartCount: " << heartCount << std::endl;
                 heartEntity->localTransform.scale.x = 0.0;
                 heartEntity->localTransform.scale.y = 0.0;
                 heartEntity->localTransform.scale.z = 0.0;

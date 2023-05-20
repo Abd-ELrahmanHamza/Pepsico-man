@@ -51,7 +51,7 @@ namespace our {
                         while (entityMap[vertical][horizontal]) {
                             horizontal = generateRandomNumber(0, 2);
                             vertical = generateRandomNumber(0, ENTITIES_UPPER_LIMIT - 1);
-                            std::cout << "here\n";
+                            // std::cout << "here\n";
                         }
                         entityMap[vertical][horizontal] = true;
                         newDuplicateEntity->localTransform.position.x += (-float(vertical)) * SLICE_SIZE;
