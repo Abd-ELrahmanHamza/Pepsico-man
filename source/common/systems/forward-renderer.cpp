@@ -2,14 +2,20 @@
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
 #include <iostream>
+#define DIRECTIONAL 0
+#define POINT 1
+#define SPOT 2
 
-namespace our {
-    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json &config) {
+namespace our
+{
+    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json &config)
+    {
         // First, we store the window size for later use
         this->windowSize = windowSize;
 
         // Then we check if there is a sky texture in the configuration
-        if (config.contains("sky")) {
+        if (config.contains("sky"))
+        {
             // First, we create a sphere which will be used to draw the sky
             this->skySphere = mesh_utils::sphere(glm::ivec2(16, 16));
 
@@ -52,7 +58,8 @@ namespace our {
         }
 
         // Then we check if there is a postprocessing shader in the configuration
-        if (config.contains("postprocess")) {
+        if (config.contains("postprocess"))
+        {
             // TODO: (Req 11) Create a framebuffer
             // we need to generate the frame buffer using our postprocess frame buffer.
             glGenFramebuffers(1, &postprocessFrameBuffer);
@@ -96,9 +103,11 @@ namespace our {
         }
     }
 
-    void ForwardRenderer::destroy() {
+    void ForwardRenderer::destroy()
+    {
         // Delete all objects related to the sky
-        if (skyMaterial) {
+        if (skyMaterial)
+        {
             delete skySphere;
             delete skyMaterial->shader;
             delete skyMaterial->texture;
@@ -106,7 +115,8 @@ namespace our {
             delete skyMaterial;
         }
         // Delete all objects related to post processing
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             glDeleteFramebuffers(1, &postprocessFrameBuffer);
             glDeleteVertexArrays(1, &postProcessVertexArray);
             delete colorTarget;
@@ -117,19 +127,23 @@ namespace our {
         }
     }
 
-    void ForwardRenderer::render(World *world, const std::string &postProcessFilter) {
+    void ForwardRenderer::render(World *world, const std::string &postProcessFilter)
+    {
         // First of all, we search for a camera and for all the mesh renderers
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
         lights_list.clear();
+        street_lights.clear();
         // std::unordered_set<our::Light
-        for (auto entity: world->getEntities()) {
+        for (auto entity : world->getEntities())
+        {
             // If we hadn't found a camera yet, we look for a camera in this entity
             if (!camera)
                 camera = entity->getComponent<CameraComponent>();
             // If this entity has a mesh renderer component
-            if (auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer) {
+            if (auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer)
+            {
                 // We construct a command from it
                 RenderCommand command;
                 command.localToWorld = meshRenderer->getOwner()->getLocalToWorldMatrix();
@@ -138,14 +152,25 @@ namespace our {
                 command.material = meshRenderer->material;
                 // if it is transparent, we add it to the transparent commands list
                 // transparentCommands.push_back(command);
-                if (command.material->transparent) {
+                if (command.material->transparent)
+                {
                     transparentCommands.push_back(command);
-                } else {
+                }
+                else
+                {
                     // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
             }
-            if (auto light = entity->getComponent<LightComponent>(); light) {
+            if (auto light = entity->getComponent<LightComponent>(); light)
+            {
+                if (light->lightType == SPOT)
+                {
+                    street_lights.push_back(light);
+                }
+                else
+                {
+                }
                 lights_list.push_back(light);
             }
         }
@@ -165,7 +190,8 @@ namespace our {
         glm::vec3 center = M * glm::vec4(0, 0, -1, 1);
         glm::vec3 cameraForward = glm::normalize(center - eye);
         std::sort(transparentCommands.begin(), transparentCommands.end(),
-                  [cameraForward](const RenderCommand &first, const RenderCommand &second) {
+                  [cameraForward](const RenderCommand &first, const RenderCommand &second)
+                  {
                       // TODO: (Req 9) Finish this function
                       //  HINT: the following return should return true "first" should be drawn before "second".
                       // we need to draw the objecte that is far from the camera and then draw the near to override it
@@ -193,7 +219,8 @@ namespace our {
         glDepthMask(true);
 
         // If there is a postprocess material, bind the framebuffer
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             // TODO: (Req 11) bind the framebuffer
             // here we just need to bind the postprocessFrameBuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
@@ -205,7 +232,9 @@ namespace our {
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         // std::cout << "num of color lights : " << lights_list.size() << std::endl;
-        for (auto opaqueCommand: opaqueCommands) {
+        std::cout << " num of lights is : " << lights_list.size() << std::endl;
+        for (auto opaqueCommand : opaqueCommands)
+        {
             // the VP matrix is still the same in all objects
             // multiply VP with the M matrix of each object wich we get from opaqueCommand.localToWorld
             // then using class matrial to send the MPV matrix to the shader
@@ -214,23 +243,32 @@ namespace our {
             glm::mat4 mpv = VP * M;
             opaqueCommand.material->setup();
 
-            if (dynamic_cast<our::LightMaterial *>(opaqueCommand.material)) {
+            if (dynamic_cast<our::LightMaterial *>(opaqueCommand.material))
+            {
                 int index = 0;
-                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++) {
+                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++)
+                {
                     // we need to send all the lights entlightComponenty to the shader
                     // we need to send the data corresponding to each type of light
                     opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*it)->lightType);
-                    if ((*it)->lightType == 0) {
+                    if ((*it)->lightType == 0)
+                    {
                         // directional light
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",
                                                             (*it)->direction);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
                                                             (*it)->color);
                         // opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation", (*it)->attenuation);
-                    } else if ((*it)->lightType == 2) {
+                    }
+                    else if ((*it)->lightType == 2)
+                    {
                         // spot light
+                        auto lightPosition =
+                            glm::vec3((*it)->getOwner()->getLocalToWorldMatrix() *
+                                      glm::vec4((*it)->getOwner()->localTransform.position, 1.0));
+                        lightPosition.y += 3; // to simulate the upper part of the streat light not the base part
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
-                                                            (*it)->getOwner()->localTransform.position);
+                                                            lightPosition);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",
                                                             (*it)->direction);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
@@ -239,11 +277,13 @@ namespace our {
                                                             (*it)->attenuation);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles",
                                                             (*it)->cone_angles);
-                    } else {
+                    }
+                    else
+                    {
                         // point
                         auto lightPosition =
-                                glm::vec3((*it)->getOwner()->getLocalToWorldMatrix() *
-                                          glm::vec4((*it)->getOwner()->localTransform.position, 1.0));
+                            glm::vec3((*it)->getOwner()->getLocalToWorldMatrix() *
+                                      glm::vec4((*it)->getOwner()->localTransform.position, 1.0));
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
                                                             lightPosition);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
@@ -254,7 +294,7 @@ namespace our {
                 }
                 // std::cout << "num of lightsis : " << (int32_t)lights_list.size() << std::endl;
 
-                opaqueCommand.material->shader->set("light_count", (int32_t) lights_list.size());
+                opaqueCommand.material->shader->set("light_count", (int32_t)lights_list.size());
                 opaqueCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
                 opaqueCommand.material->shader->set("sky.bottom", glm::vec3(0.1, 0.5, 0.1));
                 opaqueCommand.material->shader->set("sky.horizon", glm::vec3(0.1, 0.5, 0.1));
@@ -263,7 +303,9 @@ namespace our {
                 opaqueCommand.material->shader->set("M", opaqueCommand.localToWorld);
                 opaqueCommand.material->shader->set("M_IT", glm::transpose(glm::inverse(opaqueCommand.localToWorld)));
                 opaqueCommand.material->shader->set("camera_position", eye); // eye * Model of camera
-            } else {
+            }
+            else
+            {
                 opaqueCommand.material->shader->set("transform", mpv);
             }
             opaqueCommand.mesh->draw();
@@ -273,7 +315,8 @@ namespace our {
             // opaqueCommand.material->shader->set("position", );
         }
         // If there is a sky material, draw the sky
-        if (this->skyMaterial) {
+        if (this->skyMaterial)
+        {
             // TODO: (Req 10) setup the sky material
             // Setup the sky material
             this->skyMaterial->setup();
@@ -292,10 +335,10 @@ namespace our {
             //  We can achieve the is by multiplying by an extra matrix after the projection but what values should we put in it?
             // The matrix should be equal to the following matrix:
             glm::mat4 alwaysBehindTransform = glm::mat4(
-                    1.0f, 0.0f, 0.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 1.0f, 1.0f);
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 1.0f);
 
             // TODO: (Req 10) set the "transform" uniform
             // Set the "transform" uniform to the MVP matrix
@@ -307,7 +350,8 @@ namespace our {
         }
         // TODO: (Req 9) Draw all the transparent commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        for (auto transparentCommand: transparentCommands) {
+        for (auto transparentCommand : transparentCommands)
+        {
             // the VP matrix is still the same in all objects
             // multiply VP with the M matrix of each object wich we get from transparentCommand.localToWorld
             // then using class matrial to send the MPV matrix to the shader
@@ -316,20 +360,25 @@ namespace our {
             glm::mat4 M = transparentCommand.localToWorld;
             glm::mat4 mpv = VP * M;
             transparentCommand.material->setup();
-            if (dynamic_cast<our::LightMaterial *>(transparentCommand.material)) {
+            if (dynamic_cast<our::LightMaterial *>(transparentCommand.material))
+            {
                 int index = 0;
-                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++) {
+                for (auto it = lights_list.begin(); it != lights_list.end(); it++, index++)
+                {
                     // we need to send all the lights entity to the shader
                     // we need to send the data corresponding to each type of light
                     transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].type",
                                                              (*it)->lightType);
-                    if ((*it)->lightType == 0) {
+                    if ((*it)->lightType == 0)
+                    {
                         // directional light
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",
                                                                  (*it)->direction);
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
                                                                  (*it)->color);
-                    } else if ((*it)->lightType == 1) {
+                    }
+                    else if ((*it)->lightType == 1)
+                    {
                         // spot light
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
                                                                  (*it)->getOwner()->localTransform.position);
@@ -341,7 +390,9 @@ namespace our {
                                                                  (*it)->attenuation);
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles",
                                                                  (*it)->cone_angles);
-                    } else {
+                    }
+                    else
+                    {
                         // point light
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
                                                                  (*it)->getOwner()->localTransform.position);
@@ -352,7 +403,7 @@ namespace our {
                     }
                 }
                 // std::cout << "num of lightsis : " << (int32_t)lights_list.size() << std::endl;
-                transparentCommand.material->shader->set("light_count", (int32_t) lights_list.size());
+                transparentCommand.material->shader->set("light_count", (int32_t)lights_list.size());
                 transparentCommand.material->shader->set("sky.top", glm::vec3(0.1, 0.5, 0.1));
                 transparentCommand.material->shader->set("sky.bottom", glm::vec3(0.1, 0.5, 0.1));
                 transparentCommand.material->shader->set("sky.horizon", glm::vec3(0.1, 0.5, 0.1));
@@ -362,15 +413,19 @@ namespace our {
                 transparentCommand.material->shader->set("M_IT",
                                                          glm::transpose(glm::inverse(transparentCommand.localToWorld)));
                 transparentCommand.material->shader->set("camera_position", eye); // eye * Model of camera
-            } else {
+            }
+            else
+            {
                 transparentCommand.material->shader->set("transform", mpv);
             }
             transparentCommand.mesh->draw();
         }
         // If there is a postprocess material, apply postprocessing
-        if (postprocessMaterial) {
+        if (postprocessMaterial)
+        {
             // Create the post processing shader
-            if (lastPostProcess != postProcessFilter) {
+            if (lastPostProcess != postProcessFilter)
+            {
                 // Create a sampler to use for sampling the scene texture in the post processing shader
                 Sampler *postprocessSampler = new Sampler();
                 postprocessSampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);

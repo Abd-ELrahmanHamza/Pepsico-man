@@ -52,7 +52,12 @@
                 "road_specular": "assets/textures/road_specular2.png",
                 "road_roughness": "assets/textures/road_roughness2.png",
                 "road_ambient_occlusion": "assets/textures/road_AO2.png",
-                "road_emissive": "assets/textures/road_emissive2.png"
+                "road_emissive": "assets/textures/road_emissive2.png",
+                "garden_albedo": "assets/textures/road_albedo2.png",
+                "garden_specular": "assets/textures/road_specular2.png",
+                "garden_roughness": "assets/textures/road_roughness2.png",
+                "garden_ambient_occlusion": "assets/textures/road_AO2.png",
+                "garden_emissive": "assets/textures/road_emissive2.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -400,8 +405,8 @@
                     "sampler": "default"
                 },
                 "garden": {
-                    "type": "tinted",
-                    "shader": "tinted",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -411,14 +416,18 @@
                         }
                     },
                     "tint": [
-                        0.5,
-                        0.5,
-                        0.5,
+                        1,
+                        1,
+                        1,
                         1
-                    ]
-                    // ,
-                    // "texture": "rocket",
-                    // "sampler": "default"
+                    ],
+                    "texture": "road",
+                    "albedo": "garden_albedo",
+                    "specular": "garden_specular",
+                    "roughness": "garden_roughness",
+                    "emissive": "garden_emissive",
+                    "ambient_occlusion": "garden_ambient_occlusion",
+                    "sampler": "default"
                 },
                 "trash": {
                     "type": "textured",
@@ -501,51 +510,99 @@
                     }
                 ],
                 "children": [
-                    {
-                        // the sun
-                        "position": [
-                            -100, // +x is for right
-                            70, // +y is for up
-                            -100 // -z for forward (depth)
-                        ],
-                        "scale": [
-                            0.5,
-                            0.5,
-                            0.5
-                        ],
-                        "rotation": [
-                            0,
-                            90,
-                            0
-                        ],
-                        "components": [
-                            {
-                                "type": "Mesh Renderer",
-                                "mesh": "house",
-                                "material": "house"
-                            },
-                            {
-                                // define point on pepsi man.
-                                "type": "Light",
-                                "lightType": 1, // 1 for point
-                                "direction": [ // directional not matter in point light
-                                    0.0,
-                                    0.0,
-                                    0.0
-                                ],
-                                "color": [
-                                    100000,
-                                    100000,
-                                    80000
-                                ],
-                                "attenuation": [
-                                    1.0,
-                                    0.0,
-                                    0.0
-                                ]
-                            }
-                        ]
-                    },
+                    // spot light
+                    // {
+                    //     "position": [
+                    //         2, // +x is for right
+                    //         -2, // +y is for up
+                    //         -7 // -z for forward (depth)
+                    //     ],
+                    //     "rotation": [
+                    //         0,
+                    //         180,
+                    //         0
+                    //     ],
+                    //     "scale": [
+                    //         0.3,
+                    //         0.3,
+                    //         0.3
+                    //     ],
+                    //     "components": [
+                    //         {
+                    //             "type": "Mesh Renderer",
+                    //             "mesh": "StreetLight",
+                    //             "material": "StreetLight"
+                    //         },
+                    //         {
+                    //             "type": "Light",
+                    //             "lightType": 2, // 2 for spot
+                    //             "direction": [
+                    //                 0.0,
+                    //                 -1.0,
+                    //                 0.0
+                    //             ],
+                    //             "color": [
+                    //                 30,
+                    //                 24,
+                    //                 12
+                    //             ],
+                    //             "attenuation": [
+                    //                 1.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ],
+                    //             "cone_angles": [
+                    //                 0.7,
+                    //                 1.22
+                    //             ]
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     // the sun
+                    //     "position": [
+                    //         -100, // +x is for right
+                    //         70, // +y is for up
+                    //         -100 // -z for forward (depth)
+                    //     ],
+                    //     "scale": [
+                    //         0.5,
+                    //         0.5,
+                    //         0.5
+                    //     ],
+                    //     "rotation": [
+                    //         0,
+                    //         90,
+                    //         0
+                    //     ],
+                    //     "components": [
+                    //         {
+                    //             "type": "Mesh Renderer",
+                    //             "mesh": "house",
+                    //             "material": "house"
+                    //         },
+                    //         {
+                    //             // define point on pepsi man.
+                    //             "type": "Light",
+                    //             "lightType": 1, // 1 for point
+                    //             "direction": [ // directional not matter in point light
+                    //                 0.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ],
+                    //             "color": [
+                    //                 100000,
+                    //                 100000,
+                    //                 80000
+                    //             ],
+                    //             "attenuation": [
+                    //                 1.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ]
+                    //         }
+                    //     ]
+                    // },
                     /////////////////////////// directional light
                     {
                         // directional light to affect the pepsi man
@@ -925,29 +982,29 @@
             {
                 "position": [
                     0,
-                    -0.975,
-                    8
+                    -1,
+                    -6.5
                 ],
                 "scale": [
-                    4.7,
-                    1.7,
-                    0.6
+                    0.2,
+                    0.25,
+                    0.2
                 ],
                 "rotation": [
-                    90,
+                    0,
                     0,
                     0
                 ],
                 "duplicates": [
-                    100,
+                    20,
                     9,
                     false
                 ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
                     },
                     {
                         "type": "Repeat",
@@ -955,6 +1012,29 @@
                             -900,
                             0,
                             0
+                        ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.0,
+                            -1.0,
+                            0.0
+                        ],
+                        "color": [
+                            45,
+                            36,
+                            18
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
                         ]
                     }
                 ]
@@ -962,29 +1042,29 @@
             {
                 "position": [
                     0,
-                    -0.975,
-                    -8
+                    -1,
+                    6.5
                 ],
                 "scale": [
-                    4.7,
-                    1.7,
-                    0.6
+                    0.2,
+                    0.25,
+                    0.2
                 ],
                 "rotation": [
-                    90,
+                    0,
                     0,
                     0
                 ],
                 "duplicates": [
-                    100,
+                    20,
                     9,
                     false
                 ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
+                        "mesh": "StreetLight",
+                        "material": "StreetLight"
                     },
                     {
                         "type": "Repeat",
@@ -993,9 +1073,106 @@
                             0,
                             0
                         ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.0,
+                            -1.0,
+                            0.0
+                        ],
+                        "color": [
+                            45,
+                            36,
+                            18
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
+                        ]
                     }
                 ]
             },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         100,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -900,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         -8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         100,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -900,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
             {
                 "position": [
                     0,
@@ -1304,81 +1481,6 @@
             //                   }
             //               ]
             //             }
-            ,
-            {
-                "position": [
-                    0,
-                    -1,
-                    -6.5
-                ],
-                "scale": [
-                    0.2,
-                    0.25,
-                    0.2
-                ],
-                "rotation": [
-                    0,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    100,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "StreetLight",
-                        "material": "StreetLight"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -900,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            },
-            {
-                "position": [
-                    0,
-                    -1,
-                    6.5
-                ],
-                "scale": [
-                    0.2,
-                    0.25,
-                    0.2
-                ],
-                "rotation": [
-                    0,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    100,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "StreetLight",
-                        "material": "StreetLight"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -900,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            }
         ],
         // Level 2 is here ------------------------------------------------------------------------------------------------------
         "level2": [

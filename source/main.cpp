@@ -2,7 +2,7 @@
 #include <fstream>
 #include <flags/flags.h>
 #include <json/json.hpp>
-#define USE_SOUND
+// #define USE_SOUND
 
 #include <application.hpp>
 
@@ -23,8 +23,8 @@
 
 #pragma comment(lib, "irrKlang.lib")
 
-int main(int argc, char **argv) {
-
+int main(int argc, char **argv)
+{
 
     flags::args args(argc, argv); // Parse the command line arguments
     // config_path is the path to the json file containing the application configuration
@@ -37,7 +37,8 @@ int main(int argc, char **argv) {
 
     // Open the config file and exit if failed
     std::ifstream file_in(config_path);
-    if (!file_in) {
+    if (!file_in)
+    {
         std::cerr << "Couldn't open file: " << config_path << std::endl;
         return -1;
     }
@@ -64,7 +65,8 @@ int main(int argc, char **argv) {
     app.registerState<RendererTestState>("renderer-test");
     app.registerState<LevelsState>("levels");
     // Then choose the state to run based on the option "start-scene" in the config
-    if (app_config.contains(std::string{"start-scene"})) {
+    if (app_config.contains(std::string{"start-scene"}))
+    {
         app.changeState(app_config["start-scene"].get<std::string>());
     }
 

@@ -21,11 +21,11 @@ namespace our
         */
         int lightType;
         // for spot light we use both position and direction
-        glm::vec3 direction;                                                                              // for directional
-        glm::vec3 position;                                                                               // for point
-        glm::vec3 color;                                                                                  // ambient, specular
-        glm::vec3 attenuation;                                                                            // 1.0 / vec3(d*d, d, 1.0)                                                                         // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
-        glm::vec2 cone_angles = glm::vec2(0.5f * glm::quarter_pi<float>(), 0.5f * glm::half_pi<float>()); // this is used for the spot lighting, bara el cone hwa b 0, gowaha byzed l7d ma ywsl lel maximum 3la el cone axis.
+        glm::vec3 direction;   // for directional
+        glm::vec3 position;    // for point
+        glm::vec3 color;       // ambient, specular
+        glm::vec3 attenuation; // 1.0 / vec3(d*d, d, 1.0)                                                                         // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
+        glm::vec2 cone_angles; //= glm::vec2(0.5f * glm::quarter_pi<float>(), 0.5f * glm::half_pi<float>()); // this is used for the spot lighting, bara el cone hwa b 0, gowaha byzed l7d ma ywsl lel maximum 3la el cone axis.
         // el cone vec2 34an enta 3n
 
         // The ID of this component type is "Movement"

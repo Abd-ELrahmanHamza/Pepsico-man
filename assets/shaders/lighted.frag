@@ -13,7 +13,7 @@ struct Light {
     vec2 cone_angles; // spot light
 };
 
-#define MAX_LIGHTS 8
+#define MAX_LIGHTS 50
 
 uniform Light lights[MAX_LIGHTS];
 uniform int light_count;

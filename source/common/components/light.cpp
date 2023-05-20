@@ -14,5 +14,6 @@ namespace our
         direction = data.value("direction", direction); // el direction elly ell light ray7 feh, da lel directional light
         color = data.value("color", color);
         attenuation = data.value("attenuation", attenuation); // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
+        cone_angles = data.value("cone_angles", cone_angles); // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
     }
 }

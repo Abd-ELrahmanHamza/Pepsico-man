@@ -12,12 +12,14 @@
 #include <algorithm>
 #include "../application.hpp"
 
-namespace our {
+namespace our
+{
 
     // The render command stores command that tells the renderer that it should draw
     // the given mesh at the given localToWorld matrix using the given material
     // The renderer will fill this struct using the mesh renderer components
-    struct RenderCommand {
+    struct RenderCommand
+    {
         glm::mat4 localToWorld;
         glm::vec3 center;
         Mesh *mesh;
@@ -28,7 +30,8 @@ namespace our {
     // In other words, the fragment shader in the material should output the color that we should see on the screen
     // This is different from more complex renderers that could draw intermediate data to a framebuffer before computing the final color
     // In this project, we only need to implement a forward renderer
-    class ForwardRenderer {
+    class ForwardRenderer
+    {
         // These window size will be used on multiple occasions (setting the viewport, computing the aspect ratio, etc.)
         glm::ivec2 windowSize;
         // These are two vectors in which we will store the opaque and the transparent commands.
@@ -36,6 +39,7 @@ namespace our {
         std::vector<RenderCommand> opaqueCommands;
         std::vector<RenderCommand> transparentCommands;
         std::vector<LightComponent *> lights_list;
+        std::vector<LightComponent *> street_lights;
         // Objects used for rendering a skybox
         Mesh *skySphere;
         TexturedMaterial *skyMaterial;
@@ -45,7 +49,6 @@ namespace our {
         TexturedMaterial *postprocessMaterial;
         Application *app; // The application in which the state runs
         std::string lastPostProcess = "";
-
 
     public:
         // Initialize the renderer including the sky and the Postprocessing objects.
@@ -59,7 +62,8 @@ namespace our {
         void render(World *world, const std::string &postProcessFilter = "");
 
         // When a state enters, it should call this function and give it the pointer to the application
-        void enter(Application *app) {
+        void enter(Application *app)
+        {
             this->app = app;
         }
     };
