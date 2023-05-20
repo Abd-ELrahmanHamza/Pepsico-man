@@ -10,7 +10,7 @@
     },
     "scene": {
         "renderer": {
-            "sky": "assets/textures/sky.jpg",
+            "sky": "assets/textures/sky2.jpg",
             "postprocess": "assets/shaders/postprocess/vignette.frag"
         },
         "assets": {
@@ -30,6 +30,11 @@
             },
             "textures": {
                 "house": "assets/textures/house.jpg",
+                "house_albedo": "assets/textures/house/house_albedo.jpg",
+                "house_specular": "assets/textures/house/house_specular.jpg",
+                "house_roughness": "assets/textures/house/house_roughness.jpg",
+                "house_ambient_occlusion": "assets/textures/house/house_ambient_occlusion.jpg",
+                "house_emissive": "assets/textures/house/house_emissive.jpg",
                 "road": "assets/textures/road.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "obelisk": "assets/textures/obelisk.png",
@@ -38,6 +43,11 @@
                 "can": "assets/textures/can.png",
                 "plane": "assets/textures/plane.png",
                 "rocket": "assets/textures/rocket.png",
+                "rocket_albedo": "assets/textures/rocket/rocket_albedo.jpg",
+                "rocket_specular": "assets/textures/rocket/rocket_specular.jpg",
+                "rocket_roughness": "assets/textures/rocket/rocket_roughness.jpg",
+                "rocket_ambient_occlusion": "assets/textures/rocket/rocket_AO.jpg",
+                "rocket_emissive": "assets/textures/rocket/rocket_emissive.jpg",
                 "finalLine": "assets/textures/finalLine.jpg",
                 "pepsiMachine": "assets/textures/pepsiMachine.png",
                 "rustedCar": "assets/textures/rustedCar.png",
@@ -57,7 +67,8 @@
                 "garden_specular": "assets/textures/road_specular2.png",
                 "garden_roughness": "assets/textures/road_roughness2.png",
                 "garden_ambient_occlusion": "assets/textures/road_AO2.png",
-                "garden_emissive": "assets/textures/road_emissive2.png"
+                "garden_emissive": "assets/textures/road_emissive2.png",
+                "moon": "assets/textures/moon.jpg"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -73,7 +84,8 @@
                 "rustedCar": "assets/models/rustedCar.obj",
                 "trash": "assets/models/trash.obj",
                 "heart": "assets/models/heart.obj",
-                "StreetLight": "assets/models/StreetLight.obj"
+                "StreetLight": "assets/models/StreetLight.obj",
+                "moon": "assets/models/sphere.obj"
             },
             "samplers": {
                 "default": {},
@@ -255,8 +267,8 @@
                     "sampler": "default"
                 },
                 "house": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -272,6 +284,31 @@
                         1
                     ],
                     "texture": "house",
+                    "albedo": "house_albedo",
+                    "specular": "house_specular",
+                    "roughness": "house_roughness",
+                    "emissive": "house_emissive",
+                    "ambient_occlusion": "house_ambient_occlusion",
+                    "sampler": "default"
+                },
+                "moon": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "texture": "moon",
                     "sampler": "default"
                 },
                 "can": {
@@ -385,8 +422,8 @@
                     ]
                 },
                 "rocket": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -402,6 +439,11 @@
                         1
                     ],
                     "texture": "rocket",
+                    "albedo": "rocket_albedo",
+                    "specular": "rocket_specular",
+                    "roughness": "rocket_roughness",
+                    "emissive": "rocket_emissive",
+                    "ambient_occlusion": "rocket_ambient_occlusion",
                     "sampler": "default"
                 },
                 "garden": {
@@ -558,51 +600,51 @@
                     //         }
                     //     ]
                     // },
-                    // {
-                    //     // the sun
-                    //     "position": [
-                    //         -100, // +x is for right
-                    //         70, // +y is for up
-                    //         -100 // -z for forward (depth)
-                    //     ],
-                    //     "scale": [
-                    //         0.5,
-                    //         0.5,
-                    //         0.5
-                    //     ],
-                    //     "rotation": [
-                    //         0,
-                    //         90,
-                    //         0
-                    //     ],
-                    //     "components": [
-                    //         {
-                    //             "type": "Mesh Renderer",
-                    //             "mesh": "house",
-                    //             "material": "house"
-                    //         },
-                    //         {
-                    //             // define point on pepsi man.
-                    //             "type": "Light",
-                    //             "lightType": 1, // 1 for point
-                    //             "direction": [ // directional not matter in point light
-                    //                 0.0,
-                    //                 0.0,
-                    //                 0.0
-                    //             ],
-                    //             "color": [
-                    //                 100000,
-                    //                 100000,
-                    //                 80000
-                    //             ],
-                    //             "attenuation": [
-                    //                 1.0,
-                    //                 0.0,
-                    //                 0.0
-                    //             ]
-                    //         }
-                    //     ]
-                    // },
+                    {
+                        // the moon
+                        "position": [
+                            100, // +x is for right
+                            70, // +y is for up
+                            -100 // -z for forward (depth)
+                        ],
+                        "scale": [
+                            5.5,
+                            5.5,
+                            5.5
+                        ],
+                        "rotation": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "moon",
+                                "material": "moon"
+                            },
+                            {
+                                // define point on pepsi man.
+                                "type": "Light",
+                                "lightType": 1, // 1 for point
+                                "direction": [ // directional not matter in point light
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "color": [
+                                    120000,
+                                    120000,
+                                    150000
+                                ],
+                                "attenuation": [
+                                    0.032,
+                                    0.09,
+                                    1.0
+                                ]
+                            }
+                        ]
+                    },
                     /////////////////////////// directional light
                     {
                         // directional light to affect the pepsi man
@@ -619,7 +661,7 @@
                         "scale": [
                             0.1,
                             0.1,
-                            0.01000
+                            0.1
                         ],
                         "rotation": [
                             0,
@@ -642,12 +684,12 @@
                                 "color": [
                                     7.0,
                                     7.0,
-                                    15.0
+                                    7.0
                                 ],
                                 "attenuation": [
-                                    2.0,
                                     1.0,
-                                    1.0
+                                    0.0,
+                                    0.0
                                 ]
                             }
                         ]
@@ -996,7 +1038,7 @@
                     0
                 ],
                 "duplicates": [
-                    20,
+                    30,
                     9,
                     false
                 ],
@@ -1009,7 +1051,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -1023,9 +1065,9 @@
                             0.0
                         ],
                         "color": [
-                            45,
-                            36,
-                            18
+                            30,
+                            24,
+                            12
                         ],
                         "attenuation": [
                             1.0,
@@ -1056,7 +1098,7 @@
                     0
                 ],
                 "duplicates": [
-                    20,
+                    30,
                     9,
                     false
                 ],
@@ -1069,7 +1111,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -1083,9 +1125,9 @@
                             0.0
                         ],
                         "color": [
-                            45,
-                            36,
-                            18
+                            30,
+                            24,
+                            12
                         ],
                         "attenuation": [
                             1.0,
@@ -1190,7 +1232,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -1203,7 +1245,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -1227,7 +1269,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -1240,7 +1282,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -1982,7 +2024,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -1995,7 +2037,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -2019,7 +2061,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -2032,7 +2074,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -2252,7 +2294,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -2265,7 +2307,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -2289,7 +2331,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -2302,7 +2344,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -2806,7 +2848,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -2819,7 +2861,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -2843,7 +2885,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -2856,7 +2898,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -3076,7 +3118,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -3089,7 +3131,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
@@ -3113,7 +3155,7 @@
                     0
                 ],
                 "duplicates": [
-                    100,
+                    30,
                     9,
                     false
                 ],
@@ -3126,7 +3168,7 @@
                     {
                         "type": "Repeat",
                         "translation": [
-                            -900,
+                            -270,
                             0,
                             0
                         ]
