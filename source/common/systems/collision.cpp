@@ -128,18 +128,19 @@ namespace our {
                         if(heartCount < 3)
                         {
                             heartCount++;
-                            entity->localTransform.scale = glm::vec3(0.0f, 0.0f, 0.0f);
-                            entity->localTransform.position = glm::vec3(0.0f, 0.0f, 0.0f);
-                            for (auto heartEntity: world->getEntities()) {
-                                HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
-                                if (heart && heart->heartNumber == heartCount) {
-                                    // rescale energy bar with one unit and move position
-                                    // std::cout << "heartCount: " << heartCount << std::endl;
-                                    heartEntity->localTransform.scale.x = 0.0009;
-                                    heartEntity->localTransform.scale.y = 0.0009;
-                                    heartEntity->localTransform.scale.z = 0.0009;
-                                    break;
-                                }
+                        }
+                        
+                        entity->localTransform.scale = glm::vec3(0.0f, 0.0f, 0.0f);
+                        entity->localTransform.position = glm::vec3(0.0f, 0.0f, 0.0f);
+                        for (auto heartEntity: world->getEntities()) {
+                            HeartComponent *heart = heartEntity->getComponent<HeartComponent>();
+                            if (heart && heart->heartNumber == heartCount) {
+                                // rescale energy bar with one unit and move position
+                                // std::cout << "heartCount: " << heartCount << std::endl;
+                                heartEntity->localTransform.scale.x = 0.0009;
+                                heartEntity->localTransform.scale.y = 0.0009;
+                                heartEntity->localTransform.scale.z = 0.0009;
+                                break;
                             }
                         }
                     }
