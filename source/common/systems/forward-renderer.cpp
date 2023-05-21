@@ -408,20 +408,6 @@ namespace our
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
                                                                  (*it)->color);
                     }
-                    else if ((*it)->lightType == 1)
-                    {
-                        // spot light
-                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
-                                                                 (*it)->getOwner()->localTransform.position);
-                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",
-                                                                 (*it)->direction);
-                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
-                                                                 (*it)->color);
-                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation",
-                                                                 (*it)->attenuation);
-                        transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles",
-                                                                 (*it)->cone_angles);
-                    }
                     else
                     {
                         // point light
@@ -432,6 +418,31 @@ namespace our
                         transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation",
                                                                  (*it)->attenuation);
                     }
+                }
+                int index2 = 0;
+                for (auto it = street_lights.begin(); index2 < SPOT_NUM; it++, index++, index2++)
+                {
+                    // we need to send all the lights entlightComponenty to the shader
+                    // we need to send the data corresponding to each type of light
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].type", (*it)->lightType);
+
+                    // spot light
+                    glm::mat4 m = street_lights[index2]->getOwner()->getLocalToWorldMatrix();
+                    glm::mat4 mVP = m;
+                    auto lightPosition =
+                        glm::vec3(
+                            glm::vec4((street_lights[index2])->getOwner()->localTransform.position, 1.0));
+                    lightPosition.y += 3.0; // to simulate the upper part of the streat light not the base part
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
+                                                             lightPosition);
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",
+                                                             (*it)->direction);
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].color",
+                                                             (*it)->color);
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].attenuation",
+                                                             (*it)->attenuation);
+                    transparentCommand.material->shader->set("lights[" + std::to_string(index) + "].cone_angles",
+                                                             (*it)->cone_angles);
                 }
                 // std::cout << "num of lightsis : " << (int32_t)lights_list.size() << std::endl;
                 transparentCommand.material->shader->set("light_count", (int32_t)lights_list.size());

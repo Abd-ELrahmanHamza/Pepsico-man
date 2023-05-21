@@ -37,7 +37,12 @@
                 "house_emissive": "assets/textures/house/house_emissive.jpg",
                 "road": "assets/textures/road.jpg",
                 "wood": "assets/textures/wood.jpg",
-                "obelisk": "assets/textures/obelisk.png",
+                "obelisk_albedo": "assets/textures/obelisk/obelisk_albedo.png",
+                "obelisk_specular": "assets/textures/obelisk/obelisk_specular.png",
+                "obelisk_roughness": "assets/textures/obelisk/obelisk_roughness.png",
+                "obelisk_ambient_occlusion": "assets/textures/obelisk/obelisk_AO.png",
+                "obelisk_emissive": "assets/textures/obelisk/obelisk_emissive.png",
+                "obelisk": "assets/textures/obelisk/obelisk.png",
                 "player": "assets/textures/player.png",
                 "player2": "assets/textures/player2.jpg",
                 "can": "assets/textures/can.png",
@@ -117,8 +122,8 @@
                     ]
                 },
                 "obelisk": {
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -134,6 +139,11 @@
                         1
                     ],
                     "texture": "obelisk",
+                    "albedo": "obelisk_albedo",
+                    "specular": "obelisk_specular",
+                    "roughness": "obelisk_roughness",
+                    "emissive": "obelisk_emissive",
+                    "ambient_occlusion": "obelisk_ambient_occlusion",
                     "sampler": "default"
                 },
                 "rustedCar": {
