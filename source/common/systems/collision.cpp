@@ -93,7 +93,16 @@ namespace our {
                         // std::cout << "playerEnd position: x = " << playerEnd.x << ", y= " << playerEnd.y << ", z = "<< playerEnd.z <<  std::endl;
                         // std::cout << "objectEnd position: x = " << objectEnd.x << ", y= " << objectEnd.y << ", z = "<< objectEnd.z <<  std::endl;
 
+#ifdef USE_SOUND
+                        std::cout << "heartCount : " << heartCount << "\n";
+                        if (heartCount == 3) {
+                            soundEngine->play2D("audio/firstDeath.mp3");
+                        } else if (heartCount == 2) {
+                            soundEngine->play2D("audio/secondDeath.mp3");
+                        }
+#endif
                         CollisionSystem::decreaseHearts(world, heartCount);
+
                         // if (heartCount < 1) {
                         //     std::cout << "game over " << countPepsi << std::endl;
                         //     soundEngine->play2D("audio/death.mp3");

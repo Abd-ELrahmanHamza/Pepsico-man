@@ -12,19 +12,17 @@
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
-// #define USE_SOUND
 
-namespace our
-{
+#define USE_SOUND
 
-    enum MotionState
-    {
+namespace our {
+
+    enum MotionState {
         RUNNING,
         RESTING,
     };
     // This struct handles window attributes: (title, size, isFullscreen).
-    struct WindowConfiguration
-    {
+    struct WindowConfiguration {
         std::string title;
         glm::i16vec2 size;
         bool isFullscreen;
@@ -34,8 +32,7 @@ namespace our
 
     // This is the base class for all states
     // The application will be responsible for managing all scene functionality by calling the "on*" functions.
-    class State
-    {
+    class State {
         // Each scene will have a pointer to the application that owns it
         Application *application;
         friend Application;
@@ -64,8 +61,7 @@ namespace our
 
     // This class act as base class for all the Applications covered in the examples.
     // It offers the functionalities needed by all the examples.
-    class Application
-    {
+    class Application {
     protected:
         GLFWwindow *window = nullptr; // Pointer to the window created by GLFW using "glfwCreateWindow()".
 
@@ -96,9 +92,8 @@ namespace our
         Application(const nlohmann::json &app_config) : app_config(app_config) {}
 
         // On destruction, delete all the states
-        ~Application()
-        {
-            for (auto &it : states)
+        ~Application() {
+            for (auto &it: states)
                 delete it.second;
         }
 
@@ -108,13 +103,11 @@ namespace our
         // Register a state for use by the application
         // The state is uniquely identified by its name
         // If the name is already used, the old name owner is deleted and the new state takes its place
-        template <typename T>
-        void registerState(std::string name)
-        {
+        template<typename T>
+        void registerState(std::string name) {
             static_assert(std::is_base_of<State, T>::value, "T must derive from our::State");
             auto it = states.find(name);
-            if (it != states.end())
-            {
+            if (it != states.end()) {
                 delete it->second;
             }
             State *scene = new T();
@@ -124,18 +117,15 @@ namespace our
 
         // Tells the application to change its current state
         // The change will not be applied until the current frame ends
-        void changeState(std::string name)
-        {
+        void changeState(std::string name) {
             auto it = states.find(name);
-            if (it != states.end())
-            {
+            if (it != states.end()) {
                 nextState = it->second;
             }
         }
 
         // Closes the Application
-        void close()
-        {
+        void close() {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
         }
 
@@ -155,8 +145,7 @@ namespace our
         [[nodiscard]] const nlohmann::json &getConfig() const { return app_config; }
 
         // Get the size of the frame buffer of the window in pixels.
-        glm::ivec2 getFrameBufferSize()
-        {
+        glm::ivec2 getFrameBufferSize() {
             glm::ivec2 size;
             glfwGetFramebufferSize(window, &(size.x), &(size.y));
             return size;
@@ -164,8 +153,7 @@ namespace our
 
         // Get the window size. In most cases, it is equal to the frame buffer size.
         // But on some platforms, the framebuffer size may be different from the window size.
-        glm::ivec2 getWindowSize()
-        {
+        glm::ivec2 getWindowSize() {
             glm::ivec2 size;
             glfwGetWindowSize(window, &(size.x), &(size.y));
             return size;

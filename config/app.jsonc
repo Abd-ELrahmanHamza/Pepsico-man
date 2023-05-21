@@ -958,7 +958,7 @@
                     0.005
                 ],
                 "duplicates": [
-                    20,
+                    60,
                     2,
                     true
                 ],
@@ -1448,7 +1448,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            15,
                             0,
                             0
                         ],
@@ -1933,7 +1933,7 @@
                     0.005
                 ],
                 "duplicates": [
-                    20,
+                    60,
                     2,
                     true
                 ],
@@ -2285,7 +2285,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            25,
                             0,
                             0
                         ],
@@ -2860,7 +2860,7 @@
                     0.005
                 ],
                 "duplicates": [
-                    20,
+                    60,
                     2,
                     true
                 ],
@@ -3212,7 +3212,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            15,
                             0,
                             0
                         ],
