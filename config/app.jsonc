@@ -68,7 +68,8 @@
                 "garden_roughness": "assets/textures/road_roughness2.png",
                 "garden_ambient_occlusion": "assets/textures/road_AO2.png",
                 "garden_emissive": "assets/textures/road_emissive2.png",
-                "moon": "assets/textures/moon.jpg"
+                "moon": "assets/textures/moon.jpg",
+                "gem_heart":"assets/textures/gem_heart.png"
             },
             "meshes": {
                 "cube": "assets/models/cube.obj",
@@ -85,7 +86,8 @@
                 "trash": "assets/models/trash.obj",
                 "heart": "assets/models/heart.obj",
                 "StreetLight": "assets/models/StreetLight.obj",
-                "moon": "assets/models/sphere.obj"
+                "moon": "assets/models/sphere.obj",
+                "gem_heart":"assets/models/gem_heart.obj"
             },
             "samplers": {
                 "default": {},
@@ -555,6 +557,26 @@
                         1
                     ],
                     "texture": "StreetLight",
+                    "sampler": "default"
+                },
+                "gem_heart":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "texture": "gem_heart",
                     "sampler": "default"
                 }
             }
@@ -1512,6 +1534,112 @@
             //                   }
             //               ]
             //             }
+            ,{
+                "position": [
+                    -300,
+                    1,
+                    3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    -800,
+                    1,
+                    -3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                ]
+            }
         ],
         // Level 2 is here ------------------------------------------------------------------------------------------------------
         "level2": [
@@ -1847,6 +1975,34 @@
                             {
                                 "type": "Heart",
                                 "number": 2
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -0.143,
+                            0.07,
+                            0.40000001
+                        ],
+                        "rotation": [
+                            0,
+                            -90,
+                            0
+                        ],
+                        "scale": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "heart",
+                                "material": "heart"
+                            },
+                            {
+                                "type": "Heart",
+                                "number": 3
                             }
                         ]
                     }
@@ -2443,6 +2599,112 @@
                     }
                 ]
             }
+            ,{
+                "position": [
+                    -300,
+                    1,
+                    3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    -800,
+                    1,
+                    -3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                ]
+            }
         ],
         // Level 3ذ is here ------------------------------------------------------------------------------------------------------
         "level3": [
@@ -2776,6 +3038,62 @@
                                 "number": 1
                             }
                         ]
+                    },
+                    {
+                        "position": [
+                            -0.154,
+                            0.07,
+                            0.40000001
+                        ],
+                        "rotation": [
+                            0,
+                            -90,
+                            0
+                        ],
+                        "scale": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "heart",
+                                "material": "heart"
+                            },
+                            {
+                                "type": "Heart",
+                                "number": 2
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -0.143,
+                            0.07,
+                            0.40000001
+                        ],
+                        "rotation": [
+                            0,
+                            -90,
+                            0
+                        ],
+                        "scale": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "heart",
+                                "material": "heart"
+                            },
+                            {
+                                "type": "Heart",
+                                "number": 3
+                            }
+                        ]
                     }
                 ]
             },
@@ -3059,7 +3377,7 @@
                     0
                 ],
                 "duplicates": [
-                    15,
+                    12,
                     9,
                     true
                 ],
@@ -3112,7 +3430,7 @@
                     0
                 ],
                 "duplicates": [
-                    15,
+                    12,
                     9,
                     true
                 ],
@@ -3189,7 +3507,7 @@
                     1
                 ],
                 "duplicates": [
-                    15,
+                    12,
                     9,
                     true
                 ],
@@ -3366,6 +3684,112 @@
                         "cone_angles": [
                             0.7,
                             1.22
+                        ]
+                    }
+                ]
+            }
+            ,{
+                "position": [
+                    -300,
+                    1,
+                    3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [
+                    -800,
+                    1,
+                    -3
+                ],
+                "rotation": [
+                    0,
+                    90,
+                    0
+                ],
+                "scale": [
+                    0.02,
+                    0.02,
+                    0.02
+                ],
+                "components":[
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "gem_heart",
+                        "material": "gem_heart"
+                    },
+                    {
+                        "type": "Collision",
+                        "start": [
+                            -0.5,
+                            -0.3,
+                            -0.5
+                        ],
+                        "end": [
+                            0.5,
+                            1.5,
+                            0.5
+                        ]
+                    },
+                    {
+                        "type": "GemHeart"
+                    },
+                    {
+                        "type":"Movement",
+                        "linearVelocity": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "angularVelocity": [
+                            0,
+                            90,
+                            0
                         ]
                     }
                 ]

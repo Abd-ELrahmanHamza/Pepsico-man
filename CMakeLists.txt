@@ -83,6 +83,8 @@ set(COMMON_SOURCES
         source/common/components/light.cpp
         source/common/components/heart.hpp
         source/common/components/heart.cpp
+        source/common/components/gem-heart.hpp
+        source/common/components/gem-heart.cpp
         source/common/components/component-deserializer.hpp
 
         source/common/systems/forward-renderer.hpp
