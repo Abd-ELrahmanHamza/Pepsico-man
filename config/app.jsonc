@@ -247,8 +247,27 @@
                     "sampler": "default"
                 },
                 "player2": {
-                    "type": "textured",
-                    "shader": "textured",
+                    // "type": "textured",
+                    // "shader": "textured",
+                    // "pipelineState": {
+                    //     "faceCulling": {
+                    //         "enabled": false
+                    //     },
+                    //     "depthTesting": {
+                    //         "enabled": true
+                    //     }
+                    // },
+                    // "tint": [
+                    //     1,
+                    //     1,
+                    //     1,
+                    //     1
+                    // ],
+                    // "texture": "player2",
+                    // "sampler": "default"
+
+                    "type": "lighted",
+                    "shader": "lighted",
                     "pipelineState": {
                         "faceCulling": {
                             "enabled": false
@@ -263,8 +282,14 @@
                         1,
                         1
                     ],
-                    "texture": "player2",
+                    "texture": "player",
+                    "albedo": "player_albedo",
+                    "specular": "player_specular",
+                    "roughness": "player_roughness",
+                    "emissive": "player_emissive",
+                    "ambient_occlusion": "player_ambient_occlusion",
                     "sampler": "default"
+
                 },
                 "house": {
                     "type": "lighted",
@@ -765,7 +790,7 @@
                     },
                     {
                         "position": [
-                            -0.002,
+                            0.003,
                             0.085,
                             0.4
                         ],
@@ -775,7 +800,7 @@
                             0
                         ],
                         "scale": [
-                            0.15,
+                            0.145,
                             0.005,
                             0.01
                         ],
@@ -1547,27 +1572,27 @@
                 ],
                 "children": [
                     {
-                        // the sun
+                        // the moon
                         "position": [
-                            -100, // +x is for right
+                            100, // +x is for right
                             70, // +y is for up
                             -100 // -z for forward (depth)
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            5.5,
+                            5.5,
+                            5.5
                         ],
                         "rotation": [
                             0,
-                            90,
+                            0,
                             0
                         ],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "house",
-                                "material": "house"
+                                "mesh": "moon",
+                                "material": "moon"
                             },
                             {
                                 // define point on pepsi man.
@@ -1579,18 +1604,63 @@
                                     0.0
                                 ],
                                 "color": [
-                                    100000,
-                                    100000,
-                                    80000
+                                    120000,
+                                    120000,
+                                    150000
                                 ],
                                 "attenuation": [
-                                    1.0,
-                                    0.0,
-                                    0.0
+                                    0.032,
+                                    0.09,
+                                    1.0
                                 ]
                             }
                         ]
                     },
+                    // {
+                    //     // the sun
+                    //     "position": [
+                    //         -100, // +x is for right
+                    //         70, // +y is for up
+                    //         -100 // -z for forward (depth)
+                    //     ],
+                    //     "scale": [
+                    //         0.5,
+                    //         0.5,
+                    //         0.5
+                    //     ],
+                    //     "rotation": [
+                    //         0,
+                    //         90,
+                    //         0
+                    //     ],
+                    //     "components": [
+                    //         {
+                    //             "type": "Mesh Renderer",
+                    //             "mesh": "house",
+                    //             "material": "house"
+                    //         },
+                    //         {
+                    //             // define point on pepsi man.
+                    //             "type": "Light",
+                    //             "lightType": 1, // 1 for point
+                    //             "direction": [ // directional not matter in point light
+                    //                 0.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ],
+                    //             "color": [
+                    //                 100000,
+                    //                 100000,
+                    //                 80000
+                    //             ],
+                    //             "attenuation": [
+                    //                 1.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ]
+                    //         }
+                    //     ]
+                    // },
                     /////////////////////////// directional light
                     {
                         // directional light to affect the pepsi man
@@ -1711,7 +1781,7 @@
                     },
                     {
                         "position": [
-                            -0.002,
+                            0.003,//-0.002
                             0.085,
                             0.4
                         ],
@@ -1721,7 +1791,7 @@
                             0
                         ],
                         "scale": [
-                            0.15,
+                            0.145,
                             0.005,
                             0.01
                         ],
@@ -2375,27 +2445,27 @@
                 ],
                 "children": [
                     {
-                        // the sun
+                        // the moon
                         "position": [
-                            -100, // +x is for right
+                            100, // +x is for right
                             70, // +y is for up
                             -100 // -z for forward (depth)
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            5.5,
+                            5.5,
+                            5.5
                         ],
                         "rotation": [
                             0,
-                            90,
+                            0,
                             0
                         ],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "house",
-                                "material": "house"
+                                "mesh": "moon",
+                                "material": "moon"
                             },
                             {
                                 // define point on pepsi man.
@@ -2407,18 +2477,63 @@
                                     0.0
                                 ],
                                 "color": [
-                                    100000,
-                                    100000,
-                                    80000
+                                    120000,
+                                    120000,
+                                    150000
                                 ],
                                 "attenuation": [
-                                    1.0,
-                                    0.0,
-                                    0.0
+                                    0.032,
+                                    0.09,
+                                    1.0
                                 ]
                             }
                         ]
                     },
+                    // {
+                    //     // the sun
+                    //     "position": [
+                    //         -100, // +x is for right
+                    //         70, // +y is for up
+                    //         -100 // -z for forward (depth)
+                    //     ],
+                    //     "scale": [
+                    //         0.5,
+                    //         0.5,
+                    //         0.5
+                    //     ],
+                    //     "rotation": [
+                    //         0,
+                    //         90,
+                    //         0
+                    //     ],
+                    //     "components": [
+                    //         {
+                    //             "type": "Mesh Renderer",
+                    //             "mesh": "house",
+                    //             "material": "house"
+                    //         },
+                    //         {
+                    //             // define point on pepsi man.
+                    //             "type": "Light",
+                    //             "lightType": 1, // 1 for point
+                    //             "direction": [ // directional not matter in point light
+                    //                 0.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ],
+                    //             "color": [
+                    //                 100000,
+                    //                 100000,
+                    //                 80000
+                    //             ],
+                    //             "attenuation": [
+                    //                 1.0,
+                    //                 0.0,
+                    //                 0.0
+                    //             ]
+                    //         }
+                    //     ]
+                    // },
                     /////////////////////////// directional light
                     {
                         // directional light to affect the pepsi man
@@ -2539,7 +2654,7 @@
                     },
                     {
                         "position": [
-                            -0.002,
+                            0.003,
                             0.085,
                             0.4
                         ],
@@ -2549,7 +2664,7 @@
                             0
                         ],
                         "scale": [
-                            0.15,
+                            0.145,
                             0.005,
                             0.01
                         ],
