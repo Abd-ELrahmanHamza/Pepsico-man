@@ -26,3 +26,6 @@ screenshots/
 
 # Add .vscode.zip
 .vscode.zip
+
+# ignore game video
+./gameVideo
