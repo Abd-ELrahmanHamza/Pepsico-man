@@ -1,3 +1,12 @@
+/*
+    @Authours: Abdelaziz Salah
+               Abdelrahman Hamza
+               Ahmed Sabry
+               Ahmed Madbouly.
+    @Date: 21-5-2022
+    @description: This is a main file for pepsi man game application implemented for
+    graphics course project.
+*/
 #include <iostream>
 #include <fstream>
 #include <flags/flags.h>

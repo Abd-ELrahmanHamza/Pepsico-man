@@ -1,12 +1,12 @@
 {
     "start-scene": "menu",
     "window": {
-        "title": "Default Game Window",
+        "title": "Pepsico Man",
         "size": {
             "width": 1280,
             "height": 720
         },
-        "fullscreen": false
+        "fullscreen": true
     },
     "scene": {
         "renderer": {
