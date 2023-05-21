@@ -110,6 +110,8 @@ class Playstate : public our::State {
         std::string postProcessFrag = "assets/shaders/postprocess/vignette.frag";
         if (getApp()->levelState == 3 && getApp()->motionState == our::MotionState::RUNNING)
             postProcessFrag = "assets/shaders/postprocess/radial-blur.frag";
+        if (getApp()->levelState == 2)
+            postProcessFrag = "assets/shaders/postprocess/sandWethereEffect.frag";
         if (collisionStartTime != 0) {
             collisionStartTime += deltaTime;
             postProcessFrag = "assets/shaders/postprocess/Grain.frag";
@@ -158,8 +160,8 @@ class Playstate : public our::State {
         getApp()->motionState = our::MotionState::RESTING;
 
         // Stop play state sound
-        #ifdef USE_SOUND
+#ifdef USE_SOUND
         soundEngine->drop();
-        #endif
+#endif
     }
 };
