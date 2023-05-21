@@ -232,7 +232,8 @@ namespace our
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         // std::cout << "num of color lights : " << lights_list.size() << std::endl;
-        // std::cout << " num of lights is : " << lights_list.size() << std::endl;
+        // std::cout << " the inner angle is : " << street_lights[0]->cone_angles.x << std::endl;
+        // std::cout << " the outer angle is : " << street_lights[0]->cone_angles.y << std::endl;
         glm::mat4 m = lights_list[0]->getOwner()->getLocalToWorldMatrix();
         glm::mat4 mVP = m;
         auto lightPosition =
@@ -273,7 +274,7 @@ namespace our
                         auto lightPosition =
                             glm::vec3(
                                 glm::vec4((lights_list[index])->getOwner()->localTransform.position, 1.0));
-                        lightPosition.y += 3; // to simulate the upper part of the streat light not the base part
+                        lightPosition.y += 3.0; // to simulate the upper part of the streat light not the base part
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].position",
                                                             lightPosition);
                         opaqueCommand.material->shader->set("lights[" + std::to_string(index) + "].direction",

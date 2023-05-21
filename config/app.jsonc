@@ -265,7 +265,6 @@
                     // ],
                     // "texture": "player2",
                     // "sampler": "default"
-
                     "type": "lighted",
                     "shader": "lighted",
                     "pipelineState": {
@@ -289,7 +288,6 @@
                     "emissive": "player_emissive",
                     "ambient_occlusion": "player_ambient_occlusion",
                     "sampler": "default"
-
                 },
                 "house": {
                     "type": "lighted",
@@ -577,54 +575,7 @@
                     }
                 ],
                 "children": [
-                    // spot light
-                    // {
-                    //     "position": [
-                    //         2, // +x is for right
-                    //         -2, // +y is for up
-                    //         -7 // -z for forward (depth)
-                    //     ],
-                    //     "rotation": [
-                    //         0,
-                    //         180,
-                    //         0
-                    //     ],
-                    //     "scale": [
-                    //         0.3,
-                    //         0.3,
-                    //         0.3
-                    //     ],
-                    //     "components": [
-                    //         {
-                    //             "type": "Mesh Renderer",
-                    //             "mesh": "StreetLight",
-                    //             "material": "StreetLight"
-                    //         },
-                    //         {
-                    //             "type": "Light",
-                    //             "lightType": 2, // 2 for spot
-                    //             "direction": [
-                    //                 0.0,
-                    //                 -1.0,
-                    //                 0.0
-                    //             ],
-                    //             "color": [
-                    //                 30,
-                    //                 24,
-                    //                 12
-                    //             ],
-                    //             "attenuation": [
-                    //                 1.0,
-                    //                 0.0,
-                    //                 0.0
-                    //             ],
-                    //             "cone_angles": [
-                    //                 0.7,
-                    //                 1.22
-                    //             ]
-                    //         }
-                    //     ]
-                    // },
+                    ///////////// the moon /////////////
                     {
                         // the moon
                         "position": [
@@ -720,10 +671,6 @@
                         ]
                     },
                     {
-                        //!  Here we should add the components.
-                        // spot
-                        // diffuse
-                        // point
                         "position": [
                             0,
                             -2,
@@ -1085,19 +1032,25 @@
                         "type": "Light",
                         "lightType": 2, // 2 for spot
                         "direction": [
-                            0.0,
-                            -1.0,
-                            0.0
+                            0.5,
+                            -0.5,
+                            -0.0
                         ],
                         "color": [
-                            30,
-                            24,
-                            12
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
                         ],
                         "attenuation": [
                             1.0,
                             0.0,
                             0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
                         ],
                         "cone_angles": [
                             0.7,
@@ -1145,19 +1098,25 @@
                         "type": "Light",
                         "lightType": 2, // 2 for spot
                         "direction": [
-                            0.0,
-                            -1.0,
-                            0.0
+                            0.5,
+                            -0.5,
+                            -0.0
                         ],
                         "color": [
-                            30,
-                            24,
-                            12
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
                         ],
                         "attenuation": [
                             1.0,
                             0.0,
                             0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
                         ],
                         "cone_angles": [
                             0.7,
@@ -1677,7 +1636,7 @@
                         "scale": [
                             0.1,
                             0.1,
-                            0.01000
+                            0.1
                         ],
                         "rotation": [
                             0,
@@ -1700,12 +1659,12 @@
                                 "color": [
                                     7.0,
                                     7.0,
-                                    15.0
+                                    7.0
                                 ],
                                 "attenuation": [
-                                    2.0,
                                     1.0,
-                                    1.0
+                                    0.0,
+                                    0.0
                                 ]
                             }
                         ]
@@ -1781,7 +1740,7 @@
                     },
                     {
                         "position": [
-                            0.003,//-0.002
+                            0.003, //-0.002
                             0.085,
                             0.4
                         ],
@@ -2003,80 +1962,80 @@
                     }
                 ]
             },
-            {
-                "position": [
-                    0,
-                    -0.975,
-                    8
-                ],
-                "scale": [
-                    4.7,
-                    1.7,
-                    0.6
-                ],
-                "rotation": [
-                    90,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    30,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -270,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            },
-            {
-                "position": [
-                    0,
-                    -0.975,
-                    -8
-                ],
-                "scale": [
-                    4.7,
-                    1.7,
-                    0.6
-                ],
-                "rotation": [
-                    90,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    30,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -270,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         30,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -270,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         -8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         30,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -270,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
             {
                 "position": [
                     0,
@@ -2381,6 +2340,35 @@
                             0,
                             0
                         ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.5,
+                            -0.5,
+                            -0.0
+                        ],
+                        "color": [
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
+                        ]
                     }
                 ]
             },
@@ -2417,6 +2405,35 @@
                             -270,
                             0,
                             0
+                        ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.5,
+                            -0.5,
+                            -0.0
+                        ],
+                        "color": [
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
                         ]
                     }
                 ]
@@ -2550,7 +2567,7 @@
                         "scale": [
                             0.1,
                             0.1,
-                            0.01000
+                            0.1
                         ],
                         "rotation": [
                             0,
@@ -2573,12 +2590,12 @@
                                 "color": [
                                     7.0,
                                     7.0,
-                                    15.0
+                                    7.0
                                 ],
                                 "attenuation": [
-                                    2.0,
                                     1.0,
-                                    1.0
+                                    0.0,
+                                    0.0
                                 ]
                             }
                         ]
@@ -2872,80 +2889,80 @@
                     }
                 ]
             },
-            {
-                "position": [
-                    0,
-                    -0.975,
-                    8
-                ],
-                "scale": [
-                    4.7,
-                    1.7,
-                    0.6
-                ],
-                "rotation": [
-                    90,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    30,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -270,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            },
-            {
-                "position": [
-                    0,
-                    -0.975,
-                    -8
-                ],
-                "scale": [
-                    4.7,
-                    1.7,
-                    0.6
-                ],
-                "rotation": [
-                    90,
-                    0,
-                    0
-                ],
-                "duplicates": [
-                    30,
-                    9,
-                    false
-                ],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "garden"
-                    },
-                    {
-                        "type": "Repeat",
-                        "translation": [
-                            -270,
-                            0,
-                            0
-                        ]
-                    }
-                ]
-            },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         30,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -270,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [
+            //         0,
+            //         -0.975,
+            //         -8
+            //     ],
+            //     "scale": [
+            //         4.7,
+            //         1.7,
+            //         0.6
+            //     ],
+            //     "rotation": [
+            //         90,
+            //         0,
+            //         0
+            //     ],
+            //     "duplicates": [
+            //         30,
+            //         9,
+            //         false
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "garden"
+            //         },
+            //         {
+            //             "type": "Repeat",
+            //             "translation": [
+            //                 -270,
+            //                 0,
+            //                 0
+            //             ]
+            //         }
+            //     ]
+            // },
             {
                 "position": [
                     0,
@@ -3224,7 +3241,7 @@
                 ],
                 "scale": [
                     0.2,
-                    0.3,
+                    0.25,
                     0.2
                 ],
                 "rotation": [
@@ -3250,6 +3267,35 @@
                             0,
                             0
                         ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.5,
+                            -0.5,
+                            -0.0
+                        ],
+                        "color": [
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
+                        ]
                     }
                 ]
             },
@@ -3261,7 +3307,7 @@
                 ],
                 "scale": [
                     0.2,
-                    0.3,
+                    0.25,
                     0.2
                 ],
                 "rotation": [
@@ -3286,6 +3332,35 @@
                             -270,
                             0,
                             0
+                        ]
+                    },
+                    {
+                        "type": "Light",
+                        "lightType": 2, // 2 for spot
+                        "direction": [
+                            0.5,
+                            -0.5,
+                            -0.0
+                        ],
+                        "color": [
+                            // 30,
+                            // 24,
+                            // 12
+                            48.0,
+                            43.2,
+                            33.6
+                        ],
+                        "attenuation": [
+                            1.0,
+                            0.0,
+                            0.0
+                            // 0.032,
+                            // 0.09,
+                            // 1.0
+                        ],
+                        "cone_angles": [
+                            0.7,
+                            1.22
                         ]
                     }
                 ]
