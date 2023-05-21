@@ -412,7 +412,6 @@
                         "depthTesting": {
                             "enabled": true
                         },
-                        "transparent": true,
                         "blending": {
                             "enabled": true,
                             "equation": "GL_FUNC_ADD",
@@ -436,6 +435,12 @@
                         },
                         "depthTesting": {
                             "enabled": true
+                        },
+                        "blending": {
+                            "enabled": true,
+                            "equation": "GL_FUNC_ADD",
+                            "sourceFactor": "GL_ONE",
+                            "destinationFactor": "GL_ZERO"
                         },
                         "transparent": false
                     },
@@ -816,7 +821,7 @@
                         "position": [
                             -0.142,
                             0.085,
-                            0.4
+                            0.4001
                         ],
                         "rotation": [
                             0,
@@ -825,7 +830,7 @@
                         ],
                         "scale": [
                             0,
-                            0.005,
+                            0.0051,
                             0.01
                         ],
                         "components": [
@@ -1758,8 +1763,8 @@
                     {
                         "position": [
                             -0.15,
-                            0.085,
-                            0.40000001
+                            0.0851,
+                            0.400001
                         ],
                         "rotation": [
                             0,
@@ -1806,8 +1811,8 @@
                     {
                         "position": [
                             -0.142,
-                            0.085,
-                            0.4
+                            0.0851,
+                            0.4001
                         ],
                         "rotation": [
                             0,
@@ -1816,7 +1821,7 @@
                         ],
                         "scale": [
                             0,
-                            0.005,
+                            0.0051,
                             0.01
                         ],
                         "components": [
@@ -2680,7 +2685,7 @@
                         "position": [
                             -0.142,
                             0.085,
-                            0.4
+                            0.4001
                         ],
                         "rotation": [
                             0,
@@ -2689,7 +2694,7 @@
                         ],
                         "scale": [
                             0,
-                            0.005,
+                            0.0051,
                             0.01
                         ],
                         "components": [
