@@ -52,7 +52,7 @@ namespace our {
             glm::vec3 &repeatPosition = repeatEntity->localTransform.position;
             // If the player component exists
             if (repeatComponent) {
-                if (playerPosition[0] <= repeatPosition[0] - 50) {
+                if (playerPosition[0] <= repeatPosition[0] - 5) {
                     CanComponent *canComponent = repeatEntity->getComponent<CanComponent>();
                     ObstacleComponent *obstacleComponent = repeatEntity->getComponent<ObstacleComponent>();
                     if (canComponent || obstacleComponent) {
