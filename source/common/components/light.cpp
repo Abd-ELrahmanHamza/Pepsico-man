@@ -4,16 +4,28 @@
 
 namespace our
 {
-    // Reads linearVelocity & angularVelocity from the given json object
     void LightComponent::deserialize(const nlohmann::json &data)
     {
+        // Check if the JSON data is an object
         if (!data.is_object())
             return;
+
+        // Read the "lightType" value from the JSON object or use the default value from the member variable
         lightType = data.value("lightType", lightType);
+
+        // Read the "position" value from the JSON object or use the default value from the member variable
         position = data.value("position", position);
-        direction = data.value("direction", direction); // el direction elly ell light ray7 feh, da lel directional light
+
+        // Read the "direction" value from the JSON object or use the default value from the member variable
+        direction = data.value("direction", direction);
+
+        // Read the "color" value from the JSON object or use the default value from the member variable
         color = data.value("color", color);
-        attenuation = data.value("attenuation", attenuation); // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
-        cone_angles = data.value("cone_angles", cone_angles); // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
+
+        // Read the "attenuation" value from the JSON object or use the default value from the member variable
+        attenuation = data.value("attenuation", attenuation);
+
+        // Read the "cone_angles" value from the JSON object or use the default value from the member variable
+        cone_angles = data.value("cone_angles", cone_angles);
     }
 }

@@ -19,19 +19,17 @@ namespace our
         /*
            1. type : 0 for directional light, 1 for point light, 2 for spot light
         */
-        int lightType;
-        // for spot light we use both position and direction
-        glm::vec3 direction;   // for directional
-        glm::vec3 position;    // for point
-        glm::vec3 color;       // ambient, specular
-        glm::vec3 attenuation; // 1.0 / vec3(d*d, d, 1.0)                                                                         // da ehna bn3mlo 34an el light yed3f kol ma neb3d 3n el source
-        glm::vec2 cone_angles; //= glm::vec2(0.5f * glm::quarter_pi<float>(), 0.5f * glm::half_pi<float>()); // this is used for the spot lighting, bara el cone hwa b 0, gowaha byzed l7d ma ywsl lel maximum 3la el cone axis.
-        // el cone vec2 34an enta 3n
+        int lightType;         // Type of the light: 0 for directional, 1 for point, 2 for spot
+        glm::vec3 direction;   // Direction of the light (for directional light)
+        glm::vec3 position;    // Position of the light (for point light)
+        glm::vec3 color;       // Ambient and specular color of the light
+        glm::vec3 attenuation; // Attenuation factors for the light (controls falloff)
+        glm::vec2 cone_angles; // Cone angles for spot lighting (inner and outer angles)
 
-        // The ID of this component type is "Movement"
+        // The ID of this component type is "Light"
         static std::string getID() { return "Light"; }
 
-        // Reads linearVelocity & angularVelocity from the given json object
+        // Reads light component data from the given JSON object
         void deserialize(const nlohmann::json &data) override;
     };
 

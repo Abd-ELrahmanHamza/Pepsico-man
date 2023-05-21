@@ -61,7 +61,7 @@ namespace our
     class LightMaterial : public TintedMaterial
     {
     public:
-        Sampler *sampler; // da 34an ye3ml texture mapping lel diffusion
+        Sampler *sampler; 
         Texture2D *albedo;
         Texture2D *specular;
         Texture2D *emissive;
