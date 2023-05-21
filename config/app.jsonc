@@ -1438,7 +1438,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            15,
                             0,
                             0
                         ],
@@ -2275,7 +2275,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            25,
                             0,
                             0
                         ],
@@ -3202,7 +3202,7 @@
                     {
                         "type": "Movement",
                         "linearVelocity": [
-                            10,
+                            15,
                             0,
                             0
                         ],
