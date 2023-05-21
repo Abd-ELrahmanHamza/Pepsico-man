@@ -2,7 +2,6 @@
 #include <fstream>
 #include <flags/flags.h>
 #include <json/json.hpp>
-#define USE_SOUND
 
 #include <application.hpp>
 

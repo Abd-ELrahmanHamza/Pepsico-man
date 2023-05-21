@@ -8,8 +8,11 @@
 #include <glm/gtx/fast_trigonometry.hpp>
 #include "../application.hpp"
 
+//#define USE_SOUND
 #ifdef USE_SOUND
+
 #include <irrKlang.h>
+
 #endif
 
 namespace our {

@@ -78,12 +78,13 @@ namespace our {
                     if (entity->getComponent<ObstacleComponent>()) {
                         if (collisionStartTime == 0)
                             collisionStartTime = deltaTime;
-                        #ifdef USE_SOUND
+#ifdef USE_SOUND
+                        std::cout << "sounnnnnnnnnd\n";
                         if (soundEngine->isCurrentlyPlaying("audio/collision.mp3"))
                             soundEngine->stopAllSounds();
                         soundEngine->play2D("audio/obstacle.mp3");
                         soundEngine->play2D("audio/collision.mp3");
-                        #endif
+#endif
 
                         // std::cout << "player position: x = " << playerPosition.x << ", y= " << playerPosition.y << ", z = "<< playerPosition.z <<  std::endl;
                         // std::cout << "ostacle position: x = " << objectPosition.x << ", y= " << objectPosition.y << ", z = "<< objectPosition.z <<  std::endl;
@@ -105,9 +106,9 @@ namespace our {
                         //     app->changeState("game-over");
                         // }
                     } else if (entity->getComponent<CanComponent>()) {
-                        #ifdef USE_SOUND
+#ifdef USE_SOUND
                         soundEngine->play2D("audio/can.wav");
-                        #endif
+#endif
                         if (countPepsi < 100) {
                             countPepsi++;
                         }
