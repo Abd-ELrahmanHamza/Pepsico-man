@@ -93,7 +93,7 @@ class LevelsState : public our::State {
             this->getApp()->levelState = 1;
             this->getApp()->countPepsi = 0;
             this->getApp()->heartCount = 3;
-            this->getApp()->changeState("play");
+            this->getApp()->changeState("play");    // change to play state with level1
         };
 
         buttons[1].position = {90.0f, 300.0f};
@@ -102,16 +102,16 @@ class LevelsState : public our::State {
             this->getApp()->levelState = 2;
             this->getApp()->countPepsi = 0;
             this->getApp()->heartCount = 2;
-            this->getApp()->changeState("play");
+            this->getApp()->changeState("play"); // change to play state with level2
         };
 
         buttons[2].position = {140.0f, 525.0f};
         buttons[2].size = {275.0f, 70.0f};
         buttons[2].action = [this]() {
-            this->getApp()->levelState = 3;
+            this->getApp()->levelState = 3; 
             this->getApp()->countPepsi = 0;
-            this->getApp()->heartCount = 1;
-            this->getApp()->changeState("play");
+            this->getApp()->heartCount = 1; 
+            this->getApp()->changeState("play"); // change to play state  with level3
         };
 #ifdef USE_SOUND
         // Plat state sound
@@ -125,11 +125,14 @@ class LevelsState : public our::State {
         auto &keyboard = getApp()->getKeyboard();
 
         if (keyboard.justPressed(GLFW_KEY_SPACE)) {
-            // If the space key is pressed in this frame, go to the play state
-            getApp()->changeState("menu");
+            // If the space key is pressed in this frame, go to the play state with level1
+            getApp()->levelState = 1; 
+            getApp()->countPepsi = 0;
+            getApp()->heartCount = 3; 
+            getApp()->changeState("play");
         } else if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
-            // If the escape key is pressed in this frame, exit the game
-            getApp()->close();
+            // If the escape key is pressed in this frame, got to menu 
+            getApp()->changeState("menu");
         }
 
         // Get a reference to the mouse object and get the current mouse position

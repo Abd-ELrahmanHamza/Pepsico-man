@@ -15,6 +15,7 @@
 #include "energy.hpp"
 #include "final-line.hpp"
 #include "heart.hpp"
+#include "gem-heart.hpp"
 
 namespace our
 {
@@ -77,6 +78,10 @@ namespace our
         else if (type == LightComponent::getID())
         {                                                       // check if the type is a Obstacle renderer component
             component = entity->addComponent<LightComponent>(); // add a Obstacle component to the entity
+        }
+        else if(type == GemHeartComponent::getID())
+        {                                                       // check if the type is a GemHeart renderer component
+            component = entity->addComponent<GemHeartComponent>(); // add a GemHeart component to the entity
         }
         if (component)
             component->deserialize(data);

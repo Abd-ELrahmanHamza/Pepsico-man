@@ -10,9 +10,7 @@
 
 namespace our {
 
-    // The movement system is responsible for moving every entity which contains a MovementComponent.
-    // This system is added as a simple example for how use the ECS framework to implement logic.
-    // For more information, see "common/components/movement.hpp"
+    // The repeat system is responsible for repeating the entities.
     class RepeatSystem {
     public:
         Application *app; // The application in which the state runs
