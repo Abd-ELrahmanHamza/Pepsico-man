@@ -13,7 +13,7 @@
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 
-// #define USE_SOUND
+#define USE_SOUND
 
 namespace our {
 

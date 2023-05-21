@@ -20,11 +20,13 @@
 
 namespace our {
 
+    // The state of jumping and falling
     enum JumpState {
         JUMPING,
         FALLING,
         GROUNDED
     };
+    // The state of sliding
     enum SlideState {
         Slided,
         NORMAL,
@@ -37,9 +39,9 @@ namespace our {
         Application *app;          // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
 
-        float slideTime = 0;
-        our::JumpState jumpState = our::JumpState::GROUNDED;
-        our::SlideState slideState = our::SlideState::NORMAL;
+        float slideTime = 0; // The time of sliding
+        our::JumpState jumpState = our::JumpState::GROUNDED; // The state of jumping
+        our::SlideState slideState = our::SlideState::NORMAL; // The state of sliding
 
     public:
         // When a state enters, it should call this function and give it the pointer to the application
@@ -98,14 +100,6 @@ namespace our {
                 mouse_locked = false;
             }
 
-            // If the left mouse button is pressed, we get the change in the mouse location
-            // and use it to update the camera rotation
-            //            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)) {
-            //                glm::vec2 delta = app->getMouse().getMouseDelta();
-            //                rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
-            //                rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
-            //            }
-
             // We prevent the pitch from exceeding a certain angle from the XZ plane to prevent gimbal locks
             if (rotation.x < -glm::half_pi<float>() * 0.99f)
                 rotation.x = -glm::half_pi<float>() * 0.99f;
@@ -125,6 +119,7 @@ namespace our {
             // We get the player model matrix (relative to its parent) to compute the playerFront, playerUp and playerRight directions
             glm::mat4 playerMatrix = playerEntity->localTransform.toMat4();
 
+            // We get the player model matrix (relative to its parent) to compute the playerFront, playerUp and playerRight directions
             glm::vec3 playerFront = glm::vec3(playerMatrix * glm::vec4(0, 0, -1, 0)),
                     playerUp = glm::vec3(playerMatrix * glm::vec4(0, 1, 0, 0)),
                     playerRight = glm::vec3(playerMatrix * glm::vec4(1, 0, 0, 0));
@@ -132,15 +127,14 @@ namespace our {
             // We get the camera model matrix (relative to its parent) to compute the cameraFront, cameraUp and cameraRight directions
             glm::mat4 cameraMatrix = cameraEntity->localTransform.toMat4();
 
+            // We get the camera model matrix (relative to its parent) to compute the cameraFront, cameraUp and cameraRight directions
             glm::vec3 cameraFront = glm::vec3(cameraMatrix * glm::vec4(0, 0, -1, 0)),
                     cameraUp = glm::vec3(cameraMatrix * glm::vec4(0, 1, 0, 0)),
                     cameraRight = glm::vec3(cameraMatrix * glm::vec4(1, 0, 0, 0));
 
+            // We get the current position sensitivity
             glm::vec3 current_sensitivity = controller->positionSensitivity;
 
-            // If the LEFT SHIFT key is pressed, we multiply the position sensitivity by the speed playerUp factor
-            if (app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT))
-                current_sensitivity *= controller->speedupFactor;
 
             // We change the camera position based on the keys WASD/QE
             // S & W moves the player back and forth
@@ -148,6 +142,7 @@ namespace our {
                 position += cameraFront * (deltaTime * current_sensitivity.z);
             if (app->getKeyboard().isPressed(GLFW_KEY_S))
                 position -= cameraFront * (deltaTime * current_sensitivity.z);
+
             // Q & E moves the player playerUp and down
             if (app->getKeyboard().isPressed(GLFW_KEY_Q))
                 position += cameraUp * (deltaTime * current_sensitivity.y);
@@ -163,29 +158,39 @@ namespace our {
                 app->levelState != 3) {
                 if (jumpState == our::JumpState::GROUNDED && slideState == our::SlideState::NORMAL) {
 #ifdef USE_SOUND
+                    // We play the jump sound
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     soundEngine->play2D("audio/jump.mp3");
 #endif
+                    // We set the jump state to JUMPING
                     jumpState = our::JumpState::JUMPING;
+                    // Start the jump
                     position.y += (deltaTime * jumpSpeed);
                 }
             }
+            // If the player jumps higher than the max height, we set the jump state to FALLING
             if (position.y >= jumpMaxHeight) {
                 jumpState = our::JumpState::FALLING;
             } else if (position.y <= 1) {
+                // If the player was falling, we set the jump state to GROUNDED
                 if (jumpState == our::JumpState::FALLING) {
 #ifdef USE_SOUND
+                    // We play the jump sound
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     soundEngine->play2D("audio/jumpLand.mp3");
 #endif
                 }
                 jumpState = our::JumpState::GROUNDED;
             }
+
+            // We update the player position based on the jump state
             if (jumpState == our::JumpState::JUMPING) {
                 position.y += (deltaTime * jumpSpeed);
             } else if (jumpState == our::JumpState::FALLING) {
+                // We update the player position based on the jump state
                 position.y -= (deltaTime * jumpSpeed);
             } else {
+                // We make sure the player is grounded
                 position.y = 1;
             }
 
@@ -196,19 +201,15 @@ namespace our {
                     isSlided = true;
                     slideState = our::SlideState::Slided;
 #ifdef USE_SOUND
+                    // We play the slide sound
                     irrklang::ISoundEngine *soundEngine = irrklang::createIrrKlangDevice();
                     if (soundEngine->isCurrentlyPlaying("audio/sliding.mp3"))
                         soundEngine->stopAllSounds();
-                    //                    soundEngine->play2D("audio/slide.mp3");
                     soundEngine->play2D("audio/sliding.mp3");
 #endif
                     playerRotation.x -= 90;
-                    // playerRotation.y += 45;
-                    // playerRotation.x += 90;
-
                     playerPosition.z -= 1;
                     playerPosition.y += 1;
-                    // playerPosition.z += 2;
                     slideTime = 0;
                 }
             }
@@ -221,16 +222,13 @@ namespace our {
 
                     glm::vec4 actualposition = playerEntity->getLocalToWorldMatrix() *
                                                glm::vec4(playerEntity->localTransform.position, 1.0);
-                    // std::cout << "x =" << actualposition.x << " y=" << actualposition.y << " z=" << actualposition.z
-                    //           << std::endl;
-                    // playerPosition.x += 2;
                     playerPosition.y -= 1;
                     playerPosition.z += 1;
-
                     playerRotation.x += 90;
                 }
             }
 
+            // Start running on enter press
             if (app->getKeyboard().isPressed(GLFW_KEY_ENTER)) {
                 motionState = our::MotionState::RUNNING;
             }
@@ -259,8 +257,6 @@ namespace our {
                         cameraPosition -= cameraRight * (deltaTime * player->speed);
                 }
             }
-
-            // }
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
