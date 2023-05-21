@@ -6,7 +6,6 @@
 #include "../components/final-line.hpp"
 
 #include <glm/glm.hpp>
-#include <iostream>
 
 namespace our {
     void FinalLineSystem::update(World *world, float deltaTime) {
@@ -41,8 +40,10 @@ namespace our {
             if (finalLineComponent) {
                 if (playerPosition[0] <= finalLinePosition[0]) {
 #ifdef USE_SOUND
+                    // Play the sound
                     soundEngine->play2D("audio/finalLine.mp3");
 #endif
+                    // Change the state to winning
                     this->app->changeState("winning");
                     break;
                 }

@@ -93,11 +93,8 @@ class GameOverstate : public our::State {
         // - The body {} which contains the code to be executed.
         buttons[0].position = {375.0f, 420.0f};
         buttons[0].size = {470.0f, 90.0f};
-        buttons[0].action = [this]() { this->getApp()->changeState("levels"); };
+        buttons[0].action = [this]() { this->getApp()->changeState("levels"); }; // Go to the level state
 
-        // buttons[1].position = {830.0f, 644.0f};
-        // buttons[1].size = {400.0f, 33.0f};
-        // buttons[1].action = [this]() { this->getApp()->close(); };
 #ifdef USE_SOUND
         soundEngine = irrklang::createIrrKlangDevice();
 #endif
@@ -108,11 +105,12 @@ class GameOverstate : public our::State {
         auto &keyboard = getApp()->getKeyboard();
 
         if (keyboard.justPressed(GLFW_KEY_SPACE)) {
-            // If the space key is pressed in this frame, go to the play state
-            getApp()->changeState("menu");
+            // If the space key is pressed in this frame, go to the levels state
+            getApp()->changeState("levels");
         } else if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
-            // If the escape key is pressed in this frame, exit the game
-            getApp()->close();
+            // If the escape key is pressed in this frame, go to the menu
+            // getApp()->close();
+            getApp()->changeState("menu");
         }
 
         // Get a reference to the mouse object and get the current mouse position

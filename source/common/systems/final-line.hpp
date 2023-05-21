@@ -12,12 +12,10 @@
 
 namespace our {
 
-    // The movement system is responsible for moving every entity which contains a MovementComponent.
-    // This system is added as a simple example for how use the ECS framework to implement logic.
-    // For more information, see "common/components/movement.hpp"
+    // The final line system is responsible for detection of final line reach.
     class FinalLineSystem {
 #ifdef USE_SOUND
-
+        // The sound engine used to play the sound
         irrklang::ISoundEngine *soundEngine;
 #endif
     public:
@@ -25,6 +23,7 @@ namespace our {
 #ifdef USE_SOUND
             soundEngine = irrklang::createIrrKlangDevice();
 #endif
+            app = nullptr;
         }
 
         Application *app; // The application in which the state runs
