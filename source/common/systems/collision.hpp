@@ -8,7 +8,6 @@
 #include <glm/gtx/fast_trigonometry.hpp>
 #include "../application.hpp"
 
-//#define USE_SOUND
 #ifdef USE_SOUND
 
 #include <irrKlang.h>
@@ -17,9 +16,7 @@
 
 namespace our {
 
-    // The movement system is responsible for moving every entity which contains a MovementComponent.
-    // This system is added as a simple example for how use the ECS framework to implement logic.
-    // For more information, see "common/components/movement.hpp"
+    // The collision system is responsible for detecting collisions between entities.
     class CollisionSystem {
 #ifdef USE_SOUND
         irrklang::ISoundEngine *soundEngine;
@@ -40,6 +37,7 @@ namespace our {
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World *world, float deltaTime, int &countPepsi, int &heartCount, bool isSlided,
                     float &collisionStartTime);
+
         // This function is called when the player collides with an obstacle
         void decreaseHearts(World *world, int &heartCount);
     };

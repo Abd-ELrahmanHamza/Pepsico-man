@@ -80,7 +80,6 @@ namespace our {
                         if (collisionStartTime == 0)
                             collisionStartTime = deltaTime; // start counting the time of collision for postprocessing effect
 #ifdef USE_SOUND
-                        std::cout << "sounnnnnnnnnd\n";
                         if (soundEngine->isCurrentlyPlaying("audio/collision.mp3"))
                             soundEngine->stopAllSounds();
                         soundEngine->play2D("audio/obstacle.mp3");
