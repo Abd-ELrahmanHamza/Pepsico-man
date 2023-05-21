@@ -24,6 +24,7 @@
 #endif
 
 #include "texture/screenshot.hpp"
+#include "stb/stb_image.h"
 
 
 std::string default_screenshot_filepath() {
@@ -202,6 +203,15 @@ int our::Application::run(int run_for_frames) {
             window); // Tell GLFW to make the context of our window the main context on the current thread.
 
     gladLoadGL(glfwGetProcAddress); // Load the OpenGL functions from the driver
+
+    // Set the icon
+    GLFWimage images[1];
+    images[0].pixels = stbi_load("assets/textures/icon.jpg", &images[0].width, &images[0].height, 0,
+                                 4); // 4 channels (RGBA)
+    glfwSetWindowIcon(window, 1, images);
+
+    // Destroy the icon image
+    stbi_image_free(images[0].pixels);
 
     // Print information about the OpenGL context
     std::cout << "VENDOR          : " << glGetString(GL_VENDOR) << std::endl;
