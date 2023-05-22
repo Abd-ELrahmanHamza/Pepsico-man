@@ -142,4 +142,4 @@ $ cd Pepsico-man
 
 ## 🔒 License <a name = "license"></a>
 
-> This software is licensed under MIT License, See [License](https://github.com/ImagesAbd-ELrahmanHamza/Pepsico-man/blob/main/LICENSE) .
+> This software is licensed under MIT License, See [License](./LICENSE) .
