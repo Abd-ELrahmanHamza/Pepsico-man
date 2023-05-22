@@ -56,6 +56,10 @@
 
 ## 📷 Features
 
+
+https://github.com/Abd-ELrahmanHamza/Pepsico-man/assets/68310502/ac764852-ad6b-4d6b-ab0b-a8ae68401abc
+
+
 ### Main Menu
 
 <img src="./images/main menu.jpg"/>
