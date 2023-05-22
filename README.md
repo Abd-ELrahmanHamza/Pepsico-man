@@ -58,31 +58,33 @@
 
 ### Main Menu
 
-<img src="./images/Landing page.jpeg"/>
+<img src="./images/main menu.jpg"/>
+
+### levels state
+
+<img src="./images/levels.png"/>
 
 ### Winning state
 
-<img src="./images/win.jpeg"/>
+<img src="./images/win.png"/>
 
 ### Losing state
 
-<img src="./images/lose.jpeg"/>
+<img src="./images/lose.png"/>
 
-### Next level state
-
-<img src="./images/next level.jpeg"/>
 
 ### Level 1 (The easiest level)
 
-<img src="./images/level 1.jpeg"/>
+<img src="./images/easy.png"/>
 
 ### Level 2 (The medium level)
 
-<img src="./images/level 2.jpeg"/>
+<img src="./images/medium.png"/>
 
 ### Level 3 (The hardest level)
 
-<img src="./images/level 3.jpeg"/>
+<img src="./images/hard.png"/>
+<img src="./images/hard2.png"/>
 
 ## 🏁 Getting started
 
@@ -106,13 +108,6 @@ $ cd Pepsico-man
   .\bin\GAME_APPLICATION.exe
 ```
 
-### Running
-
-**_Running on development mode_**
-
-```sh
-$ npm start
-```
 
 ## ✍️ Contributors
 
