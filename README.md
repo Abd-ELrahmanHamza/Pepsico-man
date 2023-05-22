@@ -43,6 +43,7 @@
 - The game has 3 levels, each level is harder than the previous one.
 - The game has a pause menu, a game over menu and a win menu.
 - The game has a background music and sound effects.
+- [Demo video](https://www.youtube.com/watch?v=BCqM33fdJ38&feature=youtu.be)
 
 ## ⛏️ Built with
 
