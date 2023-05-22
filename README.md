@@ -24,8 +24,9 @@
 
 - [📑 About](#about)
 - [⛏️ Built With](#built-with)
-- [📷 Features](#features)
+- [📃 Prerequisites ](#Prerequisites)
 - [🏁 Getting started](#getting-started)
+- [📷 Features](#features)
 - [✍️ Contributors](#contributors)
 - [🔒 License](#license)
 
@@ -43,7 +44,6 @@
 - The game has a pause menu, a game over menu and a win menu.
 - The game has a background music and sound effects.
 
-
 ## ⛏️ Built with
 
 - C++
@@ -54,41 +54,24 @@
 - ImGui
 - stb_image
 
-## 📷 Features
+## 📃 Prerequisites
 
+1. **_CMake_**
 
-https://github.com/Abd-ELrahmanHamza/Pepsico-man/assets/68310502/ac764852-ad6b-4d6b-ab0b-a8ae68401abc
+   - Download and install [CMake](https://cmake.org/download/).
 
+2. - **_Visual Studio code_**
 
-### Main Menu
+     - Download and install [Visual Studio code](https://code.visualstudio.com/Download).
 
-<img src="./images/main menu.jpg"/>
+   - **_Clion_**
 
-### levels state
+     - Download and install [Clion](https://www.jetbrains.com/clion/download/).
 
-<img src="./images/levels.png"/>
+   - or any other IDE you prefer.
 
-### Winning state
-
-<img src="./images/win.png"/>
-
-### Losing state
-
-<img src="./images/lose.png"/>
-
-
-### Level 1 (The easiest level)
-
-<img src="./images/easy.png"/>
-
-### Level 2 (The medium level)
-
-<img src="./images/medium.png"/>
-
-### Level 3 (The hardest level)
-
-<img src="./images/hard.png"/>
-<img src="./images/hard2.png"/>
+3. - **_C++ compiler_**
+     - Clang
 
 ## 🏁 Getting started
 
@@ -112,6 +95,38 @@ $ cd Pepsico-man
   .\bin\GAME_APPLICATION.exe
 ```
 
+## 📷 Features
+
+https://github.com/Abd-ELrahmanHamza/Pepsico-man/assets/68310502/ac764852-ad6b-4d6b-ab0b-a8ae68401abc
+
+### Main Menu
+
+<img src="./images/main menu.jpg"/>
+
+### levels state
+
+<img src="./images/levels.png"/>
+
+### Winning state
+
+<img src="./images/win.png"/>
+
+### Losing state
+
+<img src="./images/lose.png"/>
+
+### Level 1 (The easiest level)
+
+<img src="./images/easy.png"/>
+
+### Level 2 (The medium level)
+
+<img src="./images/medium.png"/>
+
+### Level 3 (The hardest level)
+
+<img src="./images/hard.png"/>
+<img src="./images/hard2.png"/>
 
 ## ✍️ Contributors
 
