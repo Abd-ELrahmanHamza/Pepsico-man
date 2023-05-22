@@ -97,7 +97,10 @@ $ cd Pepsico-man
 
 ## 📷 Features
 
-https://github.com/Abd-ELrahmanHamza/Pepsico-man/assets/68310502/ac764852-ad6b-4d6b-ab0b-a8ae68401abc
+
+https://github.com/Abd-ELrahmanHamza/Pepsico-man/assets/68310502/892e0484-5e1a-452d-a8ac-a61f93cbfedc
+
+
 
 ### Main Menu
 
